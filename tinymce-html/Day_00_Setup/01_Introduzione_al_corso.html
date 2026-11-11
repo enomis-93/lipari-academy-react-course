@@ -1,0 +1,360 @@
+<div style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.7; color:#334155;">
+<h1 style="margin:0 0 18px; padding:24px; background:#eff6ff; border-left:5px solid #2563eb; border-radius:8px; color:#172554; font-size:27px; line-height:1.35;">🏦 LipariBank — React Zero to Hero</h1>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;"><strong>Day 0 · Capitolo 01</strong><br>
+<strong>Argomento:</strong> Introduzione al corso<br>
+<strong>Durata stimata:</strong> 20 minuti<br>
+<strong>Parte di LipariBank:</strong> nessun codice in questo capitolo: presentiamo il progetto e il percorso</p>
+</blockquote>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🎯 Obiettivo</h2>
+<p style="margin:0 0 14px;">Alla fine del capitolo sarai in grado di:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">descrivere cosa saprai fare al termine del corso e come è organizzato il percorso (Day 0, Extra, Day 1-9);</p>
+</li>
+<li><p style="margin:0 0 14px;">verificare di avere i prerequisiti necessari per partire;</p>
+</li>
+<li><p style="margin:0 0 14px;">spiegare come usare i capitoli, gli esercizi e i checkpoint;</p>
+</li>
+<li><p style="margin:0 0 14px;">descrivere il progetto LipariBank e come evolve giorno dopo giorno.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📋 Prerequisiti</h2>
+<p style="margin:0 0 14px;">Per seguire il corso servono:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">conoscenze di base di programmazione (variabili, funzioni, cicli, condizioni) in un qualsiasi linguaggio;</p>
+</li>
+<li><p style="margin:0 0 14px;">nozioni elementari di HTML e CSS (tag, attributi, classi, selettori semplici);</p>
+</li>
+<li><p style="margin:0 0 14px;">un computer Windows, macOS o Linux su cui puoi installare software;</p>
+</li>
+<li><p style="margin:0 0 14px;">una connessione a Internet e un account GitHub (gratuito, lo creerai nel capitolo 04);</p>
+</li>
+<li><p style="margin:0 0 14px;">circa 4-6 ore di lavoro per ogni Day.</p>
+</li>
+</ul>
+<p style="margin:0 0 14px;">Non servono conoscenze pregresse di React. Se JavaScript moderno (arrow function, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">map</code>, destructuring, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">import</code>/<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">export</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">async/await</code>) non ti è familiare, usa la sezione <a href="../Extra_JavaScript_Essentials/01_Variables_Types.md" style="color:#2563eb;">Extra JavaScript Essentials</a> prima o durante il corso.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧭 In questo capitolo</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">gli obiettivi del corso;</p>
+</li>
+<li><p style="margin:0 0 14px;">la struttura: Day 0, Extra, Day 1-9;</p>
+</li>
+<li><p style="margin:0 0 14px;">la metodologia e come usare ogni capitolo;</p>
+</li>
+<li><p style="margin:0 0 14px;">la presentazione di LipariBank, il progetto unico del corso;</p>
+</li>
+<li><p style="margin:0 0 14px;">le regole di lavoro (versioni, dati fittizi, cartelle).</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧠 Theory</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Cosa imparerai</h3>
+<p style="margin:0 0 14px;">Il corso porta da zero a un'applicazione React completa. Al termine saprai:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">capire la struttura di un'applicazione React e scrivere interfacce con JSX e Function Components;</p>
+</li>
+<li><p style="margin:0 0 14px;">gestire props, state, eventi, liste e rendering condizionale;</p>
+</li>
+<li><p style="margin:0 0 14px;">realizzare form con validazione;</p>
+</li>
+<li><p style="margin:0 0 14px;">recuperare dati in modo asincrono (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">fetch</code>) e gestire loading, errori e assenza di dati;</p>
+</li>
+<li><p style="margin:0 0 14px;">usare React Router per la navigazione tra pagine;</p>
+</li>
+<li><p style="margin:0 0 14px;">organizzare il progetto in componenti, hooks, servizi e moduli; usare Context, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">useReducer</code> e custom hooks;</p>
+</li>
+<li><p style="margin:0 0 14px;">leggere e manutenere codice legacy con Class Components;</p>
+</li>
+<li><p style="margin:0 0 14px;">lavorare con Git e GitHub e consegnare un'applicazione documentata.</p>
+</li>
+</ul>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Struttura del corso</h3>
+<table style="width:100%; margin:16px 0 22px; border-collapse:collapse; color:#334155;"><thead>
+<tr><th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Sezione</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Cartella</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Contenuto</th>
+</tr>
+</thead>
+<tbody><tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Day 0</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_00_Setup/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Ambiente: Node, VS Code, Git, Vite, primo progetto</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Extra</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Extra_JavaScript_Essentials/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">JavaScript necessario per React, da consultare quando serve</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Day 1</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_01_React_Fundamentals/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">JSX, Function Components, composizione, prima dashboard</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Day 2</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_02_Components_Props/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Props, children, liste, rendering condizionale, conti</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Day 3</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_03_State_Events/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Eventi, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">useState</code>, immutabilità, lifting state up</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Day 4</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_04_Forms_User_Input/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Controlled components, validazione, bonifico simulato e useRef</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Day 5</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_05_Effects_API/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">useEffect</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">fetch</code>, loading/error/empty</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Day 6</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_06_Routing/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">React Router, rotte dinamiche, 404, nested routes</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Extra</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">EXTRA_Legacy_React/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Facoltativo: Class Components e codice legacy</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Day 7</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_07_Advanced_React_Architecture/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Context, reducer, custom hooks, memoization, service layer e Redux Toolkit</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Day 8</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_08_Final_Project/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Progetto finale: requisiti, architettura, piano</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Day 9</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Day_09_Delivery/</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Refactoring, test manuali, build, deploy, consegna</td>
+</tr>
+</tbody></table>
+<p style="margin:0 0 14px;">La mappa completa dei capitoli è in <a href="../COURSE_MAP.md" style="color:#2563eb;">COURSE_MAP.md</a>.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Metodologia</h3>
+<p style="margin:0 0 14px;">Ogni capitolo segue lo stesso ritmo: <strong>Spiega → Mostra → Fai provare → Verifica → Collega</strong>. Le sezioni sono sempre le stesse:</p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Obiettivo, Prerequisiti, In questo capitolo</strong>: cosa otterrai e da quale stato del progetto parti;</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Theory</strong>: la teoria essenziale, senza digressioni;</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Let's Code</strong>: un esempio guidato da scrivere e provare;</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>LipariBank in action</strong>: l'applicazione concreta al progetto;</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Your Turn</strong>: un esercizio con requisiti verificabili;</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Common Mistakes, Checklist, Challenge, Recap</strong>: errori tipici, autovalutazione, estensione facoltativa, riepilogo;</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Next</strong>: il capitolo successivo.</p>
+</li>
+</ol>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;">💡 <strong>Remember</strong></p>
+<p style="margin:0 0 14px;">Scrivi il codice a mano invece di limitarti a leggerlo: gli errori che incontri sono parte dell'apprendimento. Copia e incolla i soli comandi e le configurazioni lunghe.</p>
+</blockquote>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Regole del corso</h3>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Linguaggio:</strong> JavaScript (non TypeScript). Function Components e Hooks per lo sviluppo nuovo; le classi si approfondiscono nell'extra React Legacy e sono usate per l'Error Boundary del Day 7.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Versioni di riferimento:</strong> Node.js 22 LTS, React 19, Vite 8, React Router 7 (modalità declarative). Le versioni esatte installate sono in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Dati:</strong> tutti i dati bancari sono fittizi. Non inserire mai dati reali, credenziali o token nel codice o nei commit.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Cartelle:</strong> i percorsi nei capitoli (es. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/components/Header.jsx</code>) sono sempre relativi alla cartella del progetto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank/</code>. Per ogni comando viene indicata la cartella da cui lanciarlo.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">💻 Let's Code</h2>
+<p style="margin:0 0 14px;">In questo capitolo non scrivi codice, ma prepari la cartella di lavoro che useremo in tutto il corso. Scegli un percorso semplice, senza spazi e fuori da cartelle sincronizzate (OneDrive, Dropbox), per esempio:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Windows: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">C:\Users\&lt;NOME_UTENTE&gt;\corso-react</code></p>
+</li>
+<li><p style="margin:0 0 14px;">macOS / Linux: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">~/corso-react</code></p>
+</li>
+</ul>
+<p style="margin:0 0 14px;">Crea la cartella dal terminale. In PowerShell (Windows):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">POWERSHELL</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>mkdir $HOME\corso-react
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">In Terminal (macOS / Linux):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>mkdir -p ~/corso-react
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;NOME_UTENTE&gt;</code> è il tuo utente del sistema operativo. Nei capitoli successivi la chiameremo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react/</code>: dentro creerai il progetto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank/</code> (capitolo 05).</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🏦 LipariBank in action</h2>
+<p style="margin:0 0 14px;"><strong>LipariBank</strong> è una banca fittizia. Costruirai passo dopo passo il suo home banking: un'unica applicazione che cresce durante tutto il corso. Non ci sono esercizi scollegati: ogni capitolo migliora una parte di LipariBank.</p>
+<p style="margin:0 0 14px;">Il dominio usa questi concetti: <strong>Customer</strong> (cliente), <strong>Account</strong> (conto), <strong>Balance</strong> (saldo), <strong>Transaction</strong> (movimento), <strong>Beneficiary</strong> (beneficiario), <strong>Transfer</strong> (bonifico), <strong>Dashboard</strong> (riepilogo) e <strong>Settings</strong> (impostazioni).</p>
+<p style="margin:0 0 14px;">Dati di esempio usati nel corso (tutti inventati):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">TEXT</span>
+
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>Cliente:     Mario Rossi
+Conto:       IT00 0000 0000 0000 0000 0000 000
+Saldo:       4.250,75 €
+Movimenti:   Stipendio, Pagamento utenza luce, Spesa supermercato
+Beneficiari: Giulia Bianchi, Luca Verdi
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Come evolve il progetto:</p>
+<table style="width:100%; margin:16px 0 22px; border-collapse:collapse; color:#334155;"><thead>
+<tr><th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Day</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Cosa aggiungi a LipariBank</th>
+</tr>
+</thead>
+<tbody><tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">0</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Progetto Vite con una prima pagina minima &quot;LipariBank&quot;</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">1</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Prima dashboard statica: header, saldo, ultimi movimenti</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">2</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Componenti riutilizzabili per conti e movimenti</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">3</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Interazioni: selezione conto, filtri, mostra/nascondi saldo</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">4</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Form per un bonifico simulato con validazione</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">5</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Caricamento asincrono dei movimenti (loading, errore, vuoto)</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">6</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Navigazione tra dashboard, conti, movimenti e bonifico</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">7</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Lettura e migrazione di un modulo legacy con Class Components</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">8</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Refactoring: Context, reducer, custom hooks, service layer</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">9-10</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Progetto finale, test, documentazione e consegna</td>
+</tr>
+</tbody></table>
+<p style="margin:0 0 14px;">Nessuna operazione è reale: nessun backend bancario, nessuna autenticazione vera, nessun servizio esterno.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧪 Your Turn</h2>
+<p style="margin:0 0 14px;"><strong>Obiettivo:</strong> preparare il tuo piano di lavoro e la cartella di lavoro.</p>
+<p style="margin:0 0 14px;"><strong>Requisiti:</strong></p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Crea la cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react</code> nel percorso scelto (senza spazi, fuori da OneDrive/Dropbox).</p>
+</li>
+<li><p style="margin:0 0 14px;">Leggi <a href="../COURSE_MAP.md" style="color:#2563eb;">COURSE_MAP.md</a> e individua in quali Day pensi di avere più difficoltà.</p>
+</li>
+<li><p style="margin:0 0 14px;">Decidi se partire dall'<a href="../Extra_JavaScript_Essentials/01_Variables_Types.md" style="color:#2563eb;">Extra JavaScript</a> o affrontarlo &quot;al bisogno&quot;.</p>
+</li>
+<li><p style="margin:0 0 14px;">Scrivi (su carta o in un file di testo fuori dal corso) quanti blocchi di studio svolgerai ogni giorno.</p>
+</li>
+</ol>
+<p style="margin:0 0 14px;"><strong>Risultato atteso:</strong> la cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react</code> esiste e hai un piano di studio con i giorni previsti.</p>
+<p style="margin:0 0 14px;"><strong>Criteri di completamento:</strong> sai rispondere a &quot;cosa costruisco al Day 4?&quot; e &quot;dove trovo il JavaScript di base?&quot; senza rileggere il capitolo.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">⚠️ Common Mistakes</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Saltare Day 0:</strong> quasi tutti i problemi dei Day successivi nascono da un ambiente configurato male. Completa anche <a href="./06_Verifica_ambiente.md" style="color:#2563eb;">la verifica finale</a>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Cartella di lavoro in OneDrive o con spazi/accenti nel percorso:</strong> causa errori di permessi e percorsi con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm</code>. Usa un percorso semplice.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Copiare senza capire:</strong> se un esempio funziona ma non sai spiegarlo, rileggi la sezione Theory prima di proseguire.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Confondere versioni:</strong> gli esempi sono coerenti con React 19 e Vite 8. Tutorial trovati online con versioni diverse possono usare API differenti.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">✅ Checklist</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">☐ Ho conoscenze di base di programmazione, HTML e CSS.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So come è organizzato il corso (Day 0, Extra, Day 1-9).</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho letto la struttura di un capitolo e so cosa trovo in ogni sezione.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So cos'è LipariBank e come evolve.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho creato la cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🚀 Challenge</h2>
+<p style="margin:0 0 14px;">Disegna a mano una dashboard bancaria con: nome cliente, saldo totale, elenco degli ultimi movimenti. Conserva il disegno: al Day 1 lo confronterai con la tua prima dashboard.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📌 Recap</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Il corso porta da zero a un'app React completa in Day 0 + 9 giorni, con due sezioni Extra facoltative.</p>
+</li>
+<li><p style="margin:0 0 14px;">Tutti gli esempi ruotano attorno a un solo progetto: <strong>LipariBank</strong>, una banca fittizia.</p>
+</li>
+<li><p style="margin:0 0 14px;">Si usano JavaScript, Function Components e Hooks; le classi si approfondiscono nell'extra React Legacy e si usano per l'Error Boundary del Day 7.</p>
+</li>
+<li><p style="margin:0 0 14px;">Ogni capitolo ha lo stesso ritmo e la stessa struttura; i dati sono sempre fittizi.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">➡️ Next</h3>
+<p style="margin:0 0 14px;"><a href="./02_Node_NPM.md" style="color:#2563eb;">Capitolo 02 — Node.js e npm</a>: installerai Node.js 22 LTS e verificherai che <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm</code> funzionino.</p>
+</div>
+<script>
+(function () {
+  if (window.lipariBankCopyHandlerInstalled) return;
+  window.lipariBankCopyHandlerInstalled = true;
+
+  document.addEventListener('click', async function (event) {
+    var button = event.target.closest('.copy-code-btn');
+    if (!button) return;
+
+    event.preventDefault();
+
+    var panel = button.closest('[data-copy-panel]');
+    if (!panel) panel = button.parentElement.parentElement;
+
+    var code = panel.querySelector('pre code');
+    if (!code) return;
+
+    var value = code.textContent;
+    var originalContent = button.innerHTML;
+    var originalLabel = button.getAttribute('aria-label') || 'Copy code';
+
+    function showSuccess() {
+      button.textContent = 'Copied!';
+      button.setAttribute('aria-label', 'Code copied');
+      window.setTimeout(function () {
+        button.innerHTML = originalContent;
+        button.setAttribute('aria-label', originalLabel);
+      }, 1500);
+    }
+
+    function fallbackCopy() {
+      var textarea = document.createElement('textarea');
+      textarea.value = value;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      var copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (error) {
+        copied = false;
+      }
+
+      document.body.removeChild(textarea);
+
+      if (copied) showSuccess();
+      else button.textContent = 'Copy failed';
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        showSuccess();
+      } else {
+        fallbackCopy();
+      }
+    } catch (error) {
+      fallbackCopy();
+    }
+  });
+})();
+
+</script>

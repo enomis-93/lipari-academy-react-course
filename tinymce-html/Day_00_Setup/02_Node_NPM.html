@@ -1,0 +1,352 @@
+<div style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.7; color:#334155;">
+<h1 style="margin:0 0 18px; padding:24px; background:#eff6ff; border-left:5px solid #2563eb; border-radius:8px; color:#172554; font-size:27px; line-height:1.35;">🏦 LipariBank — React Zero to Hero</h1>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;"><strong>Day 0 · Capitolo 02</strong><br>
+<strong>Argomento:</strong> Node.js e npm<br>
+<strong>Durata stimata:</strong> 30 minuti<br>
+<strong>Parte di LipariBank:</strong> nessun codice: prepari il motore che eseguirà gli strumenti di sviluppo di LipariBank</p>
+</blockquote>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🎯 Obiettivo</h2>
+<p style="margin:0 0 14px;">Alla fine del capitolo sarai in grado di:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">spiegare a cosa servono Node.js e npm in un progetto React;</p>
+</li>
+<li><p style="margin:0 0 14px;">installare Node.js 22 LTS e verificare le versioni con il terminale;</p>
+</li>
+<li><p style="margin:0 0 14px;">usare i comandi npm principali (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">install</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">run</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">ls</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npx</code>);</p>
+</li>
+<li><p style="margin:0 0 14px;">risolvere i problemi più comuni (PATH, execution policy di PowerShell, permessi).</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📋 Prerequisiti</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Aver letto <a href="./01_Introduzione_al_corso.md" style="color:#2563eb;">l'introduzione al corso</a> e creato la cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Un computer su cui puoi installare programmi.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧭 In questo capitolo</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Node.js, npm e npx: che cosa sono;</p>
+</li>
+<li><p style="margin:0 0 14px;">quale versione installare e perché;</p>
+</li>
+<li><p style="margin:0 0 14px;">installazione su Windows, macOS e Linux (e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code> come alternativa);</p>
+</li>
+<li><p style="margin:0 0 14px;">verifica delle versioni;</p>
+</li>
+<li><p style="margin:0 0 14px;">comandi npm principali;</p>
+</li>
+<li><p style="margin:0 0 14px;">troubleshooting.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧠 Theory</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Perché serve Node.js se React gira nel browser?</h3>
+<p style="margin:0 0 14px;">Il codice React finale gira nel browser, ma durante lo sviluppo servono strumenti che girano sul tuo computer: il server di sviluppo, il compilatore JSX, il bundler, il linter. Questi strumenti (Vite, oxlint...) sono programmi JavaScript e hanno bisogno di <strong>Node.js</strong> per essere eseguiti fuori dal browser.</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Node.js</strong>: runtime che esegue JavaScript sul computer.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>npm</strong> (Node Package Manager): installato insieme a Node.js, scarica le librerie (React, Vite...) e le registra nel file <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>npx</strong>: esegue un pacchetto senza installarlo globalmente. Lo usa indirettamente anche <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm create</code>.</p>
+</li>
+</ul>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Quale versione scegliere</h3>
+<p style="margin:0 0 14px;">Scegli una versione <strong>LTS</strong> (Long Term Support): è la linea stabile, pensata per essere usata a lungo. Il corso è verificato con <strong>Node.js 22 LTS</strong>. Vite 8 richiede Node <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">^20.19.0 || &gt;=22.12.0</code>, quindi qualsiasi versione 22.12 o successiva è accettabile; le versioni dispari o &quot;Current&quot; non sono consigliate.</p>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;">💡 <strong>Remember</strong></p>
+<p style="margin:0 0 14px;">Usa Node.js 22 LTS. Se hai già Node.js installato, controlla la versione: una versione troppo vecchia (per esempio 18) fa fallire Vite con un errore esplicito.</p>
+</blockquote>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Cos'è <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code></h3>
+<p style="margin:0 0 14px;">È il file che descrive un progetto: nome, script (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">dev</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">build</code>...) e dipendenze. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code> legge <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code> e scarica le librerie nella cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node_modules/</code>, che non va mai committata su Git né modificata a mano.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">💻 Let's Code</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">1. Installare Node.js</h3>
+<p style="margin:0 0 14px;"><strong>Windows:</strong> scarica l'installer dalla pagina ufficiale <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://nodejs.org</code>, scegli la versione <strong>22 LTS</strong> (file <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">.msi</code>), esegui l'installer lasciando le opzioni predefinite (compresa &quot;Add to PATH&quot;). Se Node.js era già installato, l'installer aggiorna la versione.</p>
+<p style="margin:0 0 14px;"><strong>macOS:</strong> scarica il pacchetto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">.pkg</code> della versione 22 LTS da <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://nodejs.org</code>, oppure con Homebrew:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>brew install node@22
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Con Homebrew, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node@22</code> può richiedere di aggiungere la cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">bin</code> al PATH: segui le istruzioni che <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">brew</code> stampa al termine.</p>
+<p style="margin:0 0 14px;"><strong>Linux:</strong> i pacchetti della distribuzione possono avere versioni vecchie. Il metodo consigliato è <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code> (vedi sotto) oppure le istruzioni ufficiali per la tua distribuzione su <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://nodejs.org</code>.</p>
+<p style="margin:0 0 14px;">Dopo l'installazione <strong>chiudi e riapri il terminale</strong>: il PATH viene letto solo all'avvio.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">2. Verificare le versioni</h3>
+<p style="margin:0 0 14px;">Apri un terminale (PowerShell su Windows, Terminal su macOS/Linux) in una cartella qualsiasi ed esegui:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>node --version
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Output atteso (le cifre dopo il 22 possono variare):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">TEXT</span>
+
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>v22.x.x
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Poi verifica npm:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>npm --version
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Output atteso: un numero di versione come <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">10.x.x</code> o superiore. Se entrambi i comandi stampano una versione, l'installazione è riuscita.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">3. Alternativa opzionale: nvm</h3>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code> permette di installare più versioni di Node.js e passare dall'una all'altra: utile se lavori a progetti diversi. <strong>Non è necessario per il corso.</strong></p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Windows: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm-windows</code> (installer dal repository ufficiale del progetto).</p>
+</li>
+<li><p style="margin:0 0 14px;">macOS / Linux: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code> (script di installazione ufficiale).</p>
+</li>
+</ul>
+<p style="margin:0 0 14px;">Una volta installato, i comandi sono gli stessi:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>nvm install 22
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>nvm use 22
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Per usarla di default nelle nuove finestre (macOS/Linux):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>nvm alias default 22
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Su Windows, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm use 22</code> può richiedere un terminale avviato come amministratore. Se installi <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code>, disinstalla prima eventuali Node.js installati con l'installer normale, per evitare conflitti nel PATH.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">4. Comandi npm principali</h3>
+<p style="margin:0 0 14px;">Questi comandi li userai in tutto il corso (da dentro la cartella del progetto, cioè dove c'è <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code>):</p>
+<table style="width:100%; margin:16px 0 22px; border-collapse:collapse; color:#334155;"><thead>
+<tr><th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Comando</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Cosa fa</th>
+</tr>
+</thead>
+<tbody><tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Installa tutte le dipendenze elencate in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code></td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install &lt;PACCHETTO&gt;</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Aggiunge una dipendenza al progetto (es. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">react-router@7</code> al Day 6)</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run &lt;SCRIPT&gt;</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Esegue uno script di <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code> (es. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run dev</code>)</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm ls &lt;PACCHETTO&gt;</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Mostra quale versione di un pacchetto è installata</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm create &lt;TEMPLATE&gt;</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Crea un nuovo progetto da un template (es. Vite)</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npx &lt;COMANDO&gt;</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Esegue un comando di un pacchetto senza installarlo globalmente</td>
+</tr>
+</tbody></table>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;PACCHETTO&gt;</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;SCRIPT&gt;</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;TEMPLATE&gt;</code> sono segnaposto da sostituire con i nomi reali.</p>
+<p style="margin:0 0 14px;">Per vedere dove è installato Node.js sul tuo sistema, in PowerShell:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">POWERSHELL</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>Get-Command node | Select-Object -ExpandProperty Source
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">e in macOS / Linux:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>which node
+</code></pre>
+</div>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🏦 LipariBank in action</h2>
+<p style="margin:0 0 14px;">LipariBank userà Node.js e npm in ogni giorno del corso: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code> per le dipendenze, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run dev</code> per vedere l'app, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run build</code> per la consegna. Al Day 6 aggiungerai l'unica dipendenza extra del corso, con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install react-router@7</code>. Per ora basta che <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node --version</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm --version</code> rispondano correttamente: nel capitolo 05 creerai il progetto.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧪 Your Turn</h2>
+<p style="margin:0 0 14px;"><strong>Obiettivo:</strong> installare Node.js 22 LTS e verificare l'ambiente.</p>
+<p style="margin:0 0 14px;"><strong>Requisiti:</strong></p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Installa Node.js 22 LTS (o verifica che la versione installata sia ≥ 22.12).</p>
+</li>
+<li><p style="margin:0 0 14px;">Chiudi e riapri il terminale.</p>
+</li>
+<li><p style="margin:0 0 14px;">Esegui <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node --version</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm --version</code> e annota gli output.</p>
+</li>
+<li><p style="margin:0 0 14px;">Esegui <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm ls -g --depth=0</code> per vedere i pacchetti globali installati.</p>
+</li>
+</ol>
+<p style="margin:0 0 14px;"><strong>Suggerimento:</strong> se <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node</code> non viene riconosciuto, vai alla sezione <em>Common Mistakes</em> qui sotto.</p>
+<p style="margin:0 0 14px;"><strong>Risultato atteso:</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node --version</code> stampa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">v22.x.x</code> (o superiore a 22.12) e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm --version</code> stampa un numero di versione.</p>
+<p style="margin:0 0 14px;"><strong>Criteri di completamento:</strong> i due comandi funzionano da una nuova finestra di terminale, aperta dopo l'installazione.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">⚠️ Common Mistakes</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node</code> o <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm</code> non riconosciuto</h3>
+<p style="margin:0 0 14px;">Messaggi tipici: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">'node' is not recognized...</code> (Windows) oppure <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">command not found: node</code> (macOS/Linux).</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Chiudi <strong>tutte</strong> le finestre del terminale (e VS Code) e riaprile: il PATH si aggiorna solo all'avvio.</p>
+</li>
+<li><p style="margin:0 0 14px;">Su Windows reinstalla Node.js assicurandoti che &quot;Add to PATH&quot; sia attivo.</p>
+</li>
+<li><p style="margin:0 0 14px;">Se hai più installazioni, controlla quale viene usata con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Get-Command node</code> (PowerShell) o <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">which node</code> (macOS/Linux).</p>
+</li>
+</ul>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Windows PowerShell: &quot;running scripts is disabled on this system&quot;</h3>
+<p style="margin:0 0 14px;">Se <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm</code> stampa un errore su <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm.ps1</code> e sull'esecuzione di script disabilitata, PowerShell blocca gli script. Consenti gli script firmati localmente, solo per il tuo utente:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">POWERSHELL</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Conferma con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">S</code> (o <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Y</code>) se richiesto. In alternativa usa il Prompt dei comandi (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">cmd</code>) invece di PowerShell. Non serve impostare <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Unrestricted</code> né avviare il terminale come amministratore.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Errori di permessi (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">EACCES</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">EPERM</code>)</h3>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>macOS/Linux, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">EACCES</code>:</strong> non usare <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">sudo npm install</code>. Cambia la cartella dei pacchetti globali oppure usa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code>, che installa tutto nella tua home.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Windows, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">EPERM</code>:</strong> chiudi VS Code e altri programmi che usano la cartella, sposta il progetto fuori da OneDrive e, se serve, elimina <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node_modules</code> e riprova <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code>. Un antivirus può bloccare temporaneamente i file: riprova dopo qualche istante.</p>
+</li>
+</ul>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Versione di Node.js troppo vecchia</h3>
+<p style="margin:0 0 14px;">Se Vite stampa un errore sulla versione richiesta di Node.js, installa Node.js 22 LTS (o usa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm use 22</code>) e riapri il terminale.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Problemi di rete o proxy</h3>
+<p style="margin:0 0 14px;">Se <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code> va in timeout, controlla la connessione e il registro configurato:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>npm config get registry
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Il valore predefinito è <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://registry.npmjs.org/</code>. In reti aziendali con proxy chiedi al tuo amministratore le impostazioni corrette. Non incollare mai in chat o nel codice token personali presenti nei file <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">.npmrc</code>.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Cache corrotta</h3>
+<p style="margin:0 0 14px;">Se dopo un errore le installazioni falliscono in modo strano:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>npm cache verify
+</code></pre>
+</div>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">✅ Checklist</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">☐ Ho installato Node.js 22 LTS (o ≥ 22.12).</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node --version</code> stampa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">v22.x.x</code> (o superiore a 22.12).</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm --version</code> stampa un numero di versione.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So a cosa servono <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npx</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So cosa fare se il PATH o PowerShell bloccano <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🚀 Challenge</h2>
+<p style="margin:0 0 14px;">Esegui <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm help</code> e scopri cosa fa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm ls</code>. Poi, in una cartella vuota di prova, esegui <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm init -y</code>: leggi il <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">package.json</code> generato e individua i campi <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">name</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">version</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">scripts</code>. Elimina la cartella di prova al termine.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📌 Recap</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Node.js esegue gli strumenti di sviluppo; npm installa le librerie e lancia gli script.</p>
+</li>
+<li><p style="margin:0 0 14px;">Si usa Node.js 22 LTS; Vite 8 richiede <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">^20.19.0 || &gt;=22.12.0</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node --version</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm --version</code> confermano l'installazione, dopo aver riaperto il terminale.</p>
+</li>
+<li><p style="margin:0 0 14px;">I problemi più comuni sono PATH non aggiornato, execution policy di PowerShell e permessi.</p>
+</li>
+<li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nvm</code> è opzionale: serve solo per gestire più versioni di Node.js.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">➡️ Next</h3>
+<p style="margin:0 0 14px;"><a href="./03_VS_Code.md" style="color:#2563eb;">Capitolo 03 — Visual Studio Code</a>: installerai e configurerai l'editor in cui scriverai LipariBank.</p>
+</div>
+<script>
+(function () {
+  if (window.lipariBankCopyHandlerInstalled) return;
+  window.lipariBankCopyHandlerInstalled = true;
+
+  document.addEventListener('click', async function (event) {
+    var button = event.target.closest('.copy-code-btn');
+    if (!button) return;
+
+    event.preventDefault();
+
+    var panel = button.closest('[data-copy-panel]');
+    if (!panel) panel = button.parentElement.parentElement;
+
+    var code = panel.querySelector('pre code');
+    if (!code) return;
+
+    var value = code.textContent;
+    var originalContent = button.innerHTML;
+    var originalLabel = button.getAttribute('aria-label') || 'Copy code';
+
+    function showSuccess() {
+      button.textContent = 'Copied!';
+      button.setAttribute('aria-label', 'Code copied');
+      window.setTimeout(function () {
+        button.innerHTML = originalContent;
+        button.setAttribute('aria-label', originalLabel);
+      }, 1500);
+    }
+
+    function fallbackCopy() {
+      var textarea = document.createElement('textarea');
+      textarea.value = value;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      var copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (error) {
+        copied = false;
+      }
+
+      document.body.removeChild(textarea);
+
+      if (copied) showSuccess();
+      else button.textContent = 'Copy failed';
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        showSuccess();
+      } else {
+        fallbackCopy();
+      }
+    } catch (error) {
+      fallbackCopy();
+    }
+  });
+})();
+
+</script>

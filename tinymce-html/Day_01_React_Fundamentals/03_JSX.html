@@ -1,0 +1,357 @@
+<div style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.7; color:#334155;">
+<h1 style="margin:0 0 18px; padding:24px; background:#eff6ff; border-left:5px solid #2563eb; border-radius:8px; color:#172554; font-size:27px; line-height:1.35;">🏦 LipariBank — React Zero to Hero</h1>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;"><strong>Day 1 · Capitolo 03</strong><br>
+<strong>Argomento:</strong> JSX<br>
+<strong>Durata stimata:</strong> 25 minuti<br>
+<strong>Parte di LipariBank:</strong> la sintassi con cui descriveremo ogni elemento della dashboard</p>
+</blockquote>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🎯 Obiettivo</h2>
+<p style="margin:0 0 14px;">Alla fine del capitolo sarai in grado di:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">scrivere JSX valido rispettando le sue regole (radice unica, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code>, tag chiusi);</p>
+</li>
+<li><p style="margin:0 0 14px;">inserire valori JavaScript nel JSX con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code>;</p>
+</li>
+<li><p style="margin:0 0 14px;">applicare stili inline con oggetti JavaScript;</p>
+</li>
+<li><p style="margin:0 0 14px;">individuare e correggere gli errori di JSX più frequenti.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📋 Prerequisiti</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><a href="./02_Struttura_del_progetto.md" style="color:#2563eb;">Day 1 · Struttura del progetto</a>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Dev server acceso (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run dev</code> dentro <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank/</code>).</p>
+</li>
+<li><p style="margin:0 0 14px;">Utile: <a href="../Extra_JavaScript_Essentials/08_Optional_Chaining_Ternary.md" style="color:#2563eb;">Extra · Optional Chaining e Ternary</a>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧭 In questo capitolo</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Che cos'è il JSX.</p>
+</li>
+<li><p style="margin:0 0 14px;">Radice unica e fragment.</p>
+</li>
+<li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">htmlFor</code> e attributi in camelCase.</p>
+</li>
+<li><p style="margin:0 0 14px;">Tag auto-chiudenti.</p>
+</li>
+<li><p style="margin:0 0 14px;">Espressioni <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code>, stili inline, commenti.</p>
+</li>
+<li><p style="margin:0 0 14px;">Esercizio di correzione del JSX.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧠 Theory</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Che cos'è il JSX</h3>
+<p style="margin:0 0 14px;">Il <strong>JSX</strong> è una sintassi che assomiglia all'HTML ma vive dentro JavaScript. Non è compreso dal browser: gli strumenti di build (qui Vite) lo trasformano in normali chiamate JavaScript. Per questo valgono le regole di JavaScript, non quelle di HTML.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Le regole fondamentali</h3>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Un solo elemento radice.</strong> Un componente restituisce un unico elemento. Per restituirne più di uno usa un contenitore oppure un <strong>Fragment</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;&gt;...&lt;/&gt;</code> (non aggiunge nodi al DOM).</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Tutti i tag vanno chiusi.</strong> I tag senza contenuto si scrivono auto-chiudenti: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;input /&gt;</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;img /&gt;</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;br /&gt;</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code> al posto di <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">class</code></strong>, <strong><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">htmlFor</code> al posto di <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">for</code></strong>. Gli altri attributi sono in camelCase: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">tabIndex</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">onClick</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">maxLength</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Espressioni JavaScript tra graffe</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code>: variabili, chiamate di funzione, operazioni, ternari. Non puoi inserire <em>istruzioni</em> (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">if</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">for</code>).</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Stili inline come oggetto</strong>: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">style={{ color: &quot;green&quot; }}</code> (le graffe esterne sono JSX, le interne sono l'oggetto), con proprietà in camelCase (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">backgroundColor</code>).</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Commenti</strong> dentro il JSX: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{/* commento */}</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Componenti con la maiuscola</strong>: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;Header /&gt;</code> è un componente, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;header&gt;</code> è un tag HTML.</p>
+</li>
+</ol>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;">💡 <strong>Remember</strong></p>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code> significa &quot;qui dentro c'è JavaScript&quot;. Dove React si aspetta del testo o degli elementi puoi usare qualunque <em>espressione</em> che produca un valore.</p>
+</blockquote>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Cosa si può renderizzare</h3>
+<p style="margin:0 0 14px;">Stringhe e numeri vengono mostrati. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">true</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">false</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">null</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">undefined</code> <strong>non</strong> producono nulla. Un oggetto &quot;semplice&quot; (come <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ id: 1 }</code>) <strong>non</strong> si può mettere come figlio: React segnala un errore.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">💻 Let's Code</h2>
+<p style="margin:0 0 14px;">Per sperimentare modifica temporaneamente <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/App.jsx</code>: nei prossimi capitoli lo sostituiremo con la dashboard vera.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Radice unica e Fragment</h3>
+<p style="margin:0 0 14px;">Non valido (due radici):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>function App() {
+  return (
+    &lt;h1&gt;LipariBank&lt;/h1&gt;
+    &lt;p&gt;Dashboard&lt;/p&gt;
+  );
+}
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Valido, con Fragment:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>function App() {
+  return (
+    &lt;&gt;
+      &lt;h1&gt;LipariBank&lt;/h1&gt;
+      &lt;p&gt;Dashboard&lt;/p&gt;
+    &lt;/&gt;
+  );
+}
+
+export default App;
+</code></pre>
+</div>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Espressioni, attributi e stili</h3>
+<p style="margin:0 0 14px;">Codice completo per <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/App.jsx</code>:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>function App() {
+  const firstName = &quot;Mario&quot;;
+  const lastName = &quot;Rossi&quot;;
+  const balance = 4250.75;
+  const isActive = true;
+
+  const statusStyle = {
+    color: isActive ? &quot;green&quot; : &quot;crimson&quot;,
+    fontWeight: &quot;bold&quot;,
+  };
+
+  return (
+    &lt;&gt;
+      {/* Intestazione */}
+      &lt;h1 className=&quot;title&quot;&gt;LipariBank&lt;/h1&gt;
+      &lt;p&gt;
+        Cliente: {firstName} {lastName}
+      &lt;/p&gt;
+      &lt;p&gt;Saldo (arrotondato): {Math.round(balance)} €&lt;/p&gt;
+      &lt;p style={statusStyle}&gt;{isActive ? &quot;Conto attivo&quot; : &quot;Conto sospeso&quot;}&lt;/p&gt;
+
+      &lt;label htmlFor=&quot;note&quot;&gt;Nota&lt;/label&gt;
+      &lt;input id=&quot;note&quot; type=&quot;text&quot; placeholder=&quot;Scrivi una nota&quot; /&gt;
+    &lt;/&gt;
+  );
+}
+
+export default App;
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><strong>Cosa fa.</strong> Dichiara alcune costanti prima del <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code> (qui puoi usare qualsiasi istruzione JavaScript) e le inserisce nel JSX con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code>.</p>
+<p style="margin:0 0 14px;"><strong>Perché funziona.</strong> Ogni <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ ... }</code> contiene una espressione: un nome di variabile, una chiamata a <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Math.round</code>, un ternario. Lo stile è un oggetto con proprietà camelCase.</p>
+<p style="margin:0 0 14px;"><strong>Come modificarlo.</strong> Cambia <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">isActive</code> in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">false</code> e osserva testo e colore. Aggiungi un secondo attributo a <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;p&gt;</code>, ad esempio <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">title=&quot;Stato del conto&quot;</code>.</p>
+<p style="margin:0 0 14px;"><strong>Errori da evitare.</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">style=&quot;color: green&quot;</code> (stringa) non è valido in JSX; <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ if (...) ... }</code> non è permesso, usa il ternario.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Cosa non si può mettere tra graffe</h3>
+<p style="margin:0 0 14px;">Snippet <strong>non valido</strong> (a scopo dimostrativo):</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>const account = { name: &quot;Conto Corrente&quot;, balance: 4250.75 };
+
+// &lt;p&gt;{account}&lt;/p&gt;   → errore: un oggetto non è un figlio valido
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Versione corretta, accedendo alle proprietà:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>&lt;p&gt;
+  {account.name}: {account.balance}
+&lt;/p&gt;
+</code></pre>
+</div>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🏦 LipariBank in action</h2>
+<p style="margin:0 0 14px;">Il componente <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Header</code> della dashboard mostrerà il nome del cliente. Con ciò che hai appena imparato potresti già scrivere:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>&lt;header className=&quot;header&quot;&gt;
+  &lt;h1 className=&quot;header__brand&quot;&gt;LipariBank&lt;/h1&gt;
+  &lt;p className=&quot;header__name&quot;&gt;Cliente: {customer.firstName} {customer.lastName}&lt;/p&gt;
+&lt;/header&gt;
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Nota <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code> e le due espressioni sulla stessa riga: lo spazio tra <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">}</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{</code> viene mantenuto. Nel <a href="./04_Function_Components.md" style="color:#2563eb;">capitolo 04</a> lo trasformeremo in un componente con i dati veri.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧪 Your Turn</h2>
+<p style="margin:0 0 14px;"><strong>Obiettivo:</strong> correggere del JSX non valido.</p>
+<p style="margin:0 0 14px;"><strong>Requisiti.</strong> Il codice seguente (<strong>non valido volutamente</strong>) contiene <strong>8 errori</strong>. Copialo in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/App.jsx</code>, correggi tutto finché la pagina non mostra il risultato atteso senza errori nel terminale e nella console.</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>function App() {
+  return (
+    &lt;h1 class=&quot;title&quot;&gt;LipariBank&lt;/h1&gt;
+    &lt;p&gt;Saldo: &lt;b&gt;4.250,75 €&lt;b&gt;&lt;/p&gt;
+    &lt;label for=&quot;importo&quot;&gt;Importo&lt;/label&gt;
+    &lt;input id=&quot;importo&quot; type=&quot;text&quot;&gt;
+    &lt;div style=&quot;color: green; font-size: 14px&quot;&gt;Conto attivo&lt;/div&gt;
+    &lt;!-- fine pagina --&gt;
+  );
+}
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><strong>Passi suggeriti</strong></p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Leggi il messaggio d'errore di Vite: indica file e riga.</p>
+</li>
+<li><p style="margin:0 0 14px;">Conta le radici, controlla ogni tag aperto, ogni attributo e il commento.</p>
+</li>
+<li><p style="margin:0 0 14px;">Controlla anche la riga finale del file: manca qualcosa che <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main.jsx</code> si aspetta.</p>
+</li>
+</ul>
+<p style="margin:0 0 14px;"><strong>Risultato atteso:</strong> titolo, riga del saldo in grassetto, campo &quot;Importo&quot; con etichetta collegata e un testo verde &quot;Conto attivo&quot;.</p>
+<p style="margin:0 0 14px;"><strong>Criteri di completamento:</strong> nessun errore a video, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm run lint</code> senza errori, etichetta cliccabile (cliccando su &quot;Importo&quot; il campo prende il focus).</p>
+<blockquote style="background:#f8fafc; border-left:4px solid #64748b; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;">⚠️ <strong>Prova prima da solo</strong></p>
+<p style="margin:0 0 14px;">La soluzione è qui sotto: guardala solo dopo aver tentato.</p>
+</blockquote>
+<p style="margin:0 0 14px;">Elenco degli errori: radice multipla, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">class</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;b&gt;</code> non chiuso, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">for</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;input&gt;</code> non auto-chiuso, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">style</code> come stringa, commento HTML, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">export default</code> mancante. Soluzione:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>function App() {
+  return (
+    &lt;&gt;
+      &lt;h1 className=&quot;title&quot;&gt;LipariBank&lt;/h1&gt;
+      &lt;p&gt;
+        Saldo: &lt;b&gt;4.250,75 €&lt;/b&gt;
+      &lt;/p&gt;
+      &lt;label htmlFor=&quot;importo&quot;&gt;Importo&lt;/label&gt;
+      &lt;input id=&quot;importo&quot; type=&quot;text&quot; /&gt;
+      &lt;div style={{ color: &quot;green&quot;, fontSize: &quot;14px&quot; }}&gt;Conto attivo&lt;/div&gt;
+      {/* fine pagina */}
+    &lt;/&gt;
+  );
+}
+
+export default App;
+</code></pre>
+</div>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">⚠️ Common Mistakes</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">class</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">for</code></strong> → usa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">htmlFor</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Dimenticare la chiusura di un tag</strong> (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;input&gt;</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;img&gt;</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;br&gt;</code>) → <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;input /&gt;</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Due elementi radice</strong> → Fragment <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;&gt;...&lt;/&gt;</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Oggetto come figlio</strong> (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{account}</code>) → mostra le singole proprietà.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">style</code> come stringa</strong> → oggetto con doppie graffe e camelCase.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Commento <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">//</code> o <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;!-- --&gt;</code> nel JSX</strong> → <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{/* ... */}</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Parentesi dopo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code> omesse</strong> su più righe: se il JSX inizia sulla riga successiva a <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code>, racchiudilo tra <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">( )</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">✅ Checklist</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">☐ So perché serve un solo elemento radice e cos'è un Fragment.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Uso <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">htmlFor</code> e tag auto-chiudenti.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So inserire variabili ed espressioni con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So scrivere uno stile inline come oggetto.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho corretto tutti gli 8 errori dell'esercizio.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🚀 Challenge</h2>
+<p style="margin:0 0 14px;">Aggiungi al tuo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App.jsx</code> di prova una lista <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;ul&gt;</code> con tre <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;li&gt;</code> che mostrano i nomi dei beneficiari fittizi (Giulia Bianchi, Luca Verdi, Condominio Lipari (fittizio)) prelevati da un array dichiarato nel componente e scritti con tre espressioni <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code> separate (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">names[0]</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">names[1]</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">names[2]</code>). Nel Day 2 vedremo un modo migliore.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📌 Recap</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Il JSX è JavaScript, non HTML: ha regole proprie.</p>
+</li>
+<li><p style="margin:0 0 14px;">Radice unica (o Fragment), tag sempre chiusi, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">className</code>/<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">htmlFor</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{ }</code> accetta espressioni, non istruzioni.</p>
+</li>
+<li><p style="margin:0 0 14px;">Gli stili inline sono oggetti con proprietà camelCase.</p>
+</li>
+<li><p style="margin:0 0 14px;">Commenti nel JSX: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">{/* ... */}</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">➡️ Next</h3>
+<p style="margin:0 0 14px;">Prossimo capitolo: <a href="./04_Function_Components.md" style="color:#2563eb;">Function Components</a>. Ora che sai scrivere JSX, lo mettiamo dentro componenti separati, esportati e importati tra file.</p>
+</div>
+<script>
+(function () {
+  if (window.lipariBankCopyHandlerInstalled) return;
+  window.lipariBankCopyHandlerInstalled = true;
+
+  document.addEventListener('click', async function (event) {
+    var button = event.target.closest('.copy-code-btn');
+    if (!button) return;
+
+    event.preventDefault();
+
+    var panel = button.closest('[data-copy-panel]');
+    if (!panel) panel = button.parentElement.parentElement;
+
+    var code = panel.querySelector('pre code');
+    if (!code) return;
+
+    var value = code.textContent;
+    var originalContent = button.innerHTML;
+    var originalLabel = button.getAttribute('aria-label') || 'Copy code';
+
+    function showSuccess() {
+      button.textContent = 'Copied!';
+      button.setAttribute('aria-label', 'Code copied');
+      window.setTimeout(function () {
+        button.innerHTML = originalContent;
+        button.setAttribute('aria-label', originalLabel);
+      }, 1500);
+    }
+
+    function fallbackCopy() {
+      var textarea = document.createElement('textarea');
+      textarea.value = value;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      var copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (error) {
+        copied = false;
+      }
+
+      document.body.removeChild(textarea);
+
+      if (copied) showSuccess();
+      else button.textContent = 'Copy failed';
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        showSuccess();
+      } else {
+        fallbackCopy();
+      }
+    } catch (error) {
+      fallbackCopy();
+    }
+  });
+})();
+
+</script>

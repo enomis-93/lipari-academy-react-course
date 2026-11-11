@@ -1,0 +1,10 @@
+{
+  "name": "liparibank-tinymce-converter",
+  "private": true,
+  "scripts": {
+    "tinymce:convert": "node scripts/convert-to-tinymce.mjs"
+  },
+  "devDependencies": {
+    "markdown-it": "^14.1.0"
+  }
+}

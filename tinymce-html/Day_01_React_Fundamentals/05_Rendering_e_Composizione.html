@@ -1,0 +1,316 @@
+<div style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.7; color:#334155;">
+<h1 style="margin:0 0 18px; padding:24px; background:#eff6ff; border-left:5px solid #2563eb; border-radius:8px; color:#172554; font-size:27px; line-height:1.35;">🏦 LipariBank — React Zero to Hero</h1>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;"><strong>Day 1 · Capitolo 05</strong><br>
+<strong>Argomento:</strong> Rendering e composizione<br>
+<strong>Durata stimata:</strong> 25 minuti<br>
+<strong>Parte di LipariBank:</strong> formattazione di importi e date, componente <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code> (saldo totale) e composizione in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App</code></p>
+</blockquote>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🎯 Obiettivo</h2>
+<p style="margin:0 0 14px;">Alla fine del capitolo sarai in grado di:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">descrivere come React trasforma i componenti in elementi sullo schermo;</p>
+</li>
+<li><p style="margin:0 0 14px;">comporre più componenti dentro un componente padre;</p>
+</li>
+<li><p style="margin:0 0 14px;">creare funzioni di utilità per formattare importi e date;</p>
+</li>
+<li><p style="margin:0 0 14px;">calcolare e mostrare il saldo totale della dashboard.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📋 Prerequisiti</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><a href="./04_Function_Components.md" style="color:#2563eb;">Day 1 · Function Components</a>: esistono <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/data/mockData.js</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/components/Header.jsx</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App.jsx</code> con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;Header /&gt;</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Utile: <a href="../Extra_JavaScript_Essentials/04_Map_Filter_Reduce.md" style="color:#2563eb;">Extra · Map, Filter, Reduce</a> per <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">reduce</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧭 In questo capitolo</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Come funziona il rendering.</p>
+</li>
+<li><p style="margin:0 0 14px;">Composizione e albero dei componenti.</p>
+</li>
+<li><p style="margin:0 0 14px;">Funzioni <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatCurrency</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatDate</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code> con il saldo totale.</p>
+</li>
+<li><p style="margin:0 0 14px;">Anteprima: rendere elenchi con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">map</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧠 Theory</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Come funziona il rendering</h3>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main.jsx</code> chiede a React di renderizzare <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;App /&gt;</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">React <strong>esegue la funzione</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App</code>, che restituisce JSX.</p>
+</li>
+<li><p style="margin:0 0 14px;">Nel JSX trova <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;Header /&gt;</code>: esegue anche <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Header</code>, e così via fino ai tag HTML.</p>
+</li>
+<li><p style="margin:0 0 14px;">Il risultato è un albero che React traduce in elementi del DOM.</p>
+</li>
+</ol>
+<p style="margin:0 0 14px;">Quando in futuro i dati cambieranno (Day 3), React rieseguirà i componenti interessati e aggiornerà <strong>solo le differenze</strong> nel DOM. Per ora ogni componente viene eseguito una volta all'avvio (in sviluppo, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">StrictMode</code> lo esegue due volte per controllo: non preoccuparti).</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Composizione</h3>
+<p style="margin:0 0 14px;"><strong>Comporre</strong> significa usare un componente dentro un altro. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App</code> contiene <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Header</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code>; più avanti <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code> potrà contenere altri componenti. Questa relazione genera l'<strong>albero dei componenti</strong>:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">TEXT</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>App
+├── Header
+└── BalanceCard
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Preferisci tanti componenti piccoli, ciascuno con un compito chiaro, a un componente gigante.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Calcolare prima, mostrare poi</h3>
+<p style="margin:0 0 14px;">Dentro un componente puoi scrivere qualsiasi JavaScript <strong>prima del <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code></strong>: calcoli, filtri, trasformazioni. Il JSX poi si limita a mostrare i valori già pronti. È la struttura che useremo sempre.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Anteprima: elenchi con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">map</code></h3>
+<p style="margin:0 0 14px;">Per mostrare molti elementi si trasforma un array in un array di JSX con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">map</code>. Ogni elemento ha bisogno di una <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">key</code> stabile (qui il suo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">id</code>). Nel Day 2 approfondiremo le <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">key</code>.</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>const names = [&quot;Giulia Bianchi&quot;, &quot;Luca Verdi&quot;];
+
+&lt;ul&gt;
+  {names.map((name) =&gt; (
+    &lt;li key={name}&gt;{name}&lt;/li&gt;
+  ))}
+&lt;/ul&gt;
+</code></pre>
+</div>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;">💡 <strong>Remember</strong></p>
+<p style="margin:0 0 14px;">Il componente è una funzione: calcola ciò che serve, poi restituisce JSX. Non modificare dati esterni mentre il componente viene eseguito.</p>
+</blockquote>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">💻 Let's Code</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">1. Funzioni di formattazione</h3>
+<p style="margin:0 0 14px;">Crea <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/utils/formatters.js</code>:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JAVASCRIPT</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>const currencyFormatter = new Intl.NumberFormat(&quot;it-IT&quot;, {
+  style: &quot;currency&quot;,
+  currency: &quot;EUR&quot;,
+  useGrouping: &quot;always&quot;,
+});
+
+export function formatCurrency(amount) {
+  return currencyFormatter.format(amount);
+}
+
+export function formatDate(isoString) {
+  return new Date(isoString).toLocaleDateString(&quot;it-IT&quot;);
+}
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><strong>Cosa fa.</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatCurrency(4250.75)</code> restituisce una stringa con il formato italiano, ad esempio <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">4.250,75 €</code>; <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatDate(&quot;2026-10-27&quot;)</code> restituisce <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">27/10/2026</code>.</p>
+<p style="margin:0 0 14px;"><strong>Perché funziona.</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Intl.NumberFormat</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">toLocaleDateString</code> sono API standard del browser: nessuna libreria da installare. Le funzioni sono <strong>named export</strong>.</p>
+<p style="margin:0 0 14px;"><strong>Come modificarlo.</strong> Cambia <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&quot;it-IT&quot;</code> in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&quot;en-GB&quot;</code> per vedere la differenza (poi ripristinalo).</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">2. Il componente <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code></h3>
+<p style="margin:0 0 14px;">Crea <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/components/BalanceCard.jsx</code>:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>import { accounts } from &quot;../data/mockData.js&quot;;
+import { formatCurrency } from &quot;../utils/formatters.js&quot;;
+
+function BalanceCard() {
+  const totalBalance = accounts.reduce(
+    (sum, account) =&gt; sum + account.balance,
+    0
+  );
+
+  return (
+    &lt;section className=&quot;balance-card&quot;&gt;
+      &lt;p className=&quot;balance-card__label&quot;&gt;Saldo totale&lt;/p&gt;
+      &lt;p className=&quot;balance-card__value&quot;&gt;{formatCurrency(totalBalance)}&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+export default BalanceCard;
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><strong>Cosa fa.</strong> Somma i saldi di tutti i conti con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">reduce</code> e mostra il totale formattato. Con i dati canonici il totale è <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">4.250,75 + 12.800,00 = 17.050,75 €</code>.</p>
+<p style="margin:0 0 14px;"><strong>Perché funziona.</strong> Il calcolo avviene prima del <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code>; il JSX mostra solo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">totalBalance</code> già formattato.</p>
+<p style="margin:0 0 14px;"><strong>Come modificarlo.</strong> Aggiungi <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;p&gt;{accounts.length} conti&lt;/p&gt;</code>. Nel Day 2 sposteremo il calcolo fuori dal componente per renderlo riusabile.</p>
+<p style="margin:0 0 14px;"><strong>Errori da evitare.</strong> Dimenticare il valore iniziale <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">0</code> di <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">reduce</code>; scrivere <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">accounts.balance</code> (l'array non ha <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">balance</code>: ce l'ha ogni elemento).</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">3. Comporre in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App</code></h3>
+<p style="margin:0 0 14px;">Aggiorna <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/App.jsx</code>:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">JSX</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>import Header from &quot;./components/Header.jsx&quot;;
+import BalanceCard from &quot;./components/BalanceCard.jsx&quot;;
+
+function App() {
+  return (
+    &lt;div className=&quot;app&quot;&gt;
+      &lt;Header /&gt;
+      &lt;main&gt;
+        &lt;BalanceCard /&gt;
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Nel browser vedi header e saldo totale <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">17.050,75 €</code>. Se hai ancora <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Footer</code> dal capitolo precedente puoi lasciarlo sotto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;main&gt;</code>: è opzionale.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🏦 LipariBank in action</h2>
+<p style="margin:0 0 14px;">La dashboard ha ora due componenti con responsabilità distinte:</p>
+<table style="width:100%; margin:16px 0 22px; border-collapse:collapse; color:#334155;"><thead>
+<tr><th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Componente</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Responsabilità</th>
+</tr>
+</thead>
+<tbody><tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Header</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Mostrare chi è il cliente.</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Calcolare e mostrare il saldo totale.</td>
+</tr>
+</tbody></table>
+<p style="margin:0 0 14px;">Manca la parte più interessante: l'elenco degli <strong>ultimi movimenti</strong>. Lo costruirai nel prossimo capitolo come esercizio guidato.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧪 Your Turn</h2>
+<p style="margin:0 0 14px;"><strong>Obiettivo:</strong> estendere <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code> con un secondo dato calcolato.</p>
+<p style="margin:0 0 14px;"><strong>Requisiti</strong></p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Sotto il saldo totale mostra la scritta <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">N conti</code> dove <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">N</code> è il numero di conti dell'array (con i dati canonici: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">2 conti</code>).</p>
+</li>
+<li><p style="margin:0 0 14px;">Mostra anche &quot;Ultimo aggiornamento&quot; con la data <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">2026-10-28</code> formattata con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatDate</code> (risultato: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">28/10/2026</code>).</p>
+</li>
+<li><p style="margin:0 0 14px;">Tutti i valori devono essere calcolati/importati, non scritti a mano nel JSX.</p>
+</li>
+</ol>
+<p style="margin:0 0 14px;"><strong>Passi suggeriti</strong></p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Importa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatDate</code> insieme a <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatCurrency</code> con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">import { formatCurrency, formatDate } from ...</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Dichiara una costante <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">lastUpdate = &quot;2026-10-28&quot;</code> prima del <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Aggiungi due <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;p className=&quot;balance-card__meta&quot;&gt;</code> nel JSX.</p>
+</li>
+</ul>
+<p style="margin:0 0 14px;"><strong>Risultato atteso:</strong> la card mostra <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">17.050,75 €</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">2 conti</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Ultimo aggiornamento: 28/10/2026</code>.</p>
+<p style="margin:0 0 14px;"><strong>Criteri di completamento:</strong> nessun errore a video; se aggiungi un terzo conto in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">mockData.js</code> il totale e il conteggio cambiano da soli (poi rimuovilo).</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">⚠️ Common Mistakes</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">reduce</code> senza valore iniziale</strong>: con array vuoto produce un errore; passa sempre <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">0</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Formattare con calcoli a mano</strong> (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">balance.toFixed(2)</code> e sostituire il punto): usa <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Intl.NumberFormat</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Import di funzione con default</strong> (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">import formatCurrency from ...</code>): sono named export, servono le graffe.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Mutare dati importati</strong> (es. <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">accounts.push(...)</code> dentro il componente): i componenti non devono modificare dati esterni.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">✅ Checklist</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">☐ Ho creato <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">src/utils/formatters.js</code> con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatCurrency</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatDate</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho creato <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard.jsx</code> e vedo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">17.050,75 €</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">App.jsx</code> compone <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Header</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So descrivere come React esegue i componenti.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho completato l'esercizio su conteggio conti e data.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🚀 Challenge</h2>
+<p style="margin:0 0 14px;">Aggiungi nella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">BalanceCard</code> il saldo del solo &quot;Conto Corrente&quot; cercandolo con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">accounts.find((a) =&gt; a.id === &quot;acc-001&quot;)</code>. Cosa succede se l'id non esiste? Prova a cambiare l'id e leggi l'errore: ti servirà per il Day 2.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📌 Recap</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">React esegue le funzioni dei componenti e traduce il JSX in DOM.</p>
+</li>
+<li><p style="margin:0 0 14px;">Comporre = usare componenti dentro altri componenti (albero).</p>
+</li>
+<li><p style="margin:0 0 14px;">Calcola prima del <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">return</code>, mostra nel JSX.</p>
+</li>
+<li><p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatCurrency</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">formatDate</code> sono funzioni di utilità riusabili.</p>
+</li>
+<li><p style="margin:0 0 14px;">Gli elenchi si costruiscono con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">map</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">key</code>.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">➡️ Next</h3>
+<p style="margin:0 0 14px;">Prossimo capitolo: <a href="./06_Esercizio_LipariBank_Dashboard.md" style="color:#2563eb;">Esercizio LipariBank — Dashboard</a>. Metterai insieme tutto ciò che hai imparato per completare la prima dashboard, con gli ultimi cinque movimenti.</p>
+</div>
+<script>
+(function () {
+  if (window.lipariBankCopyHandlerInstalled) return;
+  window.lipariBankCopyHandlerInstalled = true;
+
+  document.addEventListener('click', async function (event) {
+    var button = event.target.closest('.copy-code-btn');
+    if (!button) return;
+
+    event.preventDefault();
+
+    var panel = button.closest('[data-copy-panel]');
+    if (!panel) panel = button.parentElement.parentElement;
+
+    var code = panel.querySelector('pre code');
+    if (!code) return;
+
+    var value = code.textContent;
+    var originalContent = button.innerHTML;
+    var originalLabel = button.getAttribute('aria-label') || 'Copy code';
+
+    function showSuccess() {
+      button.textContent = 'Copied!';
+      button.setAttribute('aria-label', 'Code copied');
+      window.setTimeout(function () {
+        button.innerHTML = originalContent;
+        button.setAttribute('aria-label', originalLabel);
+      }, 1500);
+    }
+
+    function fallbackCopy() {
+      var textarea = document.createElement('textarea');
+      textarea.value = value;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      var copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (error) {
+        copied = false;
+      }
+
+      document.body.removeChild(textarea);
+
+      if (copied) showSuccess();
+      else button.textContent = 'Copy failed';
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        showSuccess();
+      } else {
+        fallbackCopy();
+      }
+    } catch (error) {
+      fallbackCopy();
+    }
+  });
+})();
+
+</script>

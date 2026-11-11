@@ -1,0 +1,497 @@
+<div style="font-family:Arial, Helvetica, sans-serif; font-size:15px; line-height:1.7; color:#334155;">
+<h1 style="margin:0 0 18px; padding:24px; background:#eff6ff; border-left:5px solid #2563eb; border-radius:8px; color:#172554; font-size:27px; line-height:1.35;">🏦 LipariBank — React Zero to Hero</h1>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;"><strong>Day 0 · Capitolo 04</strong><br>
+<strong>Argomento:</strong> Git e GitHub<br>
+<strong>Durata stimata:</strong> 40 minuti<br>
+<strong>Parte di LipariBank:</strong> il tuo repository GitHub <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code>, dove salverai e consegnerai il progetto</p>
+</blockquote>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🎯 Obiettivo</h2>
+<p style="margin:0 0 14px;">Alla fine del capitolo sarai in grado di:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">spiegare la differenza tra Git e GitHub;</p>
+</li>
+<li><p style="margin:0 0 14px;">installare e configurare Git (nome, email, branch predefinito);</p>
+</li>
+<li><p style="margin:0 0 14px;">eseguire il ciclo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">add</code> → <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">commit</code> → <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">push</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">pull</code> su un repository di prova;</p>
+</li>
+<li><p style="margin:0 0 14px;">creare il tuo repository GitHub <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code>, autenticarti e riconoscere gli errori più comuni.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📋 Prerequisiti</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><a href="./03_VS_Code.md" style="color:#2563eb;">Capitolo 03</a>: VS Code con terminale integrato funzionante.</p>
+</li>
+<li><p style="margin:0 0 14px;">Un account GitHub (gratuito): registrati su <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://github.com</code> usando la mail aziendale se non ne hai uno.</p>
+</li>
+<li><p style="margin:0 0 14px;">Cartella <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react</code> esistente.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧭 In questo capitolo</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Git vs GitHub;</p>
+</li>
+<li><p style="margin:0 0 14px;">installazione e configurazione di Git;</p>
+</li>
+<li><p style="margin:0 0 14px;">concetti: repository, commit, remote, branch;</p>
+</li>
+<li><p style="margin:0 0 14px;">pratica su un repository di prova (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code>);</p>
+</li>
+<li><p style="margin:0 0 14px;">creazione del repository <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code> su GitHub;</p>
+</li>
+<li><p style="margin:0 0 14px;">autenticazione ed errori comuni.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧠 Theory</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Git e GitHub non sono la stessa cosa</h3>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Git</strong> è il programma, installato sul tuo computer, che registra la storia del codice: ogni <strong>commit</strong> è uno &quot;scatto&quot; del progetto con un messaggio.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>GitHub</strong> è un servizio online che ospita repository Git: ti dà un posto remoto per il backup, la condivisione e la consegna del lavoro.</p>
+</li>
+</ul>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Il flusso base</h3>
+<table style="width:100%; margin:16px 0 22px; border-collapse:collapse; color:#334155;"><thead>
+<tr><th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Concetto</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Significato</th>
+</tr>
+</thead>
+<tbody><tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Working directory</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">I file su cui stai lavorando</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Staging area (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git add</code>)</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">I cambiamenti scelti per il prossimo commit</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Commit (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git commit</code>)</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Lo scatto salvato nella storia locale</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Remote (<code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">origin</code>)</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Il repository su GitHub collegato al tuo progetto</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Invia i commit locali al remote</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git pull</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Scarica e integra i commit presenti sul remote</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Branch</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Una linea di sviluppo; la principale si chiama <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main</code></td>
+</tr>
+</tbody></table>
+<blockquote style="background:#eff6ff; border-left:4px solid #3b82f6; padding:14px 18px; margin:16px 0; border-radius:4px;"><p style="margin:0 0 14px;">💡 <strong>Remember</strong></p>
+<p style="margin:0 0 14px;">Un commit è locale finché non fai <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code>. Se il PC si rompe prima del push, quel lavoro è perso.</p>
+</blockquote>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">Cosa non si committa mai</h3>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node_modules/</code> (si rigenera con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">npm install</code>), <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">dist/</code> (output di build) e qualsiasi <strong>segreto</strong>: password, token, chiavi API, file <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">.env</code> con valori sensibili. Il template Vite include già un <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">.gitignore</code> corretto per le prime due.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">💻 Let's Code</h2>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">1. Installare Git</h3>
+<p style="margin:0 0 14px;"><strong>Windows:</strong> scarica &quot;Git for Windows&quot; da <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://git-scm.com</code> e installa lasciando le opzioni predefinite. L'installer include <strong>Git Credential Manager</strong>, che gestisce il login a GitHub dal browser.</p>
+<p style="margin:0 0 14px;"><strong>macOS:</strong> esegui in Terminal, e accetta l'installazione degli strumenti di sviluppo:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>xcode-select --install
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">In alternativa, con Homebrew: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">brew install git</code>.</p>
+<p style="margin:0 0 14px;"><strong>Linux (Debian/Ubuntu):</strong></p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>sudo apt install git
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Chiudi e riapri il terminale, poi verifica:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git --version
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Output atteso: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git version 2.x.x</code> (il numero dipende dal sistema).</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">2. Configurare nome, email e branch</h3>
+<p style="margin:0 0 14px;">Esegui una sola volta (valida per tutti i repository del tuo utente). Sostituisci i valori tra virgolette con i tuoi:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git config --global user.name &quot;&lt;NOME COGNOME&gt;&quot;
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git config --global user.email &quot;&lt;EMAIL_DEL_TUO_ACCOUNT_GITHUB&gt;&quot;
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git config --global init.defaultBranch main
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;NOME COGNOME&gt;</code> è il nome che comparirà nei commit; l'email è quella associata al tuo account GitHub (se preferisci non esporla, usa l'indirizzo &quot;noreply&quot; mostrato in GitHub → Settings → Emails). L'ultimo comando fa sì che i nuovi repository partano con il branch <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main</code>.</p>
+<p style="margin:0 0 14px;">Su Windows, per evitare avvisi sui fine riga (LF/CRLF) puoi impostare:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git config --global core.autocrlf true
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Verifica la configurazione:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git config --global --list
+</code></pre>
+</div>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">3. Creare un repository di prova su GitHub</h3>
+<p style="margin:0 0 14px;">Per fare pratica senza toccare il progetto vero, crea un repository di prova:</p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Vai su GitHub e scegli <strong>New repository</strong> (pulsante <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">+</code> in alto a destra).</p>
+</li>
+<li><p style="margin:0 0 14px;">Nome: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code>. Visibilità: <strong>Private</strong>.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Non</strong> selezionare &quot;Add a README&quot;, &quot;.gitignore&quot; né licenza.</p>
+</li>
+<li><p style="margin:0 0 14px;">Premi <strong>Create repository</strong>: GitHub mostra la pagina &quot;Quick setup&quot; con l'URL del repository, del tipo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://github.com/&lt;TUO_UTENTE&gt;/git-prova.git</code>.</p>
+</li>
+</ol>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">4. Primo commit e push</h3>
+<p style="margin:0 0 14px;">Nel terminale integrato, dentro <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react/</code>, crea la cartella di prova:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>mkdir git-prova
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>cd git-prova
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Crea un file <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">README.md</code> (con VS Code oppure da terminale). In PowerShell:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">POWERSHELL</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>&quot;# Repository di prova&quot; | Out-File -Encoding utf8 README.md
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">In macOS / Linux:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>echo &quot;# Repository di prova&quot; &gt; README.md
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Inizializza il repository, controlla lo stato e fai il primo commit:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git init
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git status
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git add .
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git commit -m &quot;Primo commit di prova&quot;
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git status</code> mostra file nuovi (untracked) o in staging; <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git add .</code> mette in staging tutto; <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git commit -m</code> salva lo scatto con un messaggio breve e descrittivo (al presente: &quot;Aggiungi README&quot;).</p>
+<p style="margin:0 0 14px;">Collega il remote e invia il branch <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main</code>. Sostituisci l'URL con quello del tuo repository:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git remote add origin &lt;URL_DEL_TUO_REPOSITORY&gt;
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git push -u origin main
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;URL_DEL_TUO_REPOSITORY&gt;</code> è l'URL copiato da GitHub. L'opzione <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">-u</code> ricorda il collegamento tra <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main</code> locale e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">origin/main</code>: dai prossimi push basterà <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code>.</p>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">5. Autenticazione</h3>
+<p style="margin:0 0 14px;">Al primo <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">push</code> Git deve sapere chi sei. Opzioni, in ordine di semplicità:</p>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>Windows / macOS (consigliato):</strong> si apre una finestra del browser: accedi a GitHub e autorizza. Le credenziali vengono salvate dal credential manager del sistema (Git Credential Manager su Windows, Keychain su macOS).</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Personal Access Token (PAT):</strong> GitHub non accetta più la password dell'account per <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">push</code> via HTTPS. Se il browser non è disponibile (per esempio su Linux), crei un token da <em>GitHub → Settings → Developer settings → Personal access tokens</em>, limitato al solo repository e con permesso di scrittura sui contenuti, e lo incolli quando Git chiede la password. Il token è un segreto: non va mai scritto nel codice, nei commit o nei messaggi di chat.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>SSH:</strong> alternativa avanzata con chiavi; non necessaria per il corso.</p>
+</li>
+</ul>
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">6. Modificare, committare e fare pull</h3>
+<p style="margin:0 0 14px;">Aggiungi una riga a <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">README.md</code>, poi esegui:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git add README.md
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git commit -m &quot;Aggiorna README&quot;
+</code></pre>
+</div>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git push
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Per simulare il lavoro da un'altra macchina, modifica il file direttamente su GitHub (pulsante matita → <em>Commit changes</em>) e poi, nel terminale:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git pull
+</code></pre>
+</div>
+<p style="margin:0 0 14px;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git pull</code> scarica il commit fatto su GitHub e aggiorna il file locale. Per rivedere la storia:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">BASH</span>
+<button type="button" class="copy-code-btn" aria-label="Copy code" title="Copy code" style="display:inline-flex; align-items:center; gap:6px; background:transparent; border:0; color:#bfdbfe; cursor:pointer; font-size:12px; padding:4px 6px;"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg><span>Copy</span></button>
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>git log --oneline
+</code></pre>
+</div>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🏦 LipariBank in action</h2>
+<p style="margin:0 0 14px;">Ora crea sul sito GitHub il repository <strong>vero</strong> del progetto, vuoto, che userai nel capitolo 05 per il primo push di LipariBank:</p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;"><strong>New repository</strong> → nome <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Visibilità public, così potrai linkare il tuo progetto e renderlo accessibile per una validazione.</p>
+</li>
+<li><p style="margin:0 0 14px;"><strong>Non</strong> aggiungere README, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">.gitignore</code> né licenza: serve un repository completamente vuoto.</p>
+</li>
+<li><p style="margin:0 0 14px;">Copia l'URL del repository, per esempio <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">https://github.com/&lt;TUO_UTENTE&gt;/liparibank.git</code>, e tienilo a portata di mano.</p>
+</li>
+</ol>
+<p style="margin:0 0 14px;">Il progetto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank/</code> non esiste ancora in locale: lo crei con Vite nel capitolo 05, dove lo collegherai a questo repository con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git remote add</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git commit</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code>.</p>
+<p style="margin:0 0 14px;">Durante il corso salverai il lavoro con commit piccoli e frequenti, per esempio:</p>
+<div data-copy-panel="true" style="background:#0f172a; border:1px solid #1e3a8a; border-radius:8px; overflow:hidden; margin:14px 0 22px;">
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#172554; border-bottom:1px solid #1e3a8a;">
+<span style="font-size:12px; font-weight:600; color:#bfdbfe;">TEXT</span>
+
+</div>
+<pre style="margin:0; padding:18px; overflow-x:auto; color:#e2e8f0; font-family:Consolas, Monaco, monospace; font-size:13px; line-height:1.7; white-space:pre;"><code>Setup iniziale LipariBank
+Aggiungi componente Header
+Completa dashboard Day 1
+</code></pre>
+</div>
+<p style="margin:0 0 14px;">Per i checkpoint ufficiali del corso gli URL e i branch saranno forniti dal docente: dove compaiono, sono segnaposto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">[DA CONFIGURARE: inserire URL reale della repository]</code>.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🧪 Your Turn</h2>
+<p style="margin:0 0 14px;"><strong>Obiettivo:</strong> completare il ciclo Git locale + remoto sul repository di prova e creare il repository <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code>.</p>
+<p style="margin:0 0 14px;"><strong>Requisiti:</strong></p>
+<ol style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Configura <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">user.name</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">user.email</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">init.defaultBranch</code>, e verifica con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git config --global --list</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Crea <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code> su GitHub, crea la cartella locale <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code> in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">corso-react/</code>, fai almeno <strong>due commit</strong> con messaggi diversi e un <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Modifica un file su GitHub e scaricalo con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git pull</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">Esegui <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git log --oneline</code> e verifica che compaiano tutti i commit.</p>
+</li>
+<li><p style="margin:0 0 14px;">Crea il repository vuoto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code> su GitHub e annota l'URL.</p>
+</li>
+</ol>
+<p style="margin:0 0 14px;"><strong>Suggerimento:</strong> se il push chiede credenziali e non si apre il browser, passa al metodo PAT descritto sopra.</p>
+<p style="margin:0 0 14px;"><strong>Risultato atteso:</strong> il repository <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code> su GitHub mostra i tuoi commit; il repository <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code> esiste ed è vuoto.</p>
+<p style="margin:0 0 14px;"><strong>Criteri di completamento:</strong> <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git status</code> in <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code> dice <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">nothing to commit, working tree clean</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code> non segnala errori.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">⚠️ Common Mistakes</h2>
+<table style="width:100%; margin:16px 0 22px; border-collapse:collapse; color:#334155;"><thead>
+<tr><th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Errore</th>
+<th style="padding:10px 12px; border:1px solid #dbeafe; background:#172554; color:#eff6ff; text-align:left; vertical-align:top;">Causa e soluzione</th>
+</tr>
+</thead>
+<tbody><tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Author identity unknown</code> / <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Please tell me who you are</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">user.name</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">user.email</code> non configurati: esegui i comandi <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git config --global</code> della sezione 2.</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">fatal: not a git repository</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Sei nella cartella sbagliata o manca <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git init</code>. Controlla il percorso con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">pwd</code> e spostati nel progetto.</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">error: src refspec main does not match any</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Non esiste ancora nessun commit, oppure il branch si chiama diversamente. Fai un commit e controlla il nome con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git branch</code>; per rinominare: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git branch -M main</code>.</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">remote origin already exists</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Il remote è già impostato. Controlla con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git remote -v</code>; per correggere l'URL: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git remote set-url origin &lt;URL_DEL_TUO_REPOSITORY&gt;</code>.</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Authentication failed</code> / <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">Permission denied</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Credenziali errate o scadute, o token senza permessi di scrittura. Rifai l'accesso dal browser o genera un nuovo token con i permessi corretti; controlla l'URL del repository.</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">repository not found</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">URL sbagliato o repository privato di un altro account. Ricopia l'URL da GitHub.</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">rejected ... (fetch first)</code> / <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">non-fast-forward</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Il remote ha commit che non hai in locale. Esegui <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git pull</code>, risolvi eventuali conflitti e riprova <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code>.</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Conflitto di merge</td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Git segna il file con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">=======</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>: modifica il file tenendo la versione giusta, poi <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git add</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git commit</code>.</td>
+</tr>
+<tr style="background:#ffffff;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;"><code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">detected dubious ownership</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#ffffff; text-align:left; vertical-align:top;">Cartella con proprietario diverso. Se la cartella è tua e sicura: <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git config --global --add safe.directory &lt;PERCORSO_DELLA_CARTELLA&gt;</code>.</td>
+</tr>
+<tr style="background:#f8fafc;"><td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Avviso <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">LF will be replaced by CRLF</code></td>
+<td style="padding:10px 12px; border:1px solid #dbeafe; background:#f8fafc; text-align:left; vertical-align:top;">Normale su Windows: è solo un avviso sui fine riga; la configurazione <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">core.autocrlf true</code> lo gestisce.</td>
+</tr>
+</tbody></table>
+<p style="margin:0 0 14px;">Un errore grave da evitare: <strong>committare un segreto</strong>. Se succede, non basta cancellarlo con un nuovo commit: revoca subito il token dal sito del servizio.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">✅ Checklist</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">☐ <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git --version</code> stampa una versione.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Nome, email e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">init.defaultBranch</code> sono configurati.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So spiegare la differenza tra Git (locale) e GitHub (remoto).</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho fatto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">add</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">commit</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">push</code> e <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">pull</code> su <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git-prova</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ Ho creato il repository vuoto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code> su GitHub e ho annotato l'URL.</p>
+</li>
+<li><p style="margin:0 0 14px;">☐ So che token e password non vanno mai nel codice o nei commit.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">🚀 Challenge</h2>
+<p style="margin:0 0 14px;">Crea un branch con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git switch -c prova-branch</code>, aggiungi un file e fai un commit, poi torna su <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main</code> con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git switch main</code> e osserva che il file non c'è. Fai il merge con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git merge prova-branch</code> e rimuovi il branch con <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git branch -d prova-branch</code>.</p>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h2 style="margin:30px 0 12px; padding-bottom:8px; border-bottom:2px solid #dbeafe; color:#172554; font-size:22px; line-height:1.4;">📌 Recap</h2>
+<ul style="margin:0 0 16px; padding-left:26px;"><li><p style="margin:0 0 14px;">Git registra la storia in locale; GitHub ospita i repository remoti.</p>
+</li>
+<li><p style="margin:0 0 14px;">Il ciclo base è <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git add</code> → <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git commit</code> → <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git push</code>; <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">git pull</code> scarica le novità.</p>
+</li>
+<li><p style="margin:0 0 14px;">Configura una volta nome, email e branch <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">main</code>.</p>
+</li>
+<li><p style="margin:0 0 14px;">L'autenticazione avviene via browser/credential manager o con un token personale, che è un segreto.</p>
+</li>
+<li><p style="margin:0 0 14px;">Mai committare <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">node_modules/</code>, <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">dist/</code>, token o password.</p>
+</li>
+</ul>
+<hr style="margin:24px 0; border:0; border-top:1px solid #e2e8f0;">
+<h3 style="margin:24px 0 10px; color:#1e40af; font-size:18px; line-height:1.4;">➡️ Next</h3>
+<p style="margin:0 0 14px;"><a href="./05_Vite_e_primo_progetto_React.md" style="color:#2563eb;">Capitolo 05 — Vite e primo progetto React</a>: creerai il progetto <code style="padding:2px 5px; background:#f1f5f9; border-radius:4px; color:#1e293b; font-family:Consolas, Monaco, monospace; font-size:0.92em;">liparibank</code>, lo avvierai e lo collegherai al repository GitHub appena creato.</p>
+</div>
+<script>
+(function () {
+  if (window.lipariBankCopyHandlerInstalled) return;
+  window.lipariBankCopyHandlerInstalled = true;
+
+  document.addEventListener('click', async function (event) {
+    var button = event.target.closest('.copy-code-btn');
+    if (!button) return;
+
+    event.preventDefault();
+
+    var panel = button.closest('[data-copy-panel]');
+    if (!panel) panel = button.parentElement.parentElement;
+
+    var code = panel.querySelector('pre code');
+    if (!code) return;
+
+    var value = code.textContent;
+    var originalContent = button.innerHTML;
+    var originalLabel = button.getAttribute('aria-label') || 'Copy code';
+
+    function showSuccess() {
+      button.textContent = 'Copied!';
+      button.setAttribute('aria-label', 'Code copied');
+      window.setTimeout(function () {
+        button.innerHTML = originalContent;
+        button.setAttribute('aria-label', originalLabel);
+      }, 1500);
+    }
+
+    function fallbackCopy() {
+      var textarea = document.createElement('textarea');
+      textarea.value = value;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      var copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (error) {
+        copied = false;
+      }
+
+      document.body.removeChild(textarea);
+
+      if (copied) showSuccess();
+      else button.textContent = 'Copy failed';
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        showSuccess();
+      } else {
+        fallbackCopy();
+      }
+    } catch (error) {
+      fallbackCopy();
+    }
+  });
+})();
+
+</script>

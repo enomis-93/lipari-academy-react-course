@@ -1,0 +1,4 @@
+[
+  { "id": "acc-001", "name": "Conto Corrente", "iban": "IT00 0000 0000 0000 0000 0000 000", "balance": 4250.75, "currency": "EUR" },
+  { "id": "acc-002", "name": "Conto Risparmio", "iban": "IT00 0000 0000 0000 0000 0000 001", "balance": 12800, "currency": "EUR" }
+]
