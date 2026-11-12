@@ -239,7 +239,7 @@ Subito dopo il caricamento pagina c'è un attimo in cui `transactions` è `[]` e
 ---
 
 ## 🚀 Challenge
-Aggiungi `await wait(1000)` nel service (con una funzione `wait(ms)` definita in `src/utils/wait.js`, come nel capitolo successivo) e osserva cosa succede nell'intervallo prima dell'arrivo dei dati.
+Aggiungi `await wait(1000)` nel service (con una funzione `wait(ms)` definita nel file temporaneo `src/utils/wait.js`, come nel capitolo successivo) e osserva cosa succede nell'intervallo prima dell'arrivo dei dati.
 
 ---
 

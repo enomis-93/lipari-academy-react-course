@@ -1,9 +1,9 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 4 · Capitolo 05**
+> **Day 4 · Capitolo 06**
 > **Argomento:** Esercizio — bonifico simulato e saldi ricalcolati (CHECKPOINT 4)
 > **Durata stimata:** 60 minuti
-> **Parte di LipariBank:** `TransferForm` + `validators.js` + `Dashboard` (`handleAddTransfer`, saldo mostrato ricalcolato)
+> **Parte di LipariBank:** `TransferForm` + `validators.js` + `Dashboard` (`handleAddTransfer`, saldo mostrato ricalcolato, focus sul campo da correggere)
 
 ---
 
@@ -18,8 +18,8 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Capitoli 01-04 di questo Day: [Form e Controlled Components](./01_Form_e_Controlled_Components.md), [Input e Select](./02_Input_e_Select.md), [Validazione](./03_Validazione.md), [Submit e Feedback](./04_Submit_e_Feedback.md).
-- Stato del progetto: `TransferForm`, `validators.js`, `handleAddTransfer` funzionanti; i saldi nelle card sono ancora quelli iniziali di `mockData.js`.
+- Capitoli 01-05 di questo Day: [Form e Controlled Components](./01_Form_e_Controlled_Components.md), [Input e Select](./02_Input_e_Select.md), [Validazione](./03_Validazione.md), [Submit e Feedback](./04_Submit_e_Feedback.md), [`useRef`](./05_useRef.md).
+- Stato del progetto: `TransferForm` (con la gestione del focus), `validators.js`, `handleAddTransfer` funzionanti; i saldi nelle card sono ancora quelli iniziali di `mockData.js`.
 
 ---
 
@@ -87,9 +87,10 @@ Completare il bonifico simulato con saldi coerenti in tutta la dashboard.
 6. **Saldi ricalcolati**: le card dei conti, il saldo totale e il "Saldo disponibile" del form mostrano il saldo aggiornato (dato derivato, **nessun** state `balances`).
 7. **Feedback**: conferma con `role="status"` che dichiara che il bonifico è simulato; form azzerato.
 8. **Dati**: solo i beneficiari fittizi di `mockData.js`.
+9. **Focus**: dopo un invio non valido il focus va sul primo campo con errore; dopo un invio riuscito torna sul conto di addebito.
 
 ### Passi suggeriti
-1. Verifica che i requisiti 1-5 e 7 siano già soddisfatti dal capitolo 04.
+1. Verifica che i requisiti 1-5, 7 e 9 siano già soddisfatti dai capitoli 04 e 05.
 2. In `Dashboard.jsx` scrivi `getDisplayedBalance(account, transactions)` (fuori dal componente) e costruisci `accountsWithBalance` con `map`.
 3. Usa `accountsWithBalance` ovunque prima usavi `accounts` (card, totale, form).
 4. Prova gli scenari della tabella sotto.
@@ -100,7 +101,7 @@ Partendo dai dati iniziali (Conto Corrente `4.250,75 €`, Conto Risparmio `12.8
 
 | # | Azione | Risultato atteso |
 |---|---|---|
-| 1 | Invio con form vuoto | 4 errori (conto, beneficiario, importo, causale); nessun movimento |
+| 1 | Invio con form vuoto | 4 errori (conto, beneficiario, importo, causale); nessun movimento; il focus è su "Conto di addebito" |
 | 2 | Importo `0` o `-5` | "L'importo deve essere maggiore di zero." |
 | 3 | Importo `12.345` | errore sui decimali |
 | 4 | Importo `5000` dal Conto Corrente | "Saldo insufficiente sul conto selezionato." |
@@ -111,9 +112,10 @@ Partendo dai dati iniziali (Conto Corrente `4.250,75 €`, Conto Risparmio `12.8
 | 9 | `500` dal Conto Risparmio a Luca Verdi | Conto Risparmio `12.300,00 €`; il Conto Corrente non cambia |
 | 10 | "Nascondi saldi" dopo un bonifico | tutti i saldi `••••••`; i movimenti restano visibili |
 | 11 | Ricarica pagina (F5) | tutto torna ai dati iniziali (simulazione in memoria) |
+| 12 | Conto e beneficiario scelti, importo vuoto, invio | errore sull'importo; il focus è su "Importo (EUR)" |
 
 ### Criteri di completamento
-- Tutti gli 11 scenari producono il risultato atteso.
+- Tutti i 12 scenari producono il risultato atteso.
 - `accounts` (import) e `transactions` non sono mai mutati.
 - Nessun state `balances` o `totalBalance`: sono derivati.
 - Nessun warning in Console; `npm run lint` e `npm run build` senza errori (dentro `liparibank/`).
@@ -132,7 +134,7 @@ npm run build
 
 ### Soluzione di riferimento — parti chiave
 
-Il file `src/utils/validators.js` e `src/components/TransferForm.jsx` sono quelli dei capitoli 03 e 04: **non cambiano**. Funzionano perché ricevono `accounts` già con il saldo aggiornato: ecco il valore del dato derivato calcolato in un solo punto.
+Il file `src/utils/validators.js` è quello del capitolo 03 e `src/components/TransferForm.jsx` quello del capitolo 05: **non cambiano**. Funzionano perché ricevono `accounts` già con il saldo aggiornato: ecco il valore del dato derivato calcolato in un solo punto.
 
 File `src/components/Dashboard.jsx` (versione finale di Day 4):
 
@@ -284,13 +286,12 @@ Perché è corretto:
 | Voce | Contenuto |
 |---|---|
 | **Contenuto iniziale** | Progetto di fine Day 3 (CHECKPOINT 3) più `TransferForm` con campi controllati e `validators.js` (capitoli 01-03) |
-| **Da completare** | Submit con `handleAddTransfer`, conferma, reset e saldi ricalcolati (capitoli 04-05) |
+| **Da completare** | Submit con `handleAddTransfer`, conferma, reset, gestione del focus e saldi ricalcolati (capitoli 04-06) |
 | **Già funzionante** | Selezione conto, filtri, ricerca, preferiti, nascondi saldi, campi del form controllati, validazione per campo |
-| **Come verificare** | Gli 11 scenari della tabella, `npm run lint`, `npm run build` |
-| **Repository** | `[DA CONFIGURARE: inserire URL reale della repository]` |
-| **Branch** | `[DA CONFIGURARE: inserire nome reale del branch]` |
+| **Come verificare** | I 12 scenari della tabella, `npm run lint`, `npm run build` |
+| **Checkpoint del corso** | `liparibank-day-04.zip`, allegato al Day 4 sulla piattaforma |
 
-Come scaricare, avviare e proseguire da una repository (anche la tua) è spiegato nel [capitolo 06](./06_Repository_Checkpoint.md).
+Per scaricare e avviare il checkpoint, o per ripartire da lì, vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
 
 ---
 
@@ -309,7 +310,7 @@ Come scaricare, avviare e proseguire da una repository (anche la tua) è spiegat
 ---
 
 ## ✅ Checklist
-- ☐ Tutti gli 11 scenari della tabella sono verificati.
+- ☐ Tutti i 12 scenari della tabella sono verificati.
 - ☐ Il saldo di card, totale e form è calcolato da `getDisplayedBalance`.
 - ☐ `validateTransfer` usa il saldo mostrato del conto scelto.
 - ☐ La conferma dichiara che il bonifico è simulato.
@@ -332,4 +333,4 @@ Aggiungi un riepilogo prima dell'invio: sotto il form, quando conto, beneficiari
 ---
 
 ### ➡️ Next
-[Capitolo 06 — Repository e Checkpoint](./06_Repository_Checkpoint.md): come clonare una repository del progetto, avviarla, verificarla e pubblicare il tuo lavoro.
+[Day 5 · Side Effects](../Day_05_Effects_API/01_Side_Effects.md): finora i dati arrivavano da un file importato. Impariamo dove mettere il codice che parla con il mondo esterno, per caricare i movimenti in modo asincrono.

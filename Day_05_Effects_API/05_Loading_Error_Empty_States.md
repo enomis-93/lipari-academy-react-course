@@ -228,7 +228,7 @@ import TransactionList from "./TransactionList.jsx";
 
 Il tuo `EmptyState` è quello del Day 2 (props `message` e, opzionale, `hint`). Il caso "nessun risultato per i filtri" resta gestito dal tuo `TransactionList` (stato vuoto interno): quando `visibleTransactions` è vuoto mostra il suo messaggio.
 
-Due limiti noti, accettati per ora: durante il caricamento le `AccountCard` mostrano "Nessun movimento" (il conteggio viene da `transactions`, ancora `[]`); e un "Riprova" sostituisce i movimenti remoti con quelli del file, quindi un eventuale "preferito" impostato nel frattempo su un movimento del JSON si perde (i bonifici locali no). Sono ottimi spunti per le sfide di fine capitolo e per il Day 7.
+Due limiti noti, accettati per ora: durante il caricamento le `AccountCard` mostrano "Nessun movimento" (il conteggio viene da `transactions`, ancora `[]`); e un "Riprova" sostituisce i movimenti remoti con quelli del file, quindi un eventuale "preferito" impostato nel frattempo su un movimento del JSON si perde (i bonifici locali no). Sono ottimi spunti per le sfide di fine capitolo e per i Day 7 e 8.
 
 ### 4. Simulare ritardo ed errore
 Per vedere gli stati devi poterli provocare. Crea `src/utils/wait.js`:

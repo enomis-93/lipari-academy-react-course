@@ -128,7 +128,7 @@
   2. [Input e Select](./Day_04_Forms_User_Input/02_Input_e_Select.md)
   3. [Validazione](./Day_04_Forms_User_Input/03_Validazione.md)
   4. [Submit e feedback](./Day_04_Forms_User_Input/04_Submit_e_Feedback.md)
-  5. [Esercizio — LipariBank Bonifico](./Day_04_Forms_User_Input/05_Esercizio_LipariBank_Bonifico.md)
+  5. [Esercizio — LipariBank Bonifico](./Day_04_Forms_User_Input/06_Esercizio_LipariBank_Bonifico.md)
   6. [Repository checkpoint](./Day_04_Forms_User_Input/06_Repository_Checkpoint.md)
   7. [useRef e focus](./Day_04_Forms_User_Input/07_useRef.md)
 - **Checkpoint 4:** form bonifico (capitoli 05 e 06; il capitolo 06 spiega come proseguire da una repository GitHub).

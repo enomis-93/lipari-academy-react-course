@@ -47,7 +47,7 @@ I nomi seguono la convenzione `[cosa, setCosa]`.
 
 ### Regole degli Hook
 - Si chiamano solo **al livello principale** del componente: mai dentro `if`, cicli o funzioni annidate.
-- Si chiamano solo in Function Components (o in custom hooks, Day 7).
+- Si chiamano solo in Function Components (o in custom hooks, Day 8).
 - Si importano da React: `import { useState } from "react";`.
 
 ### Aggiornamento funzionale

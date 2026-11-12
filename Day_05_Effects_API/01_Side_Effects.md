@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Progetto `liparibank/` allo stato di fine Day 4 (`Dashboard.jsx` con state `transactions`, `selectedAccountId`, `hideBalance`, `filter`, `searchText` e `handleAddTransfer`). Vedi [Day 4 · Repository Checkpoint](../Day_04_Forms_User_Input/06_Repository_Checkpoint.md).
+- Progetto `liparibank/` allo stato di fine Day 4 (`Dashboard.jsx` con state `transactions`, `selectedAccountId`, `hideBalance`, `filter`, `searchText` e `handleAddTransfer`). Vedi [Day 4 · Esercizio Bonifico](../Day_04_Forms_User_Input/06_Esercizio_LipariBank_Bonifico.md).
 - `useState` e re-render ([Day 3 · State e Rerender](../Day_03_State_Events/03_State_e_Rerender.md)).
 
 ---

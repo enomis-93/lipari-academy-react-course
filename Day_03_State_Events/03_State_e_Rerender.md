@@ -164,7 +164,7 @@ Premi "Nascondi saldi" e leggi la Console:
 - `Dashboard` si ridisegna (è lui che possiede lo state);
 - anche i figli (`BalanceCard`, `AccountList`, ogni `AccountCard`, `TransactionList`) vengono rieseguiti, anche se alcuni non mostrano nulla di diverso.
 
-È normale e, per un'app di questa dimensione, economico: React poi aggiorna il DOM solo dove serve. Ottimizzare con `React.memo` è un tema del Day 7 e, di solito, non serve all'inizio.
+È normale e, per un'app di questa dimensione, economico: React poi aggiorna il DOM solo dove serve. Ottimizzare con `React.memo` è un tema del Day 8 e, di solito, non serve all'inizio.
 
 Regola pratica: **lo state sta nel componente più basso che ne ha bisogno** (che sia comune a tutti i consumatori). Ci torniamo nel capitolo [Lifting State Up](./06_Lifting_State_Up.md).
 

@@ -233,7 +233,7 @@ Aggiungi a `src/index.css` un minimo di stile per i campi:
 **Come modificarlo:** aggiungi un campo `executionDate` (`type="date"`) e osserva che basta una chiave in `emptyValues` e un nuovo input con `name="executionDate"`.
 **Cosa evitare:** `name` diverso dalla chiave (es. `name="importo"`): lo state riceverebbe una chiave nuova e il campo `amount` non cambierebbe.
 
-La select dei conti mostra qui `account.balance` dei dati iniziali: nel capitolo [Esercizio Bonifico](./05_Esercizio_LipariBank_Bonifico.md) il saldo mostrato si aggiornerà dopo ogni bonifico simulato.
+La select dei conti mostra qui `account.balance` dei dati iniziali: nel capitolo [Esercizio Bonifico](./06_Esercizio_LipariBank_Bonifico.md) il saldo mostrato si aggiornerà dopo ogni bonifico simulato.
 
 ---
 
