@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 ## 📋 Prerequisiti
 - [Accessibility e Responsive](./03_Accessibility_e_Responsive.md) e [Testing Manuale](./02_Testing_Manuale.md) completati.
 - [Git Workflow](../Day_08_Final_Project/05_Git_Workflow.md): `.gitignore`, mai committare `.env`.
-- [Service Layer e API](../Day_07_Advanced_React_Architecture/06_Service_Layer_e_API.md): `apiClient.js` che usa `import.meta.env.VITE_API_BASE_URL`.
+- [Service Layer e API](../Day_08_Advanced_Hooks_Architecture/03_Service_Layer_e_Error_Boundary.md): `apiClient.js` che usa `import.meta.env.VITE_API_BASE_URL`.
 
 ---
 

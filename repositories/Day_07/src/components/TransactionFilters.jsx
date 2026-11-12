@@ -1,6 +1,34 @@
-export default function TransactionFilters({ filter, searchText, onFilterChange, onSearchChange }) {
-  return <div className="filters">
-    <label>Tipo <select value={filter} onChange={(event) => onFilterChange(event.target.value)}><option value="all">Tutti</option><option value="income">Entrate</option><option value="expense">Uscite</option></select></label>
-    <label>Cerca <input value={searchText} onChange={(event) => onSearchChange(event.target.value)} /></label>
-  </div>;
+const FILTER_OPTIONS = [
+  { value: "all", label: "Tutti" },
+  { value: "income", label: "Entrate" },
+  { value: "expense", label: "Uscite" },
+];
+
+function TransactionFilters({ filter, searchText, onFilterChange, onSearchChange }) {
+  return (
+    <div className="transaction-filters">
+      <div role="group" aria-label="Filtra per tipo di movimento">
+        {FILTER_OPTIONS.map((option) => (
+          <button
+            key={option.value}
+            type="button"
+            aria-pressed={filter === option.value}
+            onClick={() => onFilterChange(option.value)}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+      <label htmlFor="transaction-search">Cerca nei movimenti</label>
+      <input
+        id="transaction-search"
+        type="search"
+        value={searchText}
+        onChange={(event) => onSearchChange(event.target.value)}
+        placeholder="es. stipendio"
+      />
+    </div>
+  );
 }
+
+export default TransactionFilters;

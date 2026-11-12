@@ -7,7 +7,7 @@
 
 ---
 
-Questo modulo offre un'infarinatura sulla manutenzione del codice legacy. Puoi saltarlo e passare direttamente dal Day 6 al [Day 7](../Day_07_Advanced_React_Architecture/01_Context_e_useContext.md).
+Questo modulo offre un'infarinatura sulla manutenzione del codice legacy. Puoi saltarlo e passare direttamente dal Day 6 al [Day 7](../Day_07_Shared_State_Redux/01_Context_e_useContext.md).
 
 ## 🎯 Obiettivo
 Alla fine del capitolo sarai in grado di:

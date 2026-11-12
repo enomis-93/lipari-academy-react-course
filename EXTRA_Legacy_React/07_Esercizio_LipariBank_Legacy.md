@@ -544,4 +544,4 @@ Aggiungi in **entrambe** le versioni un auto-refresh ogni 30 secondi che richiam
 ---
 
 ### ➡️ Next
-Prossimo capitolo (Day 7): [Context e useContext](../Day_07_Advanced_React_Architecture/01_Context_e_useContext.md). Il prop drilling emerso nel Day 6 trova una risposta; riincontrerai la classe nell'Error Boundary.
+Prossimo capitolo (Day 7): [Context e useContext](../Day_07_Shared_State_Redux/01_Context_e_useContext.md). Il prop drilling emerso nel Day 6 trova una risposta; riincontrerai la classe nell'Error Boundary.

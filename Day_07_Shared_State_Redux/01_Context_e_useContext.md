@@ -79,12 +79,15 @@ Non esportiamo il Context grezzo. Esportiamo:
 | Dato usato solo da una pagina | **State locale** + props |
 | Dato trasversale (tema, preferenze, utente, dati condivisi da più pagine) | **Context** |
 | Dato che cambia molto spesso (ogni tasto premuto, ogni frame) | **Non nel Context**: tienilo vicino a chi lo usa |
+| Dati condivisi che cambiano spesso, con molte azioni e molti lettori | **Uno store dedicato** come Redux ([capitolo 03](./03_Redux_Quando_e_Perche.md)) |
 
 ### Il limite: i re-render
 Quando il `value` del Provider cambia, **tutti** i componenti che chiamano `useContext` su quel Context si ri-renderizzano, anche se leggono solo una parte del valore. Mitigazioni:
 - Context piccoli e separati per argomento (impostazioni da una parte, dati bancari dall'altra);
-- `value` stabile (lo vedremo nel [cap. 04](./04_Memoization.md));
+- `value` stabile (lo vedremo nel [Day 8 · Memoization](../Day_08_Advanced_Hooks_Architecture/02_Memoization.md));
 - non mettere nel Context dati che cambiano di continuo.
+
+Questo limite è il motivo per cui, per i dati che cambiano spesso e che molte pagine leggono, esistono strumenti dedicati. Lo misureremo sul nostro codice nel [capitolo 03](./03_Redux_Quando_e_Perche.md).
 
 ---
 
@@ -122,7 +125,7 @@ export function useSettings() {
 }
 ```
 
-`useCallback` e `useMemo` servono a mantenere stabili la funzione e l'oggetto `value`: per ora leggili come "mantieni la stessa identità finché le dipendenze non cambiano". Li spiegheremo bene nel [cap. 04](./04_Memoization.md), dove vedremo anche perché qui non sono indispensabili.
+`useCallback` e `useMemo` servono a mantenere stabili la funzione e l'oggetto `value`: per ora leggili come "mantieni la stessa identità finché le dipendenze non cambiano". Li spiegheremo bene nel [Day 8 · Memoization](../Day_08_Advanced_Hooks_Architecture/02_Memoization.md), dove vedremo anche perché qui non sono indispensabili.
 
 Il Context ha `null` come default: se qualcuno usa `useSettings` fuori dal Provider riceve un errore chiaro invece di un misterioso "cannot destructure property of null".
 
@@ -215,7 +218,7 @@ La preferenza "nascondi saldo" è un buon candidato per il Context perché è **
 
 Risultato: la prop `hideBalance`/`hidden` sparisce da `BalanceCard`, `AccountCard` e `AccountList`: un livello di prop drilling in meno.
 
-Cambio di comportamento **voluto** di questo capitolo: ora la preferenza resta valida navigando tra le pagine. Nel [cap. 03](./03_Custom_Hooks.md) la renderemo persistente anche dopo il ricaricamento.
+Cambio di comportamento **voluto** di questo capitolo: ora la preferenza resta valida navigando tra le pagine. Nel [Day 8 · Custom Hooks](../Day_08_Advanced_Hooks_Architecture/01_Custom_Hooks.md) la renderemo persistente anche dopo il ricaricamento.
 
 Cosa **non** mettiamo nel Context: `searchText` e `filter` (servono a una sola pagina, state locale), i valori del form bonifico (servono solo a `TransferForm`).
 
@@ -247,7 +250,7 @@ Per ciascun dato scegli: *props*, *state locale* o *Context*. Poi confronta con 
 3. `transactions`, `isLoading`, `error` (usati da dashboard, conti e movimenti).
 4. Il valore dell'input "importo" del bonifico.
 
-Risposta di riferimento: 1 → state locale + props (1-2 livelli); 2 → state locale; 3 → Context (condiviso tra più pagine, lo faremo nel [cap. 02](./02_useReducer.md)); 4 → state locale (o custom hook, [cap. 03](./03_Custom_Hooks.md)).
+Risposta di riferimento: 1 → state locale + props (1-2 livelli); 2 → state locale; 3 → condiviso tra più pagine: nel [cap. 02](./02_useReducer.md) lo metteremo in un Context, e nel [cap. 03](./03_Redux_Quando_e_Perche.md) valuteremo se è la scelta migliore; 4 → state locale (o custom hook, [Day 8](../Day_08_Advanced_Hooks_Architecture/01_Custom_Hooks.md)).
 
 ---
 

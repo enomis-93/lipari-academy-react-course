@@ -1,3 +1,8 @@
-export default function LoadingMessage() {
-  return <p role="status">Caricamento dei movimenti...</p>;
+export default function LoadingMessage({ message = "Caricamento in corso..." }) {
+  return (
+    <div className="loading-message" role="status">
+      <span className="loading-spinner" aria-hidden="true" />
+      <span>{message}</span>
+    </div>
+  );
 }

@@ -195,14 +195,14 @@
 - **Obiettivo:** Context, `useReducer`, custom hooks, memoization (con giudizio), service layer e struttura del progetto.
 - **Prerequisiti:** Day 6 (routing). L'extra React Legacy è facoltativo; l'Error Boundary è spiegato nel capitolo 06.
 - **Capitoli:**
-  1. [Context e useContext](./Day_07_Advanced_React_Architecture/01_Context_e_useContext.md)
-  2. [useReducer](./Day_07_Advanced_React_Architecture/02_useReducer.md)
-  3. [Custom Hooks](./Day_07_Advanced_React_Architecture/03_Custom_Hooks.md)
-  4. [Memoization](./Day_07_Advanced_React_Architecture/04_Memoization.md)
-  5. [Architettura del progetto](./Day_07_Advanced_React_Architecture/05_Architettura_del_Progetto.md)
-  6. [Service layer e API](./Day_07_Advanced_React_Architecture/06_Service_Layer_e_API.md)
-  7. [Esercizio — Refactoring LipariBank](./Day_07_Advanced_React_Architecture/07_Esercizio_Refactoring_LipariBank.md)
-  8. [Redux Toolkit](./Day_07_Advanced_React_Architecture/08_Redux_Toolkit.md)
+  1. [Context e useContext](./Day_07_Shared_State_Redux/01_Context_e_useContext.md)
+  2. [useReducer](./Day_07_Shared_State_Redux/02_useReducer.md)
+  3. [Custom Hooks](./Day_08_Advanced_Hooks_Architecture/01_Custom_Hooks.md)
+  4. [Memoization](./Day_08_Advanced_Hooks_Architecture/02_Memoization.md)
+  5. [Architettura del progetto](./Day_08_Advanced_Hooks_Architecture/04_Architettura_del_Progetto.md)
+  6. [Service layer e API](./Day_08_Advanced_Hooks_Architecture/03_Service_Layer_e_Error_Boundary.md)
+  7. [Esercizio — Refactoring LipariBank](./Day_08_Advanced_Hooks_Architecture/05_Esercizio_Refactoring_LipariBank.md)
+  8. [Redux Toolkit](./Day_07_Shared_State_Redux/06_Esercizio_Migrazione_a_Redux.md)
 - **Checkpoint:** refactoring (capitolo 07), poi Redux (capitolo 08).
 - **Risultato atteso:** Context + reducer per i dati bancari, Redux Toolkit per una preferenza condivisa, hook dedicati e service layer.
 

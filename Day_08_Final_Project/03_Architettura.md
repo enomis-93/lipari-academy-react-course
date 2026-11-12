@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Requirements Funzionali](./02_Requirements_Funzionali.md).
-- Day 7: [Architettura del Progetto](../Day_07_Advanced_React_Architecture/05_Architettura_del_Progetto.md) e [Service Layer e API](../Day_07_Advanced_React_Architecture/06_Service_Layer_e_API.md).
+- Day 7: [Architettura del Progetto](../Day_08_Advanced_Hooks_Architecture/04_Architettura_del_Progetto.md) e [Service Layer e API](../Day_08_Advanced_Hooks_Architecture/03_Service_Layer_e_Error_Boundary.md).
 
 ---
 

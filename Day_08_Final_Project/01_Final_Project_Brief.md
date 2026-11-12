@@ -17,7 +17,7 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Day 7 completato: [Redux Toolkit](../Day_07_Advanced_React_Architecture/08_Redux_Toolkit.md), dopo l'esercizio di refactoring.
+- Day 7 completato: [Redux Toolkit](../Day_07_Shared_State_Redux/06_Esercizio_Migrazione_a_Redux.md), dopo l'esercizio di refactoring.
 - Progetto `liparibank/` funzionante con `npm run dev` (Node 22 LTS, React 19, Vite 8, React Router v7 declarative).
 - Stato atteso: `BankContext` e `SettingsContext`, custom hooks in `src/hooks/`, service layer in `src/services/`, router con `src/pages/` e `src/layouts/`, Error Boundary.
 

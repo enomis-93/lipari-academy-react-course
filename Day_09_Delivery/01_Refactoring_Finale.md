@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 ## 📋 Prerequisiti
 - Day 8 completato: tutti i requisiti Must soddisfatti ([Requirements](../Day_08_Final_Project/02_Requirements_Funzionali.md)).
 - Repository con lavoro committato (`git status` pulito): il refactoring si fa su un branch `refactor/final-cleanup`.
-- [Memoization](../Day_07_Advanced_React_Architecture/04_Memoization.md): per non ottimizzare senza motivo.
+- [Memoization](../Day_08_Advanced_Hooks_Architecture/02_Memoization.md): per non ottimizzare senza motivo.
 
 ---
 
@@ -207,7 +207,7 @@ Dopo ogni commit esegui `npm run lint` e un giro rapido nell'app (dashboard → 
 - **Refactoring senza verificare**: ogni passo va controllato nel browser.
 - **Cambiare comportamento "già che ci sono"**: separa `refactor` da `fix`/`feat`.
 - **`sort` direttamente sull'array dello state**: muta lo state; copia con `[...array]`.
-- **Aggiungere `useMemo`/`useCallback` per "pulire"**: non è refactoring e spesso non serve (vedi [Memoization](../Day_07_Advanced_React_Architecture/04_Memoization.md)).
+- **Aggiungere `useMemo`/`useCallback` per "pulire"**: non è refactoring e spesso non serve (vedi [Memoization](../Day_08_Advanced_Hooks_Architecture/02_Memoization.md)).
 - **Silenziare il lint** con commenti o regole disattivate invece di correggere.
 - **Eliminare un file senza controllare gli import**: se la build si rompe, `npm run build` o `npm run dev` ti indicano il file mancante.
 

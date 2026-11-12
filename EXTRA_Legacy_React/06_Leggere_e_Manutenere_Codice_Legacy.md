@@ -71,7 +71,7 @@ export default withBalance(AccountCard);
 
 **`createReactClass` e mixins** (React ≤ 15, `React.createClass` rimosso in React 16): oggetti con `getInitialState`, `mixins: [...]`. Se li incontri, il progetto è molto vecchio e richiede aggiornamenti graduali.
 
-**Redux `connect`:** `export default connect(mapStateToProps, mapDispatchToProps)(Component)`: collega il componente a uno store esterno. Riconosci le props iniettate dallo store; nel [Day 7](../Day_07_Advanced_React_Architecture/08_Redux_Toolkit.md) useremo gli hook moderni.
+**Redux `connect`:** `export default connect(mapStateToProps, mapDispatchToProps)(Component)`: collega il componente a uno store esterno. Riconosci le props iniettate dallo store; nel [Day 7](../Day_07_Shared_State_Redux/06_Esercizio_Migrazione_a_Redux.md) useremo gli hook moderni.
 
 Tutti questi pattern si sostituiscono, in codice nuovo, con **custom hooks** (e `useContext`/`useReducer`, Day 7). Non vanno riscritti solo per moda.
 

@@ -349,4 +349,4 @@ Fai sparire il messaggio "Bonifico simulato registrato." dopo 4 secondi usando u
 ---
 
 ### ➡️ Next
-[Day 7 · Capitolo 01 — Context e useContext](../Day_07_Advanced_React_Architecture/01_Context_e_useContext.md): eliminiamo il passaggio di props tra `App` e le pagine condividendo lo stato, prima con Context e poi con Redux. L'[extra React Legacy](../EXTRA_Legacy_React/01_React_Moderno_vs_Legacy.md) è facoltativo.
+[Day 7 · Capitolo 01 — Context e useContext](../Day_07_Shared_State_Redux/01_Context_e_useContext.md): eliminiamo il passaggio di props tra `App` e le pagine condividendo lo stato, prima con Context e poi con Redux. L'[extra React Legacy](../EXTRA_Legacy_React/01_React_Moderno_vs_Legacy.md) è facoltativo.
