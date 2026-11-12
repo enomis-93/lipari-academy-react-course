@@ -265,7 +265,7 @@ function AccountCard({ account, transactionCount }) {
 export default AccountCard;
 ```
 
-Aggiorna le due card in `Dashboard.jsx` passando il conteggio. Soluzione **provvisoria** (nel capitolo 05 la sostituiremo con un `map`):
+Aggiorna le due card in `Dashboard.jsx` passando il conteggio. Versione **provvisoria** (nel capitolo 05 la sostituiremo con un `map`):
 
 ```jsx
 const countTransactions = (accountId) =>

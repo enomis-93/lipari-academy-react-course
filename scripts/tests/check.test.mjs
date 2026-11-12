@@ -127,3 +127,23 @@ test("senza checkpoint non controlla i percorsi", () => {
   const root = makeCourse({ "Day_01_A/01_x.md": chapter({ extra: "Crea `src/a.js`." }), "Day_01_A/02_y.md": chapter({ next: false }) });
   assert.deepEqual(rulesOf(root), []);
 });
+
+test("accetta i file di un'estensione facoltativa", () => {
+  const root = makeCourse({
+    "Day_01_A/01_x.md": chapter({ extra: "Estensione facoltativa: crea `src/components/Extra.jsx`." }),
+    "Day_01_A/02_y.md": chapter({ next: false }),
+    "repositories/Day_01/src/App.jsx": "x",
+  });
+  assert.deepEqual(rulesOf(root), []);
+});
+
+test("segnala il codice mostrato dopo 'Prova prima da solo' senza un titolo Soluzione", () => {
+  const quote = "> ⚠️ **Prova prima da solo**\n>\n> La soluzione è qui sotto.\n\n";
+  const code = `${fence}jsx\nconst a = 1;\n${fence}`;
+  const root = makeCourse({
+    "Day_01_A/01_x.md": chapter({ extra: quote + code }),
+    "Day_01_A/02_y.md": chapter({ extra: `${quote}### Soluzione di riferimento\n\n${code}`, next: false }),
+  });
+  const problems = checkCourse({ root }).problems;
+  assert.deepEqual(problems.map((problem) => `${problem.file}:${problem.rule}`), ["Day_01_A/01_x.md:soluzione"]);
+});

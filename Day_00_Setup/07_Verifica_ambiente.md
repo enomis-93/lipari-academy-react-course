@@ -1,6 +1,6 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 0 · Capitolo 06**
+> **Day 0 · Capitolo 07**
 > **Argomento:** Verifica dell'ambiente
 > **Durata stimata:** 20 minuti
 > **Parte di LipariBank:** controllo finale del progetto `liparibank/` prima di iniziare il Day 1
@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Capitoli [01](./01_Introduzione_al_corso.md), [02](./02_Node_NPM.md), [03](./03_VS_Code.md), [04](./04_Git_GitHub.md) e [05](./05_Vite_e_primo_progetto_React.md) completati.
+- Capitoli [01](./01_Introduzione_al_corso.md), [02](./02_Node_NPM.md), [03](./03_VS_Code.md), [04](./04_Git_GitHub.md), [05](./05_Vite_e_primo_progetto_React.md) e [06](./06_Come_usare_i_checkpoint.md) completati.
 - Progetto `liparibank/` creato, ridotto alla pagina minima (`src/App.jsx` con titolo e paragrafo) e collegato a GitHub.
 
 ---
@@ -204,7 +204,7 @@ git tag day-00-setup
 git push origin day-00-setup
 ```
 
-Il nome del tag è un suggerimento per la tua repository personale; potrai tornare a questo punto del progetto in qualsiasi momento. Per le repository ufficiali del corso (checkpoint dei giorni successivi) gli indirizzi saranno forniti dal docente: dove compaiono, sono segnaposto `[DA CONFIGURARE: inserire URL reale della repository]` e `[DA CONFIGURARE: inserire nome reale del branch]`.
+Il nome del tag è un suggerimento per la tua repository personale; potrai tornare a questo punto del progetto in qualsiasi momento. Il checkpoint del corso per questo punto è `liparibank-day-00.zip`: vedi [Come usare i checkpoint](./06_Come_usare_i_checkpoint.md).
 
 ---
 

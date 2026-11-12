@@ -25,7 +25,7 @@ const REQUIRED_SECTIONS = [
   "📌 Recap",
 ];
 const OPTIONAL_IN_EXERCISES = new Set(["💻 Let's Code"]);
-const TEMPORARY_FILE = /elimin|temporane|di prova|rimuov|file di esercizio|didattico/i;
+const TEMPORARY_FILE = /elimin|temporane|di prova|rimuov|file di esercizio|didattico|facoltativ/i;
 const PROJECT_PATH = /\b((?:src|public)\/[\w./-]+\.(?:jsx?|css|json|html|svg|png))\b/g;
 
 const toPosix = (value) => value.split(path.sep).join("/");
@@ -118,6 +118,25 @@ function checkFences(source, prose, openings, report) {
       report("soluzione", `Soluzione senza titolo "Soluzione…" (riga ${previous + 1})`);
     }
   }
+
+  // Dopo l'invito "Prova prima da solo" il codice deve stare sotto un titolo "Soluzione…":
+  // è quel titolo a farlo finire nell'accordion chiuso della pagina generata.
+  const fenceLines = new Set(openings.map((opening) => opening.line));
+  prose.forEach((line, index) => {
+    if (!/^>.*Prova prima da solo/i.test(line)) return;
+    let cursor = index + 1;
+    while (cursor < prose.length && (prose[cursor].startsWith(">") || prose[cursor].trim() === "")) {
+      if (fenceLines.has(cursor)) break;
+      cursor += 1;
+    }
+    for (; cursor < prose.length; cursor += 1) {
+      if (/^#{1,6} /.test(prose[cursor]) || /^---\s*$/.test(prose[cursor])) return;
+      if (fenceLines.has(cursor)) {
+        report("soluzione", `Codice dopo "Prova prima da solo" senza titolo "Soluzione…" (riga ${cursor + 1})`);
+        return;
+      }
+    }
+  });
 }
 
 function checkProjectPaths(chapter, source, checkpoints, report) {

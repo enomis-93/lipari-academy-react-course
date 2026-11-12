@@ -208,6 +208,8 @@ La separazione è chiara:
 >
 > La soluzione parziale per `Card` è qui sotto: guardala dopo aver tentato.
 
+### Soluzione di riferimento — `Card` con il footer
+
 ```jsx
 function Card({ title, footer, children }) {
   return (

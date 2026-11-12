@@ -347,4 +347,4 @@ Avvia il server con una porta diversa, cercando nella guida di Vite l'opzione co
 ---
 
 ### ➡️ Next
-[Capitolo 06 — Verifica ambiente](./06_Verifica_ambiente.md): una checklist completa per confermare che tutto funzioni prima del Day 1.
+[Capitolo 06 — Come usare i checkpoint](./06_Come_usare_i_checkpoint.md): impari a scaricare e avviare una versione di riferimento del progetto, da usare quando resti bloccato.

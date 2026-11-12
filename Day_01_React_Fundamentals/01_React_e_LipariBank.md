@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Ambiente pronto: [Day 0 · Verifica ambiente](../Day_00_Setup/06_Verifica_ambiente.md).
+- Ambiente pronto: [Day 0 · Verifica ambiente](../Day_00_Setup/07_Verifica_ambiente.md).
 - Progetto `liparibank/` creato con Vite ([Day 0 · Vite e primo progetto React](../Day_00_Setup/05_Vite_e_primo_progetto_React.md)): `npm run dev` funziona e `src/App.jsx` mostra la pagina minima "LipariBank" (un `h1` e un paragrafo).
 - Basi di JavaScript. Se ti servono ripassi, usa la sezione [Extra JavaScript Essentials](../Extra_JavaScript_Essentials/01_Variables_Types.md).
 

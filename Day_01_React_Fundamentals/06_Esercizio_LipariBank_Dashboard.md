@@ -347,11 +347,10 @@ export default App;
 
 ### CHECKPOINT 1 — Prima dashboard
 
-Puoi proseguire dal tuo progetto o da una repository di riferimento, se disponibile.
+Puoi proseguire dal tuo progetto oppure ripartire dal checkpoint del giorno.
 
-- **Repository del corso:** `[DA CONFIGURARE: inserire URL reale della repository]`
-- **Branch/tag:** `[DA CONFIGURARE: inserire nome reale del branch]`
-- **Alternativa:** la **tua repository** creata nel [Day 0 · Git e GitHub](../Day_00_Setup/04_Git_GitHub.md). Suggerimento di nome per il tag: `checkpoint-1-prima-dashboard`.
+- **Checkpoint del corso:** `liparibank-day-01.zip`, allegato al Day 1 sulla piattaforma. Per usarlo vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
+- **La tua repository:** quella creata nel [Day 0 · Git e GitHub](../Day_00_Setup/04_Git_GitHub.md). Suggerimento di nome per il tag: `checkpoint-1-prima-dashboard`.
 
 | Domanda | Risposta |
 | --- | --- |

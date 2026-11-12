@@ -49,8 +49,10 @@ Il corso porta da zero a un'applicazione React completa. Al termine saprai:
 - realizzare form con validazione;
 - recuperare dati in modo asincrono (`fetch`) e gestire loading, errori e assenza di dati;
 - usare React Router per la navigazione tra pagine;
-- organizzare il progetto in componenti, hooks, servizi e moduli; usare Context, `useReducer` e custom hooks;
-- leggere e manutenere codice legacy con Class Components;
+- spiegare come React aggiorna la pagina: Virtual DOM e riconciliazione;
+- condividere lo stato con Context e `useReducer`, e scegliere quando passare a Redux Toolkit;
+- organizzare il progetto in componenti, custom hooks, servizi e moduli;
+- (facoltativo) leggere e manutenere codice legacy con Class Components;
 - lavorare con Git e GitHub e consegnare un'applicazione documentata.
 
 ### Struttura del corso
@@ -61,14 +63,14 @@ Il corso porta da zero a un'applicazione React completa. Al termine saprai:
 | Extra | `Extra_JavaScript_Essentials/` | JavaScript necessario per React, da consultare quando serve |
 | Day 1 | `Day_01_React_Fundamentals/` | JSX, Function Components, composizione, prima dashboard |
 | Day 2 | `Day_02_Components_Props/` | Props, children, liste, rendering condizionale, conti |
-| Day 3 | `Day_03_State_Events/` | Eventi, `useState`, immutabilità, lifting state up |
-| Day 4 | `Day_04_Forms_User_Input/` | Controlled components, validazione, bonifico simulato e useRef |
+| Day 3 | `Day_03_State_Events/` | Eventi, `useState`, re-render, Virtual DOM e riconciliazione, immutabilità, lifting state up |
+| Day 4 | `Day_04_Forms_User_Input/` | Controlled components, validazione, `useRef`, bonifico simulato |
 | Day 5 | `Day_05_Effects_API/` | `useEffect`, `fetch`, loading/error/empty |
 | Day 6 | `Day_06_Routing/` | React Router, rotte dinamiche, 404, nested routes |
-| Extra | `EXTRA_Legacy_React/` | Facoltativo: Class Components e codice legacy |
-| Day 7 | `Day_07_Advanced_React_Architecture/` | Context, reducer, custom hooks, memoization, service layer e Redux Toolkit |
-| Day 8 | `Day_08_Final_Project/` | Progetto finale: requisiti, architettura, piano |
-| Day 9 | `Day_09_Delivery/` | Refactoring, test manuali, build, deploy, consegna |
+| Day 7 | `Day_07_Shared_State_Redux/` | Stato condiviso: Context, `useReducer`, Redux Toolkit |
+| Day 8 | `Day_08_Advanced_Hooks_Architecture/` | Custom hooks, memoization, service layer, Error Boundary, architettura |
+| Day 9 | `Day_09_Final_Project_Delivery/` | Progetto finale: requisiti, piano, test, build, deploy, consegna |
+| Extra | `Extra_Legacy_React/` | Facoltativo: Class Components e codice legacy |
 
 La mappa completa dei capitoli è in [COURSE_MAP.md](../COURSE_MAP.md).
 
@@ -88,7 +90,7 @@ Ogni capitolo segue lo stesso ritmo: **Spiega → Mostra → Fai provare → Ver
 > Scrivi il codice a mano invece di limitarti a leggerlo: gli errori che incontri sono parte dell'apprendimento. Copia e incolla i soli comandi e le configurazioni lunghe.
 
 ### Regole del corso
-- **Linguaggio:** JavaScript (non TypeScript). Function Components e Hooks per lo sviluppo nuovo; le classi si approfondiscono nell'extra React Legacy e sono usate per l'Error Boundary del Day 7.
+- **Linguaggio:** JavaScript (non TypeScript). Function Components e Hooks per lo sviluppo nuovo; le classi si approfondiscono nell'extra React Legacy e sono usate per l'Error Boundary del Day 8.
 - **Versioni di riferimento:** Node.js 22 LTS, React 19, Vite 8, React Router 7 (modalità declarative). Le versioni esatte installate sono in `package.json`.
 - **Dati:** tutti i dati bancari sono fittizi. Non inserire mai dati reali, credenziali o token nel codice o nei commit.
 - **Cartelle:** i percorsi nei capitoli (es. `src/components/Header.jsx`) sono sempre relativi alla cartella del progetto `liparibank/`. Per ogni comando viene indicata la cartella da cui lanciarlo.
@@ -143,9 +145,9 @@ Come evolve il progetto:
 | 4 | Form per un bonifico simulato con validazione |
 | 5 | Caricamento asincrono dei movimenti (loading, errore, vuoto) |
 | 6 | Navigazione tra dashboard, conti, movimenti e bonifico |
-| 7 | Lettura e migrazione di un modulo legacy con Class Components |
-| 8 | Refactoring: Context, reducer, custom hooks, service layer |
-| 9-10 | Progetto finale, test, documentazione e consegna |
+| 7 | Stato condiviso: prima Context e reducer, poi la migrazione a Redux Toolkit |
+| 8 | Refactoring: custom hooks, memoization, service layer, struttura finale |
+| 9 | Progetto finale: funzionalità mancanti, test, documentazione e consegna |
 
 Nessuna operazione è reale: nessun backend bancario, nessuna autenticazione vera, nessun servizio esterno.
 
@@ -167,7 +169,7 @@ Nessuna operazione è reale: nessun backend bancario, nessuna autenticazione ver
 ---
 
 ## ⚠️ Common Mistakes
-- **Saltare Day 0:** quasi tutti i problemi dei Day successivi nascono da un ambiente configurato male. Completa anche [la verifica finale](./06_Verifica_ambiente.md).
+- **Saltare Day 0:** quasi tutti i problemi dei Day successivi nascono da un ambiente configurato male. Completa anche [la verifica finale](./07_Verifica_ambiente.md).
 - **Cartella di lavoro in OneDrive o con spazi/accenti nel percorso:** causa errori di permessi e percorsi con `npm`. Usa un percorso semplice.
 - **Copiare senza capire:** se un esempio funziona ma non sai spiegarlo, rileggi la sezione Theory prima di proseguire.
 - **Confondere versioni:** gli esempi sono coerenti con React 19 e Vite 8. Tutorial trovati online con versioni diverse possono usare API differenti.
@@ -191,7 +193,7 @@ Disegna a mano una dashboard bancaria con: nome cliente, saldo totale, elenco de
 ## 📌 Recap
 - Il corso porta da zero a un'app React completa in Day 0 + 9 giorni, con due sezioni Extra facoltative.
 - Tutti gli esempi ruotano attorno a un solo progetto: **LipariBank**, una banca fittizia.
-- Si usano JavaScript, Function Components e Hooks; le classi si approfondiscono nell'extra React Legacy e si usano per l'Error Boundary del Day 7.
+- Si usano JavaScript, Function Components e Hooks; le classi si approfondiscono nell'extra React Legacy e si usano per l'Error Boundary del Day 8.
 - Ogni capitolo ha lo stesso ritmo e la stessa struttura; i dati sono sempre fittizi.
 
 ---

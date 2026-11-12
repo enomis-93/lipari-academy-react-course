@@ -2,7 +2,7 @@
 
 > **Day 1 · Capitolo 03**
 > **Argomento:** JSX
-> **Durata stimata:** 25 minuti
+> **Durata stimata:** 30 minuti
 > **Parte di LipariBank:** la sintassi con cui descriveremo ogni elemento della dashboard
 
 ---
@@ -11,6 +11,7 @@
 Alla fine del capitolo sarai in grado di:
 
 - scrivere JSX valido rispettando le sue regole (radice unica, `className`, tag chiusi);
+- spiegare che cos'è un Fragment e perché non aggiunge nodi al DOM;
 - inserire valori JavaScript nel JSX con `{ }`;
 - applicare stili inline con oggetti JavaScript;
 - individuare e correggere gli errori di JSX più frequenti.
@@ -41,7 +42,7 @@ Il **JSX** è una sintassi che assomiglia all'HTML ma vive dentro JavaScript. No
 
 ### Le regole fondamentali
 
-1. **Un solo elemento radice.** Un componente restituisce un unico elemento. Per restituirne più di uno usa un contenitore oppure un **Fragment** `<>...</>` (non aggiunge nodi al DOM).
+1. **Un solo elemento radice.** Un componente restituisce un unico elemento. Per restituirne più di uno usa un contenitore oppure un **Fragment** `<>...</>`.
 2. **Tutti i tag vanno chiusi.** I tag senza contenuto si scrivono auto-chiudenti: `<input />`, `<img />`, `<br />`.
 3. **`className` al posto di `class`**, **`htmlFor` al posto di `for`**. Gli altri attributi sono in camelCase: `tabIndex`, `onClick`, `maxLength`.
 4. **Espressioni JavaScript tra graffe** `{ }`: variabili, chiamate di funzione, operazioni, ternari. Non puoi inserire *istruzioni* (`if`, `for`).
@@ -52,6 +53,20 @@ Il **JSX** è una sintassi che assomiglia all'HTML ma vive dentro JavaScript. No
 > 💡 **Remember**
 >
 > `{ }` significa "qui dentro c'è JavaScript". Dove React si aspetta del testo o degli elementi puoi usare qualunque *espressione* che produca un valore.
+
+### Fragment: raggruppare senza aggiungere nodi
+Perché una sola radice? Un componente è una funzione, e una funzione restituisce **un** valore. Due elementi affiancati sarebbero due valori.
+
+La soluzione più ovvia è avvolgerli in un `<div>`. Funziona, ma quel `<div>` finisce davvero nella pagina: un nodo in più che non significa nulla, che può rompere un layout (i figli di un contenitore flex o grid non sono più quelli che ti aspetti) o una struttura obbligata come le righe di una tabella.
+
+Il **Fragment** risolve il problema: raggruppa gli elementi per React **senza creare alcun nodo nel DOM**. Ha due forme equivalenti:
+
+| Forma | Quando usarla |
+|---|---|
+| `<>...</>` | Quasi sempre: è la forma breve. Non accetta attributi. |
+| `<Fragment>...</Fragment>` | Quando serve l'attributo `key`, cioè nelle liste (lo vedremo nel [Day 2](../Day_02_Components_Props/05_Liste_e_Keys.md)). Va importato da `react`. |
+
+Regola pratica: se il contenitore ha un significato (una sezione, un elenco, qualcosa a cui dare una classe CSS) usa un vero elemento; se serve solo a "tenere insieme" due elementi, usa un Fragment.
 
 ### Cosa si può renderizzare
 Stringhe e numeri vengono mostrati. `true`, `false`, `null` e `undefined` **non** producono nulla. Un oggetto "semplice" (come `{ id: 1 }`) **non** si può mettere come figlio: React segnala un errore.
@@ -88,6 +103,25 @@ function App() {
 
 export default App;
 ```
+
+La forma estesa è identica nel risultato, ma richiede l'import:
+
+```jsx
+import { Fragment } from "react";
+
+function App() {
+  return (
+    <Fragment>
+      <h1>LipariBank</h1>
+      <p>Dashboard</p>
+    </Fragment>
+  );
+}
+
+export default App;
+```
+
+**Verifica nel browser.** Apri gli strumenti di sviluppo (`F12`), tab *Elements*: dentro `<div id="root">` trovi direttamente `<h1>` e `<p>`, senza alcun contenitore. Ora sostituisci il Fragment con `<div>...</div>` e guarda di nuovo: è comparso un nodo in più. Ripristina il Fragment.
 
 ### Espressioni, attributi e stili
 Codice completo per `src/App.jsx`:
@@ -196,7 +230,9 @@ function App() {
 >
 > La soluzione è qui sotto: guardala solo dopo aver tentato.
 
-Elenco degli errori: radice multipla, `class`, `<b>` non chiuso, `for`, `<input>` non auto-chiuso, `style` come stringa, commento HTML, `export default` mancante. Soluzione:
+### Soluzione di riferimento
+
+Elenco degli errori: radice multipla, `class`, `<b>` non chiuso, `for`, `<input>` non auto-chiuso, `style` come stringa, commento HTML, `export default` mancante.
 
 ```jsx
 function App() {
@@ -223,6 +259,8 @@ export default App;
 - **`class` e `for`** → usa `className` e `htmlFor`.
 - **Dimenticare la chiusura di un tag** (`<input>`, `<img>`, `<br>`) → `<input />`.
 - **Due elementi radice** → Fragment `<>...</>`.
+- **Attributi sul Fragment breve** (`<className="box">`) → `<>` non ne accetta: se serve una classe usa un vero elemento, se serve una `key` usa `<Fragment key={...}>`.
+- **Un `<div>` in più "per sicurezza"** → ogni contenitore inutile è un nodo in più nella pagina: se non ha un significato, usa un Fragment.
 - **Oggetto come figlio** (`{account}`) → mostra le singole proprietà.
 - **`style` come stringa** → oggetto con doppie graffe e camelCase.
 - **Commento `//` o `<!-- -->` nel JSX** → `{/* ... */}`.
@@ -232,6 +270,7 @@ export default App;
 
 ## ✅ Checklist
 - ☐ So perché serve un solo elemento radice e cos'è un Fragment.
+- ☐ Ho verificato negli strumenti di sviluppo che il Fragment non aggiunge nodi.
 - ☐ Uso `className`, `htmlFor` e tag auto-chiudenti.
 - ☐ So inserire variabili ed espressioni con `{ }`.
 - ☐ So scrivere uno stile inline come oggetto.
@@ -247,6 +286,7 @@ Aggiungi al tuo `App.jsx` di prova una lista `<ul>` con tre `<li>` che mostrano 
 ## 📌 Recap
 - Il JSX è JavaScript, non HTML: ha regole proprie.
 - Radice unica (o Fragment), tag sempre chiusi, `className`/`htmlFor`.
+- Il Fragment raggruppa senza creare nodi nel DOM; la forma estesa `<Fragment>` serve quando occorre una `key`.
 - `{ }` accetta espressioni, non istruzioni.
 - Gli stili inline sono oggetti con proprietà camelCase.
 - Commenti nel JSX: `{/* ... */}`.

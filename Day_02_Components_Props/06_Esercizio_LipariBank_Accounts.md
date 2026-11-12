@@ -217,9 +217,8 @@ grep -l "mockData" src/components/*.jsx
 
 ### CHECKPOINT 2 — Conti e componenti riutilizzabili
 
-- **Repository del corso:** `[DA CONFIGURARE: inserire URL reale della repository]`
-- **Branch/tag:** `[DA CONFIGURARE: inserire nome reale del branch]`
-- **Alternativa:** la tua repository del [Day 0](../Day_00_Setup/04_Git_GitHub.md); tag suggerito `checkpoint-2-conti-componenti`.
+- **Checkpoint del corso:** `liparibank-day-02.zip`, allegato al Day 2 sulla piattaforma. Per usarlo vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
+- **La tua repository:** quella del [Day 0](../Day_00_Setup/04_Git_GitHub.md); tag suggerito `checkpoint-2-conti-componenti`.
 
 | Domanda | Risposta |
 | --- | --- |

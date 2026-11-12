@@ -41,7 +41,7 @@
   3. [Visual Studio Code](./Day_00_Setup/03_VS_Code.md)
   4. [Git e GitHub](./Day_00_Setup/04_Git_GitHub.md)
   5. [Vite e primo progetto React](./Day_00_Setup/05_Vite_e_primo_progetto_React.md)
-  6. [Verifica ambiente](./Day_00_Setup/06_Verifica_ambiente.md)
+  6. [Verifica ambiente](./Day_00_Setup/07_Verifica_ambiente.md)
 - **Checkpoint:** nessuno (la verifica è la checklist del capitolo 06).
 - **Risultato atteso:** `npm run dev` mostra la prima pagina LipariBank su `http://localhost:5173/`; il progetto è in una repository Git.
 

@@ -1,5 +1,23 @@
-import { formatDate, formatMoney } from "../utils/format.js";
+import { formatCurrency, formatDate } from "../utils/formatters.js";
 
-export default function TransactionItem({ transaction }) {
-  return <li className="transaction"><span><strong>{transaction.description}</strong><br />{formatDate(transaction.date)} · {transaction.category}</span><strong className={transaction.amount < 0 ? "expense" : "income"}>{formatMoney(transaction.amount)}</strong></li>;
+function TransactionItem(props) {
+  const { transaction } = props;
+  const amountClass =
+    transaction.amount < 0 ? "amount amount--expense" : "amount amount--income";
+
+  return (
+    <li className="transaction-item">
+      <div className="transaction-item__main">
+        <span className="transaction-item__description">
+          {transaction.description}
+        </span>
+        <span className="transaction-item__meta">
+          {formatDate(transaction.date)} · {transaction.category}
+        </span>
+      </div>
+      <span className={amountClass}>{formatCurrency(transaction.amount)}</span>
+    </li>
+  );
 }
+
+export default TransactionItem;
