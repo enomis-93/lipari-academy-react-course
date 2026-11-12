@@ -7,7 +7,7 @@
     "check": "node scripts/check-course.mjs",
     "checkpoints:verify": "node scripts/checkpoints.mjs verify",
     "checkpoints:zip": "node scripts/checkpoints.mjs zip",
-    "test": "node --test scripts/tests/"
+    "test": "node --test \"scripts/tests/*.test.mjs\""
   },
   "devDependencies": {
     "adm-zip": "^0.6.1",
