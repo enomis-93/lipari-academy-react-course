@@ -29,7 +29,7 @@ rules.link_open = (tokens, index, options, env) => {
     const style = env.inNext ? theme.nextLink : theme.link;
     return `<a href="${escapeAttribute(resolved.url)}" style="${style}">`;
   }
-  if (resolved.kind === "unmapped") env.warnings.push(`Link da collegare: ${href}`);
+  if (resolved.kind === "unmapped") env.warnings.push(`Link da collegare: ${resolved.target || href}`);
   return `<strong style="${env.inNext ? theme.nextUnlinked : theme.unlinked}">`;
 };
 
