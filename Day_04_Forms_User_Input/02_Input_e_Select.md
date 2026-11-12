@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Capitolo 01 — Form e Controlled Components](./01_Form_e_Controlled_Components.md): `TransferForm` con il campo `amount` in `Dashboard`.
-- Aggiornamenti immutabili di oggetti: [Immutabilità](../Day_03_State_Events/04_Immutabilita_dello_State.md).
+- Aggiornamenti immutabili di oggetti: [Immutabilità](../Day_03_State_Events/05_Immutabilita_dello_State.md).
 - Computed property names: [Objects e Arrays](../Extra_JavaScript_Essentials/03_Objects_Arrays.md) e [Destructuring, Spread, Rest](../Extra_JavaScript_Essentials/05_Destructuring_Spread_Rest.md).
 
 ---

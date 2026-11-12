@@ -1,6 +1,6 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 3 · Capitolo 05**
+> **Day 3 · Capitolo 06**
 > **Argomento:** Lifting State Up e dati derivati
 > **Durata stimata:** 30 minuti
 > **Parte di LipariBank:** `Dashboard` possiede `selectedAccountId`; `AccountList` e `TransactionList` si coordinano tramite props e callback
@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- [Capitolo 01 — Event Handling](./01_Event_Handling.md) (callback prop) e [Capitolo 04 — Immutabilità](./04_Immutabilita_dello_State.md) (`transactions` in state).
+- [Capitolo 01 — Event Handling](./01_Event_Handling.md) (callback prop) e [Capitolo 05 — Immutabilità](./05_Immutabilita_dello_State.md) (`transactions` in state).
 - Container/presentational: [Componenti e Composizione](../Day_02_Components_Props/01_Componenti_e_Composizione.md).
 
 ---
@@ -75,7 +75,7 @@ Solleva lo state solo quanto serve: se solo un componente usa un valore, tienilo
 
 Piccolo esempio isolato (snippet): due fratelli sincronizzati dal padre.
 
-File `src/components/SyncDemo.jsx`:
+File `src/components/SyncDemo.jsx` (componente di prova: montalo temporaneamente in `App.jsx` ed eliminalo a fine capitolo):
 
 ```jsx
 import { useState } from "react";
@@ -283,7 +283,7 @@ Punti da notare:
 - `selectedAccount` e `accountTransactions` **non** sono state: sono calcolati a ogni render.
 - `.filter(...)` restituisce già un nuovo array, quindi `.sort(...)` ordina la copia e non muta `transactions`.
 - `onSelectAccount={setSelectedAccountId}`: il setter è una funzione e `AccountCard` la chiama con `account.id`, quindi si può passare direttamente. Se servisse un'azione in più, useresti un `handleSelectAccount`.
-- `onToggleFavorite` viene collegato ai pulsanti nel capitolo 06; finché `TransactionList` non lo usa, ignorerà la prop senza errori.
+- `onToggleFavorite` viene collegato ai pulsanti nel capitolo 07; finché `TransactionList` non lo usa, ignorerà la prop senza errori.
 
 Aggiungi in `src/index.css` lo stile della selezione:
 
@@ -357,4 +357,4 @@ Al primo render viene selezionato `accounts[0]`. Cosa accadrebbe con `accounts` 
 ---
 
 ### ➡️ Next
-[Capitolo 06 — Esercizio LipariBank Transactions](./06_Esercizio_LipariBank_Transactions.md): aggiungerai filtri entrate/uscite, ricerca testuale e il pulsante "preferito", chiudendo il CHECKPOINT 3.
+[Capitolo 07 — Esercizio LipariBank Transactions](./07_Esercizio_LipariBank_Transactions.md): aggiungerai filtri entrate/uscite, ricerca testuale e il pulsante "preferito", chiudendo il CHECKPOINT 3.

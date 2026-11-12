@@ -110,9 +110,9 @@
   1. [Event Handling](./Day_03_State_Events/01_Event_Handling.md)
   2. [useState](./Day_03_State_Events/02_useState.md)
   3. [State e re-render](./Day_03_State_Events/03_State_e_Rerender.md)
-  4. [Immutabilità dello state](./Day_03_State_Events/04_Immutabilita_dello_State.md)
-  5. [Lifting State Up](./Day_03_State_Events/05_Lifting_State_Up.md)
-  6. [Esercizio — LipariBank Transactions](./Day_03_State_Events/06_Esercizio_LipariBank_Transactions.md)
+  4. [Immutabilità dello state](./Day_03_State_Events/05_Immutabilita_dello_State.md)
+  5. [Lifting State Up](./Day_03_State_Events/06_Lifting_State_Up.md)
+  6. [Esercizio — LipariBank Transactions](./Day_03_State_Events/07_Esercizio_LipariBank_Transactions.md)
 - **Checkpoint 3:** gestione dello state (capitolo 06).
 - **Risultato atteso:** filtri entrate/uscite e ricerca, selezione del conto, mostra/nascondi saldo.
 

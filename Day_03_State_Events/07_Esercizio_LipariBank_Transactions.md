@@ -1,6 +1,6 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 3 · Capitolo 06**
+> **Day 3 · Capitolo 07**
 > **Argomento:** Esercizio — filtri, ricerca e preferiti sui movimenti
 > **Durata stimata:** 60 minuti
 > **Parte di LipariBank:** `TransactionFilters`, filtri/ricerca in `Dashboard`, pulsante "preferito" su ogni movimento (CHECKPOINT 3)
@@ -18,8 +18,8 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Capitoli 01-05 di questo Day: [Event Handling](./01_Event_Handling.md), [useState](./02_useState.md), [State e Re-render](./03_State_e_Rerender.md), [Immutabilità](./04_Immutabilita_dello_State.md), [Lifting State Up](./05_Lifting_State_Up.md).
-- Stato del progetto: `Dashboard` con `selectedAccountId`, `hideBalance`, `transactions` (come alla fine del capitolo 05) e componenti di Day 2 funzionanti.
+- Capitoli 01-05 di questo Day: [Event Handling](./01_Event_Handling.md), [useState](./02_useState.md), [State e Re-render](./03_State_e_Rerender.md), [Immutabilità](./05_Immutabilita_dello_State.md), [Lifting State Up](./06_Lifting_State_Up.md).
+- Stato del progetto: `Dashboard` con `selectedAccountId`, `hideBalance`, `transactions` (come alla fine del capitolo 06) e componenti di Day 2 funzionanti.
 
 ---
 
@@ -313,15 +313,9 @@ function Dashboard() {
 export default Dashboard;
 ```
 
-Stile da aggiungere in `src/index.css`:
+Stili da aggiungere in fondo a `src/index.css` (la regola `.account-card--selected` c'è già dal capitolo 06):
 
 ```css
-.account-card--selected {
-  outline: 2px solid #0b5fff;
-  border-radius: 8px;
-  padding: 0.5rem;
-}
-
 .transaction-filters {
   display: flex;
   flex-wrap: wrap;
@@ -356,14 +350,13 @@ Puoi proseguire dal tuo codice oppure da un punto di controllo condiviso.
 
 | Voce | Contenuto |
 |---|---|
-| **Contenuto iniziale** | Progetto di fine Day 2 più `selectedAccountId`, `hideBalance` e `transactions` in state (fine capitolo 05) |
+| **Contenuto iniziale** | Progetto di fine Day 2 più `selectedAccountId`, `hideBalance` e `transactions` in state (fine capitolo 06) |
 | **Da completare** | `TransactionFilters`, filtri e ricerca, pulsante "Preferito" (questo capitolo) |
 | **Già funzionante** | Selezione conto, nascondi saldi, elenco movimenti per conto, componenti di Day 1-2 |
 | **Come verificare** | Tabella degli scenari sopra, `npm run lint`, `npm run build` |
-| **Repository** | `[DA CONFIGURARE: inserire URL reale della repository]` |
-| **Branch** | `[DA CONFIGURARE: inserire nome reale del branch]` |
+| **Checkpoint del corso** | `liparibank-day-03.zip`, allegato al Day 3 sulla piattaforma |
 
-Se lavori sulla tua repository (creata nel [Day 0](../Day_00_Setup/04_Git_GitHub.md)), un'idea di nome per il tuo commit finale è `Day 3: filtri, ricerca e preferiti`, e per un tag `checkpoint-3`. La procedura completa per clonare, creare un branch e fare push è nel [Day 4, capitolo 06](../Day_04_Forms_User_Input/06_Repository_Checkpoint.md).
+Se lavori sulla tua repository (creata nel [Day 0](../Day_00_Setup/04_Git_GitHub.md)), un'idea di nome per il tuo commit finale è `Day 3: filtri, ricerca e preferiti`, e per un tag `checkpoint-3`. Per scaricare e avviare il checkpoint, o per ripartire da lì, vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
 
 Il Day 4 parte dallo stato finale di questo capitolo.
 

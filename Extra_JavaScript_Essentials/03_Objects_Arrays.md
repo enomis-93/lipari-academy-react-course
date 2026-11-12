@@ -51,7 +51,7 @@ Gli oggetti e gli array sono **riferimenti**: due variabili possono puntare allo
 
 > 💡 **Remember**
 >
-> `const` impedisce di riassegnare la variabile, **non** di modificare il contenuto. In React non modificherai mai direttamente i dati dello state: lavorerai su copie (capitolo 05 e [Day 3](../Day_03_State_Events/04_Immutabilita_dello_State.md)).
+> `const` impedisce di riassegnare la variabile, **non** di modificare il contenuto. In React non modificherai mai direttamente i dati dello state: lavorerai su copie (capitolo 05 e [Day 3](../Day_03_State_Events/05_Immutabilita_dello_State.md)).
 
 ---
 

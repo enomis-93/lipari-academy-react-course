@@ -1,6 +1,6 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 3 · Capitolo 04**
+> **Day 3 · Capitolo 05**
 > **Argomento:** Immutabilità dello State (oggetti e array)
 > **Durata stimata:** 30 minuti
 > **Parte di LipariBank:** i movimenti entrano nello state di `Dashboard`; un movimento può essere segnato come "preferito"
@@ -175,7 +175,7 @@ Il campo `isFavorite` non esiste nei dati iniziali: per i movimenti mai toccati 
 
 Nota: l'array importato `initialTransactions` non viene mai modificato; lo state ne parte come copia logica e ogni aggiornamento produce un nuovo array.
 
-Per vedere il risultato senza ancora costruire il pulsante definitivo (lo farai nell'[esercizio del capitolo 06](./06_Esercizio_LipariBank_Transactions.md)), in `src/components/TransactionItem.jsx` mostra una stella accanto alla descrizione (snippet parziale: sostituisce lo `<span className="transaction-item__description">` esistente):
+Per vedere il risultato senza ancora costruire il pulsante definitivo (lo farai nell'[esercizio del capitolo 07](./07_Esercizio_LipariBank_Transactions.md)), in `src/components/TransactionItem.jsx` mostra una stella accanto alla descrizione (snippet parziale: sostituisce lo `<span className="transaction-item__description">` esistente):
 
 ```jsx
 <span className="transaction-item__description">
@@ -257,4 +257,4 @@ Aggiungi `handleMarkAllAsFavorite(accountId)`: segna come preferiti tutti i movi
 ---
 
 ### ➡️ Next
-[Capitolo 05 — Lifting State Up](./05_Lifting_State_Up.md): ora che sappiamo aggiornare lo state, decidiamo *dove* deve stare quando più componenti ne hanno bisogno.
+[Capitolo 06 — Lifting State Up](./06_Lifting_State_Up.md): ora che sappiamo aggiornare lo state, decidiamo *dove* deve stare quando più componenti ne hanno bisogno.

@@ -251,7 +251,7 @@ Nota `accountId,` senza valore: è la scorciatoia per `accountId: accountId`. La
 ---
 
 ## 🏦 LipariBank in action
-Nel [Day 3](../Day_03_State_Events/04_Immutabilita_dello_State.md) lo state `transactions` si aggiorna esattamente con questi pattern (`[nuovo, ...lista]`, `filter`, `map` + spread). Nel [Day 4](../Day_04_Forms_User_Input/04_Submit_e_Feedback.md) `handleAddTransfer` aggiunge un bonifico simulato con la stessa forma di `createTransfer`. Nei componenti userai il destructuring delle props in ogni file.
+Nel [Day 3](../Day_03_State_Events/05_Immutabilita_dello_State.md) lo state `transactions` si aggiorna esattamente con questi pattern (`[nuovo, ...lista]`, `filter`, `map` + spread). Nel [Day 4](../Day_04_Forms_User_Input/04_Submit_e_Feedback.md) `handleAddTransfer` aggiunge un bonifico simulato con la stessa forma di `createTransfer`. Nei componenti userai il destructuring delle props in ogni file.
 
 ---
 
@@ -313,7 +313,7 @@ Scrivi `updateSettings(settings, changes)` che applica un cambiamento nel second
 - Per aggiornare dati: `[nuovo, ...lista]`, `filter`, `map` + `{ ...item, campo }`.
 - Per aggiornare dati annidati si copia ogni livello.
 
-*Dove lo userai:* props e destructuring ([Day 2](../Day_02_Components_Props/02_Props.md)) e state immutabile ([Day 3](../Day_03_State_Events/04_Immutabilita_dello_State.md)).
+*Dove lo userai:* props e destructuring ([Day 2](../Day_02_Components_Props/02_Props.md)) e state immutabile ([Day 3](../Day_03_State_Events/05_Immutabilita_dello_State.md)).
 
 ---
 

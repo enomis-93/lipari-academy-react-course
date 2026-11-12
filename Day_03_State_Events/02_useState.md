@@ -121,7 +121,7 @@ Valori scelti con cura: `""` per un testo vuoto (non `null`), un id (stringa) pe
 
 ## 🏦 LipariBank in action
 
-Aggiungiamo a `Dashboard` lo state `hideBalance` e lo usiamo per mascherare i saldi. Lo state vive in `Dashboard` perché dovrà influenzare più figli (`BalanceCard` e `AccountCard`): ne parleremo nel capitolo [Lifting State Up](./05_Lifting_State_Up.md).
+Aggiungiamo a `Dashboard` lo state `hideBalance` e lo usiamo per mascherare i saldi. Lo state vive in `Dashboard` perché dovrà influenzare più figli (`BalanceCard` e `AccountCard`): ne parleremo nel capitolo [Lifting State Up](./06_Lifting_State_Up.md).
 
 > Gli snippet partono dai file di fine Day 2 / ch. 01 e aggiungono **solo** la novità: la prop booleana (`hidden` / `hideBalance`). Le props già esistenti restano.
 
@@ -277,7 +277,7 @@ Poi elimina `BalanceToggleDemo.jsx` e il suo uso in `App.jsx`.
 | Dimenticare `import { useState } from "react"` | aggiungere l'import |
 | `useState(null)` per un testo di input | partire da `""` (utile nel Day 4) |
 | `onClick={setHideBalance(true)}` | `onClick={() => setHideBalance(true)}` (vedi capitolo 03) |
-| Usare un state per un valore calcolabile dagli altri | calcolarlo durante il render (capitolo 05) |
+| Usare un state per un valore calcolabile dagli altri | calcolarlo durante il render (capitolo 06) |
 
 ---
 

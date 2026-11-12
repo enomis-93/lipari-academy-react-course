@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Capitolo 03 — Validazione](./03_Validazione.md): `validators.js` con `validateTransfer` e `parseAmount`, `TransferForm` con errori per campo.
-- `Dashboard` con `transactions` in state: [Immutabilità](../Day_03_State_Events/04_Immutabilita_dello_State.md); callback e lifting: [Lifting State Up](../Day_03_State_Events/05_Lifting_State_Up.md).
+- `Dashboard` con `transactions` in state: [Immutabilità](../Day_03_State_Events/05_Immutabilita_dello_State.md); callback e lifting: [Lifting State Up](../Day_03_State_Events/06_Lifting_State_Up.md).
 
 ---
 
@@ -46,7 +46,7 @@ Alla fine del capitolo sarai in grado di:
 - `TransferForm` possiede lo state **del form** (`values`, `errors`, messaggio di conferma): è il suo stato locale e non serve a nessun altro.
 - `Dashboard` possiede `transactions`: è un dato condiviso (lista, saldo...). Il form non lo modifica direttamente: chiama `onAddTransfer(transfer)` e `Dashboard` aggiorna lo state.
 
-Questo è il pattern del capitolo [Lifting State Up](../Day_03_State_Events/05_Lifting_State_Up.md): dati giù con le props, azioni su con le callback.
+Questo è il pattern del capitolo [Lifting State Up](../Day_03_State_Events/06_Lifting_State_Up.md): dati giù con le props, azioni su con le callback.
 
 ### Feedback accessibile
 - **Errori**: già visti, con `role="alert"` per campo.

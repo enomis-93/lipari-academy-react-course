@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - Day 6 completato: [Esercizio LipariBank MultiPage](../Day_06_Routing/06_Esercizio_LipariBank_MultiPage.md) (React Router v7, pagine in `src/pages/`, `App.jsx` che passa props).
-- Conoscere `useState` ([Day 3 · useState](../Day_03_State_Events/02_useState.md)) e il lifting state up ([Day 3 · Lifting State Up](../Day_03_State_Events/05_Lifting_State_Up.md)).
+- Conoscere `useState` ([Day 3 · useState](../Day_03_State_Events/02_useState.md)) e il lifting state up ([Day 3 · Lifting State Up](../Day_03_State_Events/06_Lifting_State_Up.md)).
 - Progetto `liparibank/` funzionante con `npm run dev`. Tutti i comandi si lanciano dentro `liparibank/`.
 
 ---

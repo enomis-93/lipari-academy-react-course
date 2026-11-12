@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Capitolo 02](./02_Class_Components.md) e [Capitolo 03](./03_Lifecycle_Methods.md): `src/legacy/LegacyLab.jsx` funzionante su `/legacy`.
-- Immutabilità dello state: [Day 3 cap. 04](../Day_03_State_Events/04_Immutabilita_dello_State.md).
+- Immutabilità dello state: [Day 3 cap. 05](../Day_03_State_Events/05_Immutabilita_dello_State.md).
 
 ---
 
