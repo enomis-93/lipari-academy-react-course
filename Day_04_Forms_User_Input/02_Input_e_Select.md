@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Capitolo 01 — Form e Controlled Components](./01_Form_e_Controlled_Components.md): `TransferForm` con il campo `amount` in `Dashboard`.
-- Aggiornamenti immutabili di oggetti: [Immutabilità](../Day_03_State_Events/04_Immutabilita_dello_State.md).
+- Aggiornamenti immutabili di oggetti: [Immutabilità](../Day_03_State_Events/05_Immutabilita_dello_State.md).
 - Computed property names: [Objects e Arrays](../Extra_JavaScript_Essentials/03_Objects_Arrays.md) e [Destructuring, Spread, Rest](../Extra_JavaScript_Essentials/05_Destructuring_Spread_Rest.md).
 
 ---
@@ -110,7 +110,7 @@ Mentre compili il form vedrai `amount` come stringa (`"120.5"`) e gli id selezio
 
 File `src/components/TransferForm.jsx` (sostituisce la versione del capitolo 01):
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useState } from "react";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -212,7 +212,7 @@ import { accounts, beneficiaries, transactions as initialTransactions } from "..
 
 Aggiungi a `src/index.css` un minimo di stile per i campi:
 
-```css
+```css title="src/index.css"
 .form-field {
   display: flex;
   flex-direction: column;
@@ -233,7 +233,7 @@ Aggiungi a `src/index.css` un minimo di stile per i campi:
 **Come modificarlo:** aggiungi un campo `executionDate` (`type="date"`) e osserva che basta una chiave in `emptyValues` e un nuovo input con `name="executionDate"`.
 **Cosa evitare:** `name` diverso dalla chiave (es. `name="importo"`): lo state riceverebbe una chiave nuova e il campo `amount` non cambierebbe.
 
-La select dei conti mostra qui `account.balance` dei dati iniziali: nel capitolo [Esercizio Bonifico](./05_Esercizio_LipariBank_Bonifico.md) il saldo mostrato si aggiornerà dopo ogni bonifico simulato.
+La select dei conti mostra qui `account.balance` dei dati iniziali: nel capitolo [Esercizio Bonifico](./06_Esercizio_LipariBank_Bonifico.md) il saldo mostrato si aggiornerà dopo ogni bonifico simulato.
 
 ---
 

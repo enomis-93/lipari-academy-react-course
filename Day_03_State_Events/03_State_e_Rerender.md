@@ -37,7 +37,7 @@ Alla fine del capitolo sarai in grado di:
 ### Il ciclo di un aggiornamento
 1. **Trigger**: un setter (`setHideBalance`) viene chiamato. React segna il componente da ridisegnare.
 2. **Render**: React riesegue la **funzione** del componente (e quella dei figli, se serve) per ottenere il nuovo JSX. Qui nessuna modifica al DOM.
-3. **Commit**: React confronta il nuovo JSX con il precedente e aggiorna nel DOM solo ciò che è cambiato.
+3. **Commit**: React confronta il nuovo JSX con il precedente e aggiorna nel DOM solo ciò che è cambiato. Come avviene questo confronto è l'argomento del [capitolo 04](./04_Virtual_DOM_e_Riconciliazione.md).
 
 ### Perché non basta una variabile
 Una variabile locale:
@@ -62,7 +62,7 @@ Conseguenza: `setCount(count + 1)` chiamato tre volte nello stesso handler scriv
 React raggruppa più aggiornamenti dello stesso evento in **un solo render**: dopo `setFilter("income")` e `setSearchText("")` nello stesso handler ottieni un render, non due.
 
 ### Quando React non ridisegna
-Se imposti lo stesso valore (confronto con `Object.is`), React può evitare di ridisegnare. Per oggetti e array "stesso valore" significa **stesso riferimento**: è il motivo per cui nel [capitolo 04](./04_Immutabilita_dello_State.md) non si modificano mai gli oggetti in place.
+Se imposti lo stesso valore (confronto con `Object.is`), React può evitare di ridisegnare. Per oggetti e array "stesso valore" significa **stesso riferimento**: è il motivo per cui nel [capitolo 05](./05_Immutabilita_dello_State.md) non si modificano mai gli oggetti in place.
 
 ### Il render deve essere puro
 La funzione del componente deve solo calcolare JSX dai suoi input (props e state). Dentro il render **non** si chiama un setter e non si modificano oggetti esterni. In sviluppo `StrictMode` esegue il render due volte di proposito per far emergere questi errori: due `console.log` identici non sono un bug.
@@ -77,7 +77,7 @@ La funzione del componente deve solo calcolare JSX dai suoi input (props e state
 
 Crea `src/components/RerenderLab.jsx` (da eliminare a fine capitolo).
 
-```jsx
+```jsx title="src/components/RerenderLab.jsx"
 import { useState } from "react";
 
 function RerenderLab() {
@@ -164,9 +164,9 @@ Premi "Nascondi saldi" e leggi la Console:
 - `Dashboard` si ridisegna (è lui che possiede lo state);
 - anche i figli (`BalanceCard`, `AccountList`, ogni `AccountCard`, `TransactionList`) vengono rieseguiti, anche se alcuni non mostrano nulla di diverso.
 
-È normale e, per un'app di questa dimensione, economico: React poi aggiorna il DOM solo dove serve. Ottimizzare con `React.memo` è un tema del Day 7 e, di solito, non serve all'inizio.
+È normale e, per un'app di questa dimensione, economico: React poi aggiorna il DOM solo dove serve. Ottimizzare con `React.memo` è un tema del Day 8 e, di solito, non serve all'inizio.
 
-Regola pratica: **lo state sta nel componente più basso che ne ha bisogno** (che sia comune a tutti i consumatori). Ci torniamo nel capitolo [Lifting State Up](./05_Lifting_State_Up.md).
+Regola pratica: **lo state sta nel componente più basso che ne ha bisogno** (che sia comune a tutti i consumatori). Ci torniamo nel capitolo [Lifting State Up](./06_Lifting_State_Up.md).
 
 ---
 
@@ -225,4 +225,4 @@ Nel `RerenderLab` aggiungi `setTimeout(() => console.log(count), 2000)` dentro u
 ---
 
 ### ➡️ Next
-[Capitolo 04 — Immutabilità dello State](./04_Immutabilita_dello_State.md): finora lo state era un boolean; con oggetti e array (i movimenti!) serve una regola in più.
+[Capitolo 04 — Virtual DOM e riconciliazione](./04_Virtual_DOM_e_Riconciliazione.md): hai visto che React riesegue i componenti; ora vediamo come decide che cosa cambiare davvero nella pagina.

@@ -62,7 +62,7 @@ Il corso non ha un backend LipariBank e **non inventiamo endpoint**. Usiamo come
 ### 1. Il file dei dati
 Crea `public/data/transactions.json` (crea prima la cartella `public/data/` dentro `liparibank/`). Sono gli stessi movimenti di `mockData.js`:
 
-```json
+```json title="public/data/transactions.json" collapse
 [
   { "id": "trx-001", "accountId": "acc-001", "date": "2026-10-27", "description": "Spesa supermercato", "amount": -62.4, "category": "Alimentari" },
   { "id": "trx-002", "accountId": "acc-001", "date": "2026-10-25", "description": "Pagamento utenza luce", "amount": -88.9, "category": "Utenze" },
@@ -80,7 +80,7 @@ Verifica: con `npm run dev` in esecuzione apri `http://localhost:5173/data/trans
 ### 2. Il service
 Crea `src/services/transactionService.js`:
 
-```javascript
+```javascript title="src/services/transactionService.js"
 const TRANSACTIONS_URL = "/data/transactions.json";
 
 export async function getTransactions({ signal } = {}) {
@@ -239,7 +239,7 @@ Subito dopo il caricamento pagina c'è un attimo in cui `transactions` è `[]` e
 ---
 
 ## 🚀 Challenge
-Aggiungi `await wait(1000)` nel service (con una funzione `wait(ms)` definita in `src/utils/wait.js`, come nel capitolo successivo) e osserva cosa succede nell'intervallo prima dell'arrivo dei dati.
+Aggiungi `await wait(1000)` nel service (con una funzione `wait(ms)` definita nel file temporaneo `src/utils/wait.js`, come nel capitolo successivo) e osserva cosa succede nell'intervallo prima dell'arrivo dei dati.
 
 ---
 

@@ -1,109 +1,147 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, Route, Routes, useLocation, useNavigate, useParams } from "react-router";
-import { accounts as initialAccounts, beneficiaries, customer } from "./data/mockData.js";
-import { formatMoney, sortByDate } from "./utils/format.js";
+import { Routes, Route } from "react-router";
+import { accounts, beneficiaries } from "./data/mockData.js";
 import { getTransactions } from "./services/transactionService.js";
-import Header from "./components/Header.jsx";
-import BalanceCard from "./components/BalanceCard.jsx";
-import Card from "./components/Card.jsx";
-import AccountList from "./components/AccountList.jsx";
-import TransactionList from "./components/TransactionList.jsx";
-import TransactionFilters from "./components/TransactionFilters.jsx";
-import TransferForm from "./components/TransferForm.jsx";
-import LoadingMessage from "./components/LoadingMessage.jsx";
-import ErrorMessage from "./components/ErrorMessage.jsx";
-import EmptyState from "./components/EmptyState.jsx";
+import AppLayout from "./layouts/AppLayout.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
+import AccountsPage from "./pages/AccountsPage.jsx";
+import AccountDetailPage from "./pages/AccountDetailPage.jsx";
+import TransactionsPage from "./pages/TransactionsPage.jsx";
+import TransferPage from "./pages/TransferPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
-function Layout() {
-  return <main><Header customer={customer} /><nav aria-label="Navigazione principale">
-    <NavLink to="/" end>Dashboard</NavLink><NavLink to="/accounts">Conti</NavLink><NavLink to="/transactions">Movimenti</NavLink><NavLink to="/transfer">Bonifico</NavLink>
-  </nav><Outlet /></main>;
-}
+function getDisplayedBalance(account, transactions) {
+  const simulatedDelta = transactions
+    .filter(
+      (transaction) =>
+        transaction.accountId === account.id && transaction.category === "Bonifici",
+    )
+    .reduce((sum, transaction) => sum + transaction.amount, 0);
 
-function ListContent({ bank, items }) {
-  if (bank.loading) return <LoadingMessage />;
-  if (bank.error) return <ErrorMessage message={bank.error} onRetry={bank.retry} />;
-  return <TransactionList transactions={items} onToggleFavorite={bank.toggleFavorite} />;
-}
-
-function DashboardPage({ bank }) {
-  const [selectedId, setSelectedId] = useState(initialAccounts[0].id);
-  const [hidden, setHidden] = useState(false);
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
-  const selected = bank.accounts.find((account) => account.id === selectedId);
-  const items = filterTransactions(bank.transactions, filter, search, selectedId);
-  return <>
-    <BalanceCard balance={bank.accounts.reduce((sum, account) => sum + account.balance, 0)} hidden={hidden} onToggle={() => setHidden(!hidden)} />
-    <Card title="I tuoi conti"><AccountList accounts={bank.accounts} transactions={bank.transactions} selectedAccountId={selectedId} onSelect={setSelectedId} hidden={hidden} /></Card>
-    <Card title={`Movimenti · ${selected.name}`}><TransactionFilters filter={filter} searchText={search} onFilterChange={setFilter} onSearchChange={setSearch} /><ListContent bank={bank} items={items} /></Card>
-  </>;
-}
-
-function AccountsPage({ bank }) {
-  if (!bank.accounts.length) return <EmptyState message="Nessun conto disponibile." />;
-  return <Card title="Conti"><div className="accounts">{bank.accounts.map((account) => <article className="account" key={account.id}><h3><Link to={`/accounts/${account.id}`}>{account.name}</Link></h3><p>{account.iban}</p><p>{formatMoney(account.balance)}</p></article>)}</div><Outlet /></Card>;
-}
-
-function AccountDetailPage({ bank }) {
-  const { accountId } = useParams();
-  const account = bank.accounts.find((item) => item.id === accountId);
-  if (!account) return <p>Conto non trovato. <Link to="/accounts">Torna ai conti</Link></p>;
-  return <section><h2>Movimenti · {account.name}</h2><ListContent bank={bank} items={sortByDate(bank.transactions.filter((item) => item.accountId === accountId))} /></section>;
-}
-
-function filterTransactions(items, filter, search, accountId = "") {
-  return sortByDate(items.filter((item) => (!accountId || item.accountId === accountId) &&
-    (filter === "all" || (filter === "income" ? item.amount > 0 : item.amount < 0)) &&
-    item.description.toLowerCase().includes(search.trim().toLowerCase())));
-}
-
-function TransactionsPage({ bank }) {
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
-  const location = useLocation();
-  return <Card title="Movimenti">{location.state?.transferCompleted && <p role="status">Bonifico simulato registrato.</p>}
-    <TransactionFilters filter={filter} searchText={search} onFilterChange={setFilter} onSearchChange={setSearch} />
-    <ListContent bank={bank} items={filterTransactions(bank.transactions, filter, search)} />
-  </Card>;
-}
-
-function TransferPage({ bank }) {
-  const navigate = useNavigate();
-  if (bank.loading) return <LoadingMessage />;
-  if (bank.error) return <ErrorMessage message={bank.error} onRetry={bank.retry} />;
-  return <Card title="Bonifico"><TransferForm accounts={bank.accounts} beneficiaries={beneficiaries} onTransfer={(values) => { bank.transfer(values); navigate("/transactions", { state: { transferCompleted: true } }); }} /></Card>;
+  return Math.round((account.balance + simulatedDelta) * 100) / 100;
 }
 
 export default function App() {
-  const [accounts, setAccounts] = useState(initialAccounts);
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [attempt, setAttempt] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
+
   useEffect(() => {
     const controller = new AbortController();
-    setLoading(true);
-    setError("");
-    getTransactions(controller.signal).then(setTransactions).catch((err) => {
-      if (err.name !== "AbortError") setError(err.message);
-    }).finally(() => { if (!controller.signal.aborted) setLoading(false); });
+
+    async function loadTransactions() {
+      try {
+        const remoteTransactions = await getTransactions({
+          signal: controller.signal,
+        });
+
+        setTransactions((current) => {
+          const remoteIds = new Set(remoteTransactions.map((item) => item.id));
+          const localOnly = current.filter((item) => !remoteIds.has(item.id));
+          return [...localOnly, ...remoteTransactions];
+        });
+      } catch (err) {
+        if (err.name === "AbortError") return;
+        console.error(err);
+        setError("Non è stato possibile caricare i movimenti.");
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadTransactions();
+
     return () => controller.abort();
-  }, [attempt]);
-  const toggleFavorite = (id) => setTransactions((items) => items.map((item) => item.id === id ? { ...item, favorite: !item.favorite } : item));
-  const transfer = (values) => {
-    const amount = Number(values.amount);
-    const beneficiary = beneficiaries.find((item) => item.id === values.beneficiaryId);
-    const transaction = { id: crypto.randomUUID(), accountId: values.fromAccountId, date: new Date().toISOString().slice(0, 10), description: `Bonifico a ${beneficiary.name}`, amount: -amount, category: "Bonifici", reason: values.reason };
-    setTransactions((items) => [transaction, ...items]);
-    setAccounts((items) => items.map((account) => account.id === values.fromAccountId ? { ...account, balance: Math.round((account.balance - amount) * 100) / 100 } : account));
+  }, [reloadKey]);
+
+  function handleRetry() {
+    setError(null);
+    setIsLoading(true);
+    setReloadKey((current) => current + 1);
+  }
+
+  function handleToggleFavorite(transactionId) {
+    setTransactions((prev) =>
+      prev.map((transaction) =>
+        transaction.id === transactionId
+          ? { ...transaction, isFavorite: !transaction.isFavorite }
+          : transaction,
+      ),
+    );
+  }
+
+  function addTransfer(transfer) {
+    const beneficiary = beneficiaries.find((item) => item.id === transfer.beneficiaryId);
+    if (!beneficiary) {
+      return;
+    }
+
+    const newTransaction = {
+      id: `trx-${Date.now()}`,
+      accountId: transfer.accountId,
+      date: new Date().toISOString().slice(0, 10),
+      description: `Bonifico a ${beneficiary.name}`,
+      amount: -transfer.amount,
+      category: "Bonifici",
+    };
+
+    setTransactions((prev) => [newTransaction, ...prev]);
+  }
+
+  const accountsWithBalance = accounts.map((account) => ({
+    ...account,
+    balance: getDisplayedBalance(account, transactions),
+  }));
+
+  const dataProps = {
+    transactions,
+    isLoading,
+    error,
+    onRetry: handleRetry,
+    onToggleFavorite: handleToggleFavorite,
   };
-  const bank = { accounts, transactions, loading, error, retry: () => setAttempt((value) => value + 1), toggleFavorite, transfer };
-  return <Routes><Route element={<Layout />}>
-    <Route index element={<DashboardPage bank={bank} />} />
-    <Route path="accounts" element={<AccountsPage bank={bank} />}><Route index element={<p>Seleziona un conto.</p>} /><Route path=":accountId" element={<AccountDetailPage bank={bank} />} /></Route>
-    <Route path="transactions" element={<TransactionsPage bank={bank} />} />
-    <Route path="transfer" element={<TransferPage bank={bank} />} />
-    <Route path="*" element={<Card title="404"><p>Pagina non trovata.</p><Link to="/">Torna alla dashboard</Link></Card>} />
-  </Route></Routes>;
+
+  return (
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route
+          index
+          element={<DashboardPage accounts={accountsWithBalance} {...dataProps} />}
+        />
+
+        <Route
+          path="accounts"
+          element={<AccountsPage accounts={accountsWithBalance} />}
+        >
+          <Route
+            index
+            element={<p className="hint">Seleziona un conto per vederne i dettagli.</p>}
+          />
+          <Route
+            path=":accountId"
+            element={
+              <AccountDetailPage accounts={accountsWithBalance} {...dataProps} />
+            }
+          />
+        </Route>
+
+        <Route path="transactions" element={<TransactionsPage {...dataProps} />} />
+
+        <Route
+          path="transfer"
+          element={
+            <TransferPage
+              accounts={accountsWithBalance}
+              onAddTransfer={addTransfer}
+            />
+          }
+        />
+
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
+  );
 }

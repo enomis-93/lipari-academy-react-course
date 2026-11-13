@@ -72,7 +72,7 @@ Se l'effect dipende da un valore (es. `accountId`) e parte una richiesta a ogni 
 ### 1. Un timer con cleanup
 Componente **didattico e temporaneo** (non fa parte della struttura finale di LipariBank), crealo in `src/components/LastUpdateClock.jsx`:
 
-```jsx
+```jsx title="src/components/LastUpdateClock.jsx"
 import { useEffect, useState } from "react";
 
 export default function LastUpdateClock() {
@@ -133,7 +133,7 @@ Il titolo resta fermo al valore del primo render. Correzione: dipendenze `[filte
 ### 4. Race condition su cambio conto
 Componente **didattico e temporaneo** in `src/components/AccountTransactionsDemo.jsx`. La funzione `fakeGetAccountTransactions` simula una rete lenta con tempi casuali: non è un'API reale.
 
-```jsx
+```jsx title="src/components/AccountTransactionsDemo.jsx"
 import { useEffect, useState } from "react";
 import { transactions } from "../data/mockData.js";
 

@@ -76,7 +76,7 @@ Un componente dovrebbe, a parità di input, restituire sempre lo stesso JSX e no
 ### 1. I dati fittizi
 Crea `src/data/mockData.js`. Sono dati inventati: nessun dato reale.
 
-```javascript
+```javascript title="src/data/mockData.js" collapse
 export const customer = { id: "cust-001", firstName: "Mario", lastName: "Rossi" };
 
 export const accounts = [
@@ -108,7 +108,7 @@ Il campo `amount` ha il segno: positivo = entrata, negativo = uscita. Useremo qu
 ### 2. Il componente `Header`
 Crea `src/components/Header.jsx`:
 
-```jsx
+```jsx title="src/components/Header.jsx"
 import { customer } from "../data/mockData.js";
 
 function Header() {
@@ -136,7 +136,7 @@ export default Header;
 ### 3. Usare `Header` in `App`
 Sostituisci il contenuto di `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 
 function App() {

@@ -1,13 +1,44 @@
-import { NavLink, Outlet } from "react-router";
-import { useSelector } from "react-redux";
-import DisplayDensity from "../components/DisplayDensity.jsx";
-import { selectCompact } from "../store/displaySlice.js";
+import { NavLink, Outlet, useLocation } from "react-router";
+import ErrorBoundary from "../components/ErrorBoundary.jsx";
 import Header from "../components/Header.jsx";
 import { customer } from "../data/mockData.js";
 
+const navItems = [
+  { to: "/", label: "Dashboard", end: true },
+  { to: "/accounts", label: "Conti" },
+  { to: "/transactions", label: "Movimenti" },
+  { to: "/transfer", label: "Bonifico" },
+];
+
+function getLinkClassName({ isActive }) {
+  return isActive ? "nav-link nav-link-active" : "nav-link";
+}
+
 export default function AppLayout() {
-  const compact = useSelector(selectCompact);
-  return <main className={compact ? "compact-view" : undefined}><Header customer={customer} /><nav aria-label="Navigazione principale">
-    <NavLink to="/" end>Dashboard</NavLink><NavLink to="/accounts">Conti</NavLink><NavLink to="/transactions">Movimenti</NavLink><NavLink to="/transfer">Bonifico</NavLink>
-  </nav><DisplayDensity /><Outlet /></main>;
+  const location = useLocation();
+
+  return (
+    <div className="app">
+      <Header customer={customer} />
+
+      <nav className="main-nav" aria-label="Navigazione principale">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={getLinkClassName}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+
+      <main className="app-main">
+        <ErrorBoundary key={location.pathname}>
+          <Outlet />
+        </ErrorBoundary>
+      </main>
+    </div>
+  );
 }

@@ -55,9 +55,9 @@ Per verificare la versione di Node.js, dentro la cartella `liparibank/`, esegui:
 node --version
 ```
 
-Crea il file `src/components/Example.jsx`:
+Crea il file `src/components/Example.jsx`. Il percorso si ripete nel `title` del blocco, così compare nella barra del codice:
 
-```jsx
+```jsx title="src/components/Example.jsx"
 function Example() {
   return <section>LipariBank</section>;
 }
@@ -101,14 +101,20 @@ Collega il concetto a una funzionalità reale del progetto didattico (dashboard,
 - criterio verificabile 1;
 - criterio verificabile 2.
 
+> ⚠️ **Prova prima da solo.** La soluzione serve per confrontare, dopo aver provato.
+
+### Soluzione di riferimento
+
+Il codice della soluzione sta sempre sotto un titolo che comincia con "Soluzione": nella pagina pubblicata diventa un riquadro chiuso, che lo studente apre quando vuole.
+
 ---
 
 ## 🔗 Repository / Checkpoint
 
-*Sezione presente solo quando pertinente.*
+*Sezione presente solo nei capitoli che chiudono una giornata.*
 
-- Repository: `[DA CONFIGURARE: inserire URL reale della repository]`
-- Branch: `[DA CONFIGURARE: inserire nome reale del branch]`
+- **Checkpoint del corso:** `liparibank-day-NN.zip`, allegato alla giornata sulla piattaforma. Per usarlo vedi [Come usare i checkpoint](./Day_00_Setup/06_Come_usare_i_checkpoint.md).
+- **La tua repository:** tag suggerito `checkpoint-N-nome`.
 
 ---
 

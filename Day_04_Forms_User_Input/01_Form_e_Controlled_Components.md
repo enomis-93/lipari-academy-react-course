@@ -18,8 +18,8 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- Day 3 completato (CHECKPOINT 3): `Dashboard` con `selectedAccountId`, `hideBalance`, `filter`, `searchText`, `transactions`; vedi [Esercizio LipariBank Transactions](../Day_03_State_Events/06_Esercizio_LipariBank_Transactions.md).
-- `useState` e immutabilità: [useState](../Day_03_State_Events/02_useState.md), [Immutabilità](../Day_03_State_Events/04_Immutabilita_dello_State.md).
+- Day 3 completato (CHECKPOINT 3): `Dashboard` con `selectedAccountId`, `hideBalance`, `filter`, `searchText`, `transactions`; vedi [Esercizio LipariBank Transactions](../Day_03_State_Events/07_Esercizio_LipariBank_Transactions.md).
+- `useState` e immutabilità: [useState](../Day_03_State_Events/02_useState.md), [Immutabilità](../Day_03_State_Events/05_Immutabilita_dello_State.md).
 
 ---
 
@@ -70,7 +70,7 @@ Ogni campo ha una `<label>` collegata: in JSX l'attributo è `htmlFor` (non `for
 
 Componente di prova `src/components/AmountDemo.jsx` (da eliminare a fine capitolo):
 
-```jsx
+```jsx title="src/components/AmountDemo.jsx"
 import { useState } from "react";
 
 function AmountDemo() {
@@ -120,7 +120,7 @@ Creiamo lo scheletro del form di bonifico. Per ora ha un solo campo (`amount`) e
 
 File `src/components/TransferForm.jsx`:
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useState } from "react";
 
 function TransferForm() {

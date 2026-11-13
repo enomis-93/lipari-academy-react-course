@@ -1,6 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import displayReducer from "./displaySlice.js";
+import accountsReducer from "./accountsSlice.js";
+import transactionsReducer from "./transactionsSlice.js";
 
 export const store = configureStore({
-  reducer: { display: displayReducer },
+  reducer: {
+    accounts: accountsReducer,
+    transactions: transactionsReducer,
+  },
 });

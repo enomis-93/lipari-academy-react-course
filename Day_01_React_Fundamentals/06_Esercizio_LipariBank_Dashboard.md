@@ -63,7 +63,7 @@ In questo capitolo lo usiamo come "strumento"; nel Day 2 ([Props](../Day_02_Comp
 ### Passo 0 — Stili globali
 Il CSS non è l'obiettivo del corso: **sostituisci l'intero contenuto** di `src/index.css` con questo.
 
-```css
+```css title="src/index.css"
 :root {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   line-height: 1.5;
@@ -261,7 +261,7 @@ Stato di partenza del progetto e obiettivo del capitolo:
 
 `src/components/TransactionItem.jsx`:
 
-```jsx
+```jsx title="src/components/TransactionItem.jsx"
 import { formatCurrency, formatDate } from "../utils/formatters.js";
 
 function TransactionItem(props) {
@@ -289,7 +289,7 @@ export default TransactionItem;
 
 `src/components/RecentTransactions.jsx`:
 
-```jsx
+```jsx title="src/components/RecentTransactions.jsx"
 import { transactions } from "../data/mockData.js";
 import TransactionItem from "./TransactionItem.jsx";
 
@@ -315,7 +315,7 @@ export default RecentTransactions;
 
 `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 import BalanceCard from "./components/BalanceCard.jsx";
 import RecentTransactions from "./components/RecentTransactions.jsx";
@@ -347,11 +347,10 @@ export default App;
 
 ### CHECKPOINT 1 — Prima dashboard
 
-Puoi proseguire dal tuo progetto o da una repository di riferimento, se disponibile.
+Puoi proseguire dal tuo progetto oppure ripartire dal checkpoint del giorno.
 
-- **Repository del corso:** `[DA CONFIGURARE: inserire URL reale della repository]`
-- **Branch/tag:** `[DA CONFIGURARE: inserire nome reale del branch]`
-- **Alternativa:** la **tua repository** creata nel [Day 0 · Git e GitHub](../Day_00_Setup/04_Git_GitHub.md). Suggerimento di nome per il tag: `checkpoint-1-prima-dashboard`.
+- **Checkpoint del corso:** `liparibank-day-01.zip`, allegato al Day 1 sulla piattaforma. Per usarlo vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
+- **La tua repository:** quella creata nel [Day 0 · Git e GitHub](../Day_00_Setup/04_Git_GitHub.md). Suggerimento di nome per il tag: `checkpoint-1-prima-dashboard`.
 
 | Domanda | Risposta |
 | --- | --- |

@@ -101,7 +101,7 @@ oppure un ternario: `{transactions.length > 0 ? <TransactionList ... /> : null}`
 ### 1. `EmptyState`
 Crea `src/components/EmptyState.jsx`:
 
-```jsx
+```jsx title="src/components/EmptyState.jsx"
 function EmptyState({ message = "Nessun dato disponibile.", hint }) {
   return (
     <div className="empty-state">
@@ -116,7 +116,7 @@ export default EmptyState;
 
 In `src/index.css` **aggiungi in fondo**:
 
-```css
+```css title="src/index.css"
 .empty-state {
   padding: 1rem;
   text-align: center;
@@ -139,7 +139,7 @@ In `src/index.css` **aggiungi in fondo**:
 ### 2. Early return in `TransactionList`
 `src/components/TransactionList.jsx`:
 
-```jsx
+```jsx title="src/components/TransactionList.jsx"
 import EmptyState from "./EmptyState.jsx";
 import TransactionItem from "./TransactionItem.jsx";
 
@@ -172,7 +172,7 @@ export default TransactionList;
 ### 3. Badge e classi condizionali in `TransactionItem`
 `src/components/TransactionItem.jsx`:
 
-```jsx
+```jsx title="src/components/TransactionItem.jsx"
 import { formatCurrency, formatDate } from "../utils/formatters.js";
 
 function TransactionItem({ transaction }) {
@@ -205,7 +205,7 @@ export default TransactionItem;
 
 In `src/index.css` **aggiungi in fondo**:
 
-```css
+```css title="src/index.css"
 .transaction-item__side {
   display: flex;
   align-items: center;
@@ -239,7 +239,7 @@ In `src/index.css` **aggiungi in fondo**:
 ### 4. Informazioni condizionali in `AccountCard`
 `AccountCard` riceve una nuova prop `transactionCount` e mostra un badge solo per saldi elevati. `src/components/AccountCard.jsx`:
 
-```jsx
+```jsx title="src/components/AccountCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function AccountCard({ account, transactionCount }) {
@@ -265,7 +265,7 @@ function AccountCard({ account, transactionCount }) {
 export default AccountCard;
 ```
 
-Aggiorna le due card in `Dashboard.jsx` passando il conteggio. Soluzione **provvisoria** (nel capitolo 05 la sostituiremo con un `map`):
+Aggiorna le due card in `Dashboard.jsx` passando il conteggio. Versione **provvisoria** (nel capitolo 05 la sostituiremo con un `map`):
 
 ```jsx
 const countTransactions = (accountId) =>

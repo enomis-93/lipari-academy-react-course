@@ -68,7 +68,7 @@ Il path `*` corrisponde a **qualsiasi** URL non gestito dalle altre route. React
 ### 1. `NotFoundPage`
 `src/pages/NotFoundPage.jsx`:
 
-```jsx
+```jsx title="src/pages/NotFoundPage.jsx"
 import { Link } from "react-router";
 
 export default function NotFoundPage() {
@@ -85,7 +85,7 @@ export default function NotFoundPage() {
 ### 2. `TransferPage` con `useNavigate`
 `src/pages/TransferPage.jsx` (il form è quello del Day 4: props `accounts`, `beneficiaries`, `onAddTransfer(transfer)`, con `transfer = { accountId, beneficiaryId, amount, reason }`):
 
-```jsx
+```jsx title="src/pages/TransferPage.jsx"
 import { useNavigate } from "react-router";
 import { beneficiaries } from "../data/mockData.js";
 import TransferForm from "../components/TransferForm.jsx";

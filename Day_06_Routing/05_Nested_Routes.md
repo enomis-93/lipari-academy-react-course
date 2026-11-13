@@ -88,7 +88,7 @@ Il resto di `App.jsx` (stato, effect, altre route, route `*`) resta uguale.
 ### 2. `AccountsPage` con `Outlet`
 Sostituisci `src/pages/AccountsPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountsPage.jsx"
 import { NavLink, Outlet } from "react-router";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -129,7 +129,7 @@ Cosa fa: mostra la lista dei conti con il conto selezionato evidenziato (`NavLin
 
 Aggiungi in fondo a `src/index.css`:
 
-```css
+```css title="src/index.css"
 .accounts-layout {
   display: grid;
   grid-template-columns: minmax(200px, 280px) 1fr;
@@ -175,7 +175,7 @@ La lista dei conti è sempre visibile, quindi il link "← Tutti i conti" non se
 
 Riga da eliminare dal `return` finale di `src/pages/AccountDetailPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountDetailPage.jsx"
 <Link to="/accounts">← Tutti i conti</Link>
 ```
 

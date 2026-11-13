@@ -2,7 +2,7 @@
 
 > **Day 1 · Capitolo 05**
 > **Argomento:** Rendering e composizione
-> **Durata stimata:** 25 minuti
+> **Durata stimata:** 30 minuti
 > **Parte di LipariBank:** formattazione di importi e date, componente `BalanceCard` (saldo totale) e composizione in `App`
 
 ---
@@ -25,6 +25,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 🧭 In questo capitolo
 - Come funziona il rendering.
+- DOM e Virtual DOM: un primo sguardo.
 - Composizione e albero dei componenti.
 - Funzioni `formatCurrency` e `formatDate`.
 - `BalanceCard` con il saldo totale.
@@ -41,6 +42,25 @@ Alla fine del capitolo sarai in grado di:
 4. Il risultato è un albero che React traduce in elementi del DOM.
 
 Quando in futuro i dati cambieranno (Day 3), React rieseguirà i componenti interessati e aggiornerà **solo le differenze** nel DOM. Per ora ogni componente viene eseguito una volta all'avvio (in sviluppo, `StrictMode` lo esegue due volte per controllo: non preoccuparti).
+
+### DOM e Virtual DOM: un primo sguardo
+Il **DOM** è l'albero di oggetti con cui il browser rappresenta la pagina: ogni tag è un nodo. Modificarlo ha un costo, perché a ogni cambiamento il browser deve ricalcolare stili e posizioni.
+
+Il JSX che un componente restituisce **non è DOM**. È una descrizione leggera, fatta di normali oggetti JavaScript chiamati *elementi React*. Semplificando, questa riga:
+
+```jsx
+<p className="balance">Saldo</p>
+```
+
+diventa un oggetto di questo tipo:
+
+```javascript
+{ type: "p", props: { className: "balance", children: "Saldo" } }
+```
+
+L'albero di questi oggetti è ciò che comunemente si chiama **Virtual DOM**: una copia "di carta" dell'interfaccia, economica da creare e da confrontare. React DOM la legge e crea i nodi veri nella pagina.
+
+Il vantaggio si vedrà quando i dati cambieranno: React produrrà una nuova descrizione, la confronterà con la precedente e modificherà nel DOM solo ciò che è diverso. Questo confronto si chiama **riconciliazione** e lo studieremo nel [Day 3](../Day_03_State_Events/04_Virtual_DOM_e_Riconciliazione.md).
 
 ### Composizione
 **Comporre** significa usare un componente dentro un altro. `App` contiene `Header` e `BalanceCard`; più avanti `BalanceCard` potrà contenere altri componenti. Questa relazione genera l'**albero dei componenti**:
@@ -80,7 +100,7 @@ const names = ["Giulia Bianchi", "Luca Verdi"];
 ### 1. Funzioni di formattazione
 Crea `src/utils/formatters.js`:
 
-```javascript
+```javascript title="src/utils/formatters.js"
 const currencyFormatter = new Intl.NumberFormat("it-IT", {
   style: "currency",
   currency: "EUR",
@@ -105,7 +125,7 @@ export function formatDate(isoString) {
 ### 2. Il componente `BalanceCard`
 Crea `src/components/BalanceCard.jsx`:
 
-```jsx
+```jsx title="src/components/BalanceCard.jsx"
 import { accounts } from "../data/mockData.js";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -137,7 +157,7 @@ export default BalanceCard;
 ### 3. Comporre in `App`
 Aggiorna `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 import BalanceCard from "./components/BalanceCard.jsx";
 
@@ -204,6 +224,7 @@ Manca la parte più interessante: l'elenco degli **ultimi movimenti**. Lo costru
 - ☐ Ho creato `BalanceCard.jsx` e vedo `17.050,75 €`.
 - ☐ `App.jsx` compone `Header` e `BalanceCard`.
 - ☐ So descrivere come React esegue i componenti.
+- ☐ So dire in una frase che differenza c'è tra DOM e Virtual DOM.
 - ☐ Ho completato l'esercizio su conteggio conti e data.
 
 ---
@@ -215,6 +236,7 @@ Aggiungi nella `BalanceCard` il saldo del solo "Conto Corrente" cercandolo con `
 
 ## 📌 Recap
 - React esegue le funzioni dei componenti e traduce il JSX in DOM.
+- Il JSX produce oggetti che descrivono la UI (il Virtual DOM); i nodi veri li crea React DOM.
 - Comporre = usare componenti dentro altri componenti (albero).
 - Calcola prima del `return`, mostra nel JSX.
 - `formatCurrency` e `formatDate` sono funzioni di utilità riusabili.

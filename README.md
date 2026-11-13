@@ -1,184 +1,84 @@
 # 🏦 LipariBank — React Zero to Hero
 
-Corso pratico per imparare React costruendo un'unica applicazione progressiva: **LipariBank**, una banca fittizia.
+Sorgenti del corso React della Lipari Academy. Lo studente costruisce, giorno dopo giorno, un'unica applicazione: **LipariBank**, un home banking fittizio.
 
-> ⚠️ **LipariBank è un progetto didattico.** Tutti i dati (clienti, IBAN, saldi, movimenti, beneficiari) sono **fittizi**. Nessun bonifico è reale, nessun servizio bancario viene contattato, non servono credenziali né API key.
+Questa repository è lo spazio di lavoro di chi **scrive e mantiene** il corso. Gli studenti lo seguono sulla piattaforma Moodle, dove ogni capitolo è una pagina e ogni checkpoint un archivio allegato.
 
----
+> Tutti i dati di LipariBank (cliente, IBAN, saldi, movimenti, beneficiari) sono inventati. Nessun bonifico è reale e nessun servizio esterno viene contattato.
 
-## 🎯 Finalità del corso
-
-Al termine sarai in grado di:
-
-- comprendere la struttura di un'applicazione React;
-- sviluppare interfacce con JSX e Function Components;
-- gestire props, state, eventi, liste e rendering condizionale;
-- realizzare form con validazione;
-- integrare dati asincroni tramite `fetch`;
-- usare React Router;
-- organizzare un progetto in componenti, servizi e moduli;
-- usare `useRef`, Context, reducer, custom hooks e Redux Toolkit;
-- opzionalmente, leggere progetti legacy con Class Components;
-- lavorare con Git e GitHub;
-- sviluppare, documentare e consegnare un'applicazione React completa.
-
-## 👥 Destinatari
-
-Sviluppatori con conoscenze di programmazione di base (variabili, funzioni, cicli, condizioni) e una minima familiarità con HTML e CSS. JavaScript moderno si può recuperare con l'[Extra](#-percorso-principale-vs-extra-javascript).
-
-## 📋 Prerequisiti
-
-- Conoscenze di programmazione di base.
-- HTML e CSS elementari.
-- Un computer (Windows, macOS o Linux) con permessi per installare software.
-- Un account GitHub (si crea nel [Day 0](./Day_00_Setup/04_Git_GitHub.md)).
-
----
-
-## 🧱 Versioni di riferimento
-
-Gli esempi sono scritti e coerenti con:
-
-| Componente | Riferimento |
-|---|---|
-| Node.js | 22 LTS (Vite 8 richiede `^20.19.0` oppure `>=22.12.0`) |
-| React / React DOM | 19.x |
-| Vite | 8.x (progetto creato con `npm create vite@latest`, template `react`) |
-| React Router | 7.x, *declarative mode* (`npm install react-router@7`) |
-| Linguaggio | JavaScript (non TypeScript) |
-| Lint | oxlint, incluso nel template Vite (`npm run lint`) |
-
-Le versioni esatte installate sono quelle scritte nel `package.json` del tuo progetto. Se usi versioni diverse, i capitoli potrebbero non corrispondere: verifica i numeri di versione e consulta le note di aggiornamento.
-
----
-
-## 🗂️ Struttura delle cartelle
+## Che cosa contiene
 
 ```text
-LipariBank-React-Academy/
-├── README.md
-├── COURSE_MAP.md
-├── MOODLE_IMPORT_GUIDE.md
-├── TEMPLATE_CAPITOLO.md
-│
-├── Day_00_Setup/                        (6 capitoli)
-├── Extra_JavaScript_Essentials/         (8 capitoli)
-├── Day_01_React_Fundamentals/           (6 capitoli)
-├── Day_02_Components_Props/             (6 capitoli)
-├── Day_03_State_Events/                 (6 capitoli)
-├── Day_04_Forms_User_Input/             (7 capitoli)
-├── Day_05_Effects_API/                  (6 capitoli)
-├── Day_06_Routing/                      (6 capitoli)
-├── EXTRA_Legacy_React/                 (7 capitoli, EXTRA facoltativo)
-├── Day_07_Advanced_React_Architecture/  (8 capitoli)
-├── Day_08_Final_Project/                (6 capitoli)
-└── Day_09_Delivery/                     (6 capitoli)
+├── Day_00_Setup/ ... Day_09_Final_Project_Delivery/   i capitoli del corso, in Markdown
+├── Extra_JavaScript_Essentials/                       modulo extra: il JavaScript che serve a React
+├── Extra_Legacy_React/                                modulo extra: leggere e mantenere i Class Components
+├── COURSE_MAP.md                                      mappa del corso (pubblicata anche su Moodle)
+├── TEMPLATE_CAPITOLO.md                               struttura di un capitolo
+├── CONVERSION_GUIDE.md                                conversione e pubblicazione su Moodle
+├── moodle-links.json                                  indirizzi delle pagine Moodle, per i link tra capitoli
+├── repositories/                                      i progetti di fine giornata (checkpoint)
+└── scripts/                                           conversione, controlli e archivi dei checkpoint
 ```
 
-Ogni capitolo è un file Markdown numerato (`01_...md`, `02_...md`) per mantenere l'ordine. La mappa completa con obiettivi, prerequisiti, checkpoint e risultati attesi è in [COURSE_MAP.md](./COURSE_MAP.md).
+## Il percorso
 
----
+| Giorno | Tema | Capitoli |
+|---|---|---|
+| Day 0 | Setup dell'ambiente | 7 |
+| Day 1 | React Fundamentals: JSX, componenti, DOM e Virtual DOM | 6 |
+| Day 2 | Components e Props: composizione, liste, Fragment | 6 |
+| Day 3 | State ed eventi, riconciliazione | 7 |
+| Day 4 | Form, input dell'utente e `useRef` | 6 |
+| Day 5 | Effects e API | 6 |
+| Day 6 | Routing | 6 |
+| Day 7 | Stato condiviso: da Context a Redux | 6 |
+| Day 8 | Hook avanzati e architettura | 5 |
+| Day 9 | Progetto finale e consegna | 7 |
+| Extra | JavaScript Essentials | 8 |
+| Extra | React Legacy | 7 |
 
-## 🏦 Il progetto LipariBank
+Obiettivi, prerequisiti e risultato atteso di ogni giornata sono nella [mappa del corso](./COURSE_MAP.md).
 
-Un unico progetto, `liparibank/`, che cresce giorno dopo giorno:
+Versioni di riferimento: Node.js 22 LTS, React 19, Vite 8, React Router 7 (*declarative mode*), Redux Toolkit 2 con React Redux 9, JavaScript senza TypeScript.
 
-1. dashboard statica;
-2. componenti riutilizzabili per conti e movimenti;
-3. interazioni e gestione dello state;
-4. form per un bonifico simulato;
-5. recupero asincrono di dati;
-6. navigazione tra dashboard, conti, movimenti e bonifici;
-7. refactoring, architettura e Redux;
-8. progetto finale;
-9. verifica, documentazione e consegna.
+## Comandi
 
-Il modulo React Legacy è un approfondimento facoltativo, separato dal percorso principale.
+Serve Node.js 22 LTS. La prima volta, nella cartella principale:
 
-Dominio: *Customer* (cliente), *Account* (conto corrente), *Balance* (saldo), *Transaction* (movimento), *Beneficiary* (beneficiario), *Transfer* (bonifico), *Dashboard*, *Settings*. Ogni capitolo indica quale parte di LipariBank sviluppa o migliora.
+```bash
+npm install
+```
 
----
+| Comando | Che cosa fa |
+|---|---|
+| `npm run check` | Controlla tutti i capitoli: struttura, link, linguaggio dei blocchi, soluzioni, file citati |
+| `npm run convert` | Converte i capitoli nell'HTML per TinyMCE, in `tinymce-html/` |
+| `npm run checkpoints:verify` | Installa ed esegue lint e build di ogni checkpoint |
+| `npm run checkpoints:zip` | Crea gli archivi dei checkpoint in `checkpoints-zip/` |
+| `npm test` | Esegue i test degli script |
 
-## 🧪 Metodologia
+`tinymce-html/` e `checkpoints-zip/` sono generati e ignorati da Git.
 
-Ogni capitolo segue il ritmo **Spiega → Mostra → Fai provare → Verifica → Collega al prossimo argomento** ed è composto, nello stesso ordine, da: obiettivo, prerequisiti, teoria essenziale, esempio guidato, applicazione a LipariBank, esercizio pratico, checkpoint (quando pertinente), errori comuni, checklist, challenge facoltativa, recap, capitolo successivo. La struttura è descritta in [TEMPLATE_CAPITOLO.md](./TEMPLATE_CAPITOLO.md).
+## Modificare un capitolo
 
-Le soluzioni non vengono sempre date subito: prova prima da solo, poi confronta.
+1. Modifica il file Markdown. La struttura è quella di [TEMPLATE_CAPITOLO.md](./TEMPLATE_CAPITOLO.md).
+2. Se cambi del codice che lo studente scrive nel progetto, porta la stessa modifica nel checkpoint di quel giorno **e in tutti i successivi**: i checkpoint sono lo stato del progetto alla fine di ogni giornata e devono coincidere con i capitoli.
+3. Esegui `npm run check`.
+4. Converti il capitolo e ripubblicalo su Moodle, seguendo la [guida alla conversione](./CONVERSION_GUIDE.md).
 
----
+## Convenzioni di scrittura
 
-## 🧰 Percorso principale vs Extra JavaScript
+- Testo in italiano; i termini tecnici restano in inglese (`state`, `props`, `hook`).
+- Solo Markdown standard: niente HTML, CSS o JavaScript nei capitoli. La grafica la applica lo script di conversione.
+- Un solo titolo `#` per file; le sezioni seguono l'ordine del template.
+- Ogni blocco di codice dichiara il linguaggio. Se il blocco è un file del progetto, il percorso va nel `title`: ` ```jsx title="src/App.jsx" `.
+- Un blocco lungo che lo studente copia senza leggerlo riga per riga (per esempio i dati di prova) si marca con `collapse`.
+- La soluzione di un esercizio sta sotto un titolo che comincia con "Soluzione".
+- Checklist con `☐`.
+- Prima di un blocco si dice sempre **dove** eseguire il comando o **quale file** modificare.
+- I percorsi nel codice sono relativi alla cartella del progetto dello studente, `liparibank/`.
+- Dati sempre fittizi, nessun segreto.
 
-- **Percorso principale:** Day 0 → Day 1–9, in ordine.
-- **Extra — JavaScript Essentials:** 8 capitoli brevi su ciò che serve di JavaScript per seguire React (arrow function, `map/filter/reduce`, destructuring, moduli, `async/await`...). Si consulta **prima o durante** il corso, secondo necessità. Non è un corso JavaScript completo.
-- **Extra — React Legacy:** facoltativo dopo il Day 6; non è un prerequisito del Day 7.
+## Checkpoint
 
-## ⚛️ React moderno e legacy
-
-- **Sviluppo:** tutti gli esercizi usano **Function Components e Hooks**.
-- **Legacy:** l'[extra React Legacy](./EXTRA_Legacy_React/01_React_Moderno_vs_Legacy.md) introduce lettura e manutenzione di **Class Components** e lifecycle. Gli Hooks esistono da React 16.8. L'Error Boundary del Day 7 è una piccola eccezione spiegata nel capitolo stesso.
-
----
-
-## 📖 Come usare i file Markdown
-
-1. Segui l'ordine indicato in [COURSE_MAP.md](./COURSE_MAP.md).
-2. Leggi un capitolo alla volta; digita il codice (non limitarti a copiarlo) e verifica il risultato nel browser.
-3. Esegui l'esercizio "Your Turn" prima di guardare le soluzioni di riferimento.
-4. Spunta la checklist di fine capitolo.
-5. I percorsi dei file nel codice sono relativi alla cartella del progetto `liparibank/` (es. `src/components/Header.jsx`); i comandi indicano la cartella da cui eseguirli.
-6. Apri i file in VS Code con l'anteprima Markdown (`Ctrl+Shift+V`) oppure pubblicali su Moodle.
-
-### Convenzioni di scrittura (per chi mantiene il corso)
-
-- Un solo titolo `#` per file; sezioni `##`, sotto-sezioni `###`.
-- Solo Markdown standard: niente HTML, CSS o JavaScript inline.
-- Blocchi di codice sempre con il linguaggio (`bash`, `json`, `jsx`, `javascript`, `css`, `text`), un obiettivo per blocco.
-- Checklist con `☐` invece delle task list GFM, non supportate da tutti i renderer.
-- Nessun pulsante "Copy" finto: la funzione dipende da renderer, tema o plugin (vedi [MOODLE_IMPORT_GUIDE.md](./MOODLE_IMPORT_GUIDE.md)).
-- Dati fittizi soltanto; nessun segreto nei file.
-
----
-
-## 🔗 Come completare i segnaposto delle repository
-
-Il corso **non include** link a repository reali: dove servirebbe un link ci sono segnaposto espliciti:
-
-- `[DA CONFIGURARE: inserire URL reale della repository]`
-- `[DA CONFIGURARE: inserire nome reale del branch]`
-
-Per completarli:
-
-1. Pubblica la repository starter e/o i checkpoint (opzionali) su GitHub.
-2. Cerca tutti i segnaposto, dentro `LipariBank-React-Academy/`:
-
-   ```bash
-   grep -rn "DA CONFIGURARE" .
-   ```
-
-   In PowerShell:
-
-   ```powershell
-   Select-String -Path .\*\*.md -Pattern "DA CONFIGURARE"
-   ```
-
-3. Sostituisci ogni segnaposto con URL e branch reali. I checkpoint previsti sono: prima dashboard (Day 1), conti e componenti (Day 2), state (Day 3), form bonifico (Day 4), integrazione API (Day 5), routing (Day 6), refactoring (Day 7) e progetto finale (Day 8).
-4. Gli studenti possono sempre proseguire dalla **propria** repository creata nel Day 0.
-
----
-
-## 🎓 Note per la pubblicazione su Moodle
-
-- Markdown e HTML sono cose diverse: Moodle mostra HTML. Non dare per scontato che un file `.md` caricato diventi una pagina formattata; dipende da versione, funzionalità abilitate, permessi e plugin.
-- Il pulsante **Copy** sui blocchi di codice dipende dal renderer, dal tema o da un plugin: non è parte del Markdown e i capitoli non contengono JavaScript inline per simularlo.
-- Leggi la guida completa: [MOODLE_IMPORT_GUIDE.md](./MOODLE_IMPORT_GUIDE.md).
-
-## 🧩 Conversione TinyMCE
-
-Installa le dipendenze con `npm install`, poi esegui `npm run tinymce:convert` per convertire ricorsivamente il Day 1. Per convertire un altro modulo, passa la cartella sorgente, ad esempio `npm run tinymce:convert -- --source Day_02_Components_Props`. Usa `--limit 1` per generare un singolo capitolo di anteprima. I file HTML sono salvati in `tinymce-html/`; il JavaScript condiviso per i pulsanti Copy deve essere caricato dalla pagina ospitante.
-
----
-
-## ▶️ Da dove iniziare
-
-Parti da [Day 0 — Introduzione al corso](./Day_00_Setup/01_Introduzione_al_corso.md).
+`repositories/Day_NN/` contiene il progetto com'è alla fine del giorno NN; `repositories/Extra_Legacy_React/` il laboratorio del modulo extra. Ogni cartella è un progetto Vite autonomo. Dettagli in [repositories/README.md](./repositories/README.md).

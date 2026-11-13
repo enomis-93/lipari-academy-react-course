@@ -1,31 +1,111 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import Card from "../components/Card.jsx";
-import TransactionContent from "../components/TransactionContent.jsx";
+import CategorySummary from "../components/CategorySummary.jsx";
+import EmptyState from "../components/EmptyState.jsx";
+import ErrorMessage from "../components/ErrorMessage.jsx";
+import LoadingMessage from "../components/LoadingMessage.jsx";
 import TransactionFilters from "../components/TransactionFilters.jsx";
+import TransactionList from "../components/TransactionList.jsx";
+import { useBankStatus } from "../hooks/useBankStatus.js";
+import { useDocumentTitle } from "../hooks/useDocumentTitle.js";
 import { useLocalStorage } from "../hooks/useLocalStorage.js";
 import { useTransactions } from "../hooks/useTransactions.js";
-import { formatMoney } from "../utils/format.js";
-import { useBank } from "../context/BankContext.jsx";
+import { selectAccounts } from "../store/accountsSlice.js";
+import { favoriteToggled, selectTransactions } from "../store/transactionsSlice.js";
 
 export default function TransactionsPage() {
-  const bank = useBank();
-  const [filter, setFilter] = useLocalStorage("liparibank.filter", "all");
-  const [search, setSearch] = useState("");
-  const [accountId, setAccountId] = useState("");
+  const dispatch = useDispatch();
+  const accounts = useSelector(selectAccounts);
+  const allTransactions = useSelector(selectTransactions);
+  const { isLoading, error, reload } = useBankStatus();
+
   const location = useLocation();
-  const items = useTransactions(bank.transactions, filter, search, accountId);
-  const expenses = useMemo(() => items.filter((item) => item.amount < 0).reduce((totals, item) => {
-    totals[item.category] = (totals[item.category] || 0) - item.amount;
-    return totals;
-  }, {}), [items]);
-  useEffect(() => {
-    if (location.state?.transferCompleted) setFilter("all");
-  }, [location.state?.transferCompleted]);
-  return <Card title="Movimenti">{location.state?.transferCompleted && <p role="status">Bonifico simulato registrato.</p>}
-    <TransactionFilters filter={filter} searchText={search} onFilterChange={setFilter} onSearchChange={setSearch} />
-    <label>Conto <select value={accountId} onChange={(event) => setAccountId(event.target.value)}><option value="">Tutti i conti</option>{bank.accounts.map((account) => <option key={account.id} value={account.id}>{account.name}</option>)}</select></label>
-    <TransactionContent bank={bank} items={items} />
-    <h3>Uscite per categoria</h3>{Object.keys(expenses).length ? <ul>{Object.entries(expenses).map(([category, total]) => <li key={category}>{category}: {formatMoney(total)}</li>)}</ul> : <p>Nessuna uscita.</p>}
-  </Card>;
+  const transferCompleted = location.state?.transferCompleted === true;
+
+  const [filter, setFilter] = useLocalStorage("liparibank.transactionsFilter", "all");
+  const [searchText, setSearchText] = useState("");
+  const [accountFilter, setAccountFilter] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  useDocumentTitle("Movimenti");
+
+  const visibleTransactions = useTransactions({
+    accountId: accountFilter || null,
+    filter,
+    searchText,
+  });
+  const categoryTransactions =
+    selectedCategory === null
+      ? visibleTransactions
+      : visibleTransactions.filter((transaction) => transaction.category === selectedCategory);
+
+  const handleSelectCategory = useCallback((category) => {
+    setSelectedCategory((current) => (current === category ? null : category));
+  }, []);
+
+  const handleToggleFavorite = useCallback(
+    (transactionId) => dispatch(favoriteToggled(transactionId)),
+    [dispatch],
+  );
+
+  let content;
+
+  if (isLoading) {
+    content = <LoadingMessage message="Caricamento dei movimenti..." />;
+  } else if (error) {
+    content = <ErrorMessage message={error} onRetry={reload} />;
+  } else if (allTransactions.length === 0) {
+    content = <EmptyState message="Non ci sono ancora movimenti." />;
+  } else {
+    content = (
+      <>
+        <CategorySummary
+          selectedCategory={selectedCategory}
+          onSelectCategory={handleSelectCategory}
+        />
+        <TransactionList
+          transactions={categoryTransactions}
+          onToggleFavorite={handleToggleFavorite}
+        />
+      </>
+    );
+  }
+
+  return (
+    <section>
+      <h1>Movimenti</h1>
+
+      {transferCompleted && (
+        <p className="success-message" role="status">
+          Bonifico simulato registrato.
+        </p>
+      )}
+
+      <div className="form-field">
+        <label htmlFor="account-filter">Conto</label>
+        <select
+          id="account-filter"
+          value={accountFilter}
+          onChange={(event) => setAccountFilter(event.target.value)}
+        >
+          <option value="">Tutti i conti</option>
+          {accounts.map((account) => (
+            <option key={account.id} value={account.id}>
+              {account.name}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <TransactionFilters
+        filter={filter}
+        searchText={searchText}
+        onFilterChange={setFilter}
+        onSearchChange={setSearchText}
+      />
+
+      {content}
+    </section>
+  );
 }

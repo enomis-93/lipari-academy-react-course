@@ -1,32 +1,51 @@
-# Checkpoint LipariBank
+# Checkpoint di LipariBank
 
-Ogni cartella `Day_XX` è un progetto autonomo riferito alla fine del giorno indicato. Per il Day 7 si parte dal Day 6: il modulo React Legacy è un laboratorio facoltativo e non è un prerequisito. I dati sono fittizi e i bonifici sono simulati: non viene effettuata alcuna operazione bancaria.
+Ogni cartella è il progetto `liparibank/` com'è **alla fine** di una giornata del corso, ricostruito applicando il codice dei capitoli. Sono progetti Vite autonomi: nessuno dipende dagli altri.
 
-## Avvio
+| Cartella | Stato del progetto | Archivio per gli studenti |
+|---|---|---|
+| `Day_00` | Progetto Vite ridotto alla pagina minima | `liparibank-day-00.zip` |
+| `Day_01` | Prima dashboard statica | `liparibank-day-01.zip` |
+| `Day_02` | Componenti riutilizzabili per conti e movimenti | `liparibank-day-02.zip` |
+| `Day_03` | Selezione del conto, filtri, ricerca, preferiti | `liparibank-day-03.zip` |
+| `Day_04` | Form del bonifico simulato con validazione | `liparibank-day-04.zip` |
+| `Day_05` | Movimenti caricati in modo asincrono | `liparibank-day-05.zip` |
+| `Day_06` | Applicazione a più pagine con React Router | `liparibank-day-06.zip` |
+| `Day_07` | Stato condiviso nello store Redux, preferenze in un Context | `liparibank-day-07.zip` |
+| `Day_08` | Custom hooks, service layer, Error Boundary, struttura finale | `liparibank-day-08.zip` |
+| `Day_09` | Soluzione del progetto finale | `liparibank-day-09.zip` |
+| `Extra_Legacy_React` | Progetto di fine Day 6 con il laboratorio `src/legacy/` | `liparibank-extra-legacy.zip` |
 
-Installa Node.js 22 LTS (almeno 22.12.0), estrai la cartella del giorno e apri un terminale al suo interno, dove si trova `package.json`:
+Il punto di partenza di un giorno è il checkpoint del giorno precedente. Il modulo extra React Legacy parte dal Day 6 e non è un prerequisito del Day 7.
+
+## Provare un checkpoint
+
+Serve Node.js 22 LTS (22.12 o successivo). Dentro la cartella del checkpoint:
 
 ```bash
 npm install
+```
+
+```bash
 npm run dev
 ```
 
-Apri l'indirizzo mostrato da Vite. Per controllare il progetto usa `npm run lint` e `npm run build`; per visualizzare la build usa `npm run preview`. Non includere `node_modules` o `dist` negli archivi da pubblicare.
+`npm run lint` e `npm run build` devono terminare senza errori.
 
-Nei progetti dal Day 04 al Day 9 è inoltre possibile eseguire i test disponibili con `node --test`.
+## Verificarli tutti e creare gli archivi
 
-| Giorno | Punto di arrivo |
-|---|---|
-| 00 | Progetto React e Vite iniziale |
-| 01 | Dashboard e dati fittizi |
-| 02 | Conti e componenti riutilizzabili |
-| 03 | State, selezione conto e filtri |
-| 04 | Bonifico simulato e validazione |
-| 05 | Caricamento movimenti da JSON |
-| 06 | Navigazione con React Router |
-| Extra | `EXTRA_Legacy_React`: laboratorio legacy facoltativo |
-| 07 | Context, reducer, hooks, service layer e Redux Toolkit |
-| 08 | Requisiti del progetto finale |
-| 09 | Versione di consegna |
+Dalla cartella principale della repository:
 
-I bonifici e le modifiche ai movimenti rimangono in memoria e si perdono ricaricando la pagina. Dal Day 07 la preferenza del saldo nascosto e il filtro per tipo sono salvati nel browser; la modalità compatta Redux invece si azzera al ricaricamento. Per pubblicare un'app con routing su hosting statico è necessario configurare il fallback SPA verso `index.html`.
+```bash
+npm run checkpoints:verify
+```
+
+```bash
+npm run checkpoints:zip
+```
+
+Gli archivi finiscono in `checkpoints-zip/`, senza `node_modules` e `dist`, e si allegano alla giornata corrispondente su Moodle.
+
+## Regola di manutenzione
+
+Un checkpoint deve coincidere con ciò che lo studente ottiene seguendo i capitoli. Se un capitolo cambia il codice del progetto, la stessa modifica va portata nel checkpoint di quel giorno e in tutti i successivi. `npm run check` segnala i file citati nei capitoli che nessun checkpoint contiene.

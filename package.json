@@ -1,10 +1,17 @@
 {
-  "name": "liparibank-tinymce-converter",
+  "name": "lipari-academy-react-course",
   "private": true,
+  "type": "module",
   "scripts": {
-    "tinymce:convert": "node scripts/convert-to-tinymce.mjs"
+    "convert": "node scripts/convert-to-tinymce.mjs",
+    "check": "node scripts/check-course.mjs",
+    "checkpoints:verify": "node scripts/checkpoints.mjs verify",
+    "checkpoints:zip": "node scripts/checkpoints.mjs zip",
+    "test": "node --test \"scripts/tests/*.test.mjs\""
   },
   "devDependencies": {
-    "markdown-it": "^14.1.0"
+    "adm-zip": "^0.6.1",
+    "markdown-it": "^14.1.0",
+    "shiki": "^4.6.0"
   }
 }

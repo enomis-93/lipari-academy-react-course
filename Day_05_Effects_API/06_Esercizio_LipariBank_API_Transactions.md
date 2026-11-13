@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - Capitoli 01–05 di questo Day.
-- Stato del progetto: fine Day 4 ([Esercizio Bonifico](../Day_04_Forms_User_Input/05_Esercizio_LipariBank_Bonifico.md)), con `Dashboard.jsx`, `TransferForm.jsx`, `validators.js`.
+- Stato del progetto: fine Day 4 ([Esercizio Bonifico](../Day_04_Forms_User_Input/06_Esercizio_LipariBank_Bonifico.md)), con `Dashboard.jsx`, `TransferForm.jsx`, `validators.js`.
 
 ---
 
@@ -324,8 +324,7 @@ Ripristina service e JSON dopo le prove.
 ## 🔗 Repository / Checkpoint
 
 ### CHECKPOINT 5 — Integrazione API
-- **URL repository:** `[DA CONFIGURARE: inserire URL reale della repository]`
-- **Branch:** `[DA CONFIGURARE: inserire nome reale del branch]`
+- **Checkpoint del corso:** `liparibank-day-05.zip`, allegato al Day 5 sulla piattaforma. Per usarlo vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
 
 **Contenuto iniziale (stato di partenza):** progetto a fine Day 4: dashboard con state `transactions` da `mockData.js`, `TransferForm`, `validators.js`.
 

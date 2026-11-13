@@ -207,11 +207,11 @@ Cose da notare:
 
 - `location.state` è `null` se arrivi alla pagina senza `navigate(..., { state })`: l'optional chaining `?.` evita l'errore.
 - Lo state di una voce di cronologia viene conservato dal browser: un F5 sulla stessa voce può mostrare ancora il messaggio. Per un messaggio che deve sparire sarebbe necessario uno state apposito (vedi challenge).
-- La logica dei filtri è **duplicata** tra `DashboardPage` e `TransactionsPage`. Lo segnaliamo: nel Day 7 la sposteremo in un custom hook (`useTransactions`).
+- La logica dei filtri è **duplicata** tra `DashboardPage` e `TransactionsPage`. Lo segnaliamo: nel Day 8 la sposteremo in un custom hook (`useTransactions`).
 
 Aggiungi in `src/index.css`:
 
-```css
+```css title="src/index.css"
 .success-message {
   padding: 0.75rem 1rem;
   border: 1px solid #86efac;
@@ -285,15 +285,14 @@ Esegui `npm run dev` dentro `liparibank/` e controlla:
 | 11 | Ricarica su `/accounts/acc-001` | la pagina si apre (con `npm run dev`) |
 | 12 | `npm run lint` e `npm run build` | nessun errore |
 
-Nota su produzione: la riga 11 funziona nel server di sviluppo di Vite. Su un hosting statico serve un *SPA fallback*, descritto nel [Day 9 · Environment e Deploy](../Day_09_Delivery/04_Environment_e_Deploy.md).
+Nota su produzione: la riga 11 funziona nel server di sviluppo di Vite. Su un hosting statico serve un *SPA fallback*, descritto nel [Day 9 · Environment e Deploy](../Day_09_Final_Project_Delivery/06_Environment_e_Deploy.md).
 
 ---
 
 ## 🔗 Repository / Checkpoint
 
 ### CHECKPOINT 6 — Routing
-- **URL repository:** `[DA CONFIGURARE: inserire URL reale della repository]`
-- **Branch:** `[DA CONFIGURARE: inserire nome reale del branch]`
+- **Checkpoint del corso:** `liparibank-day-06.zip`, allegato al Day 6 sulla piattaforma. Per usarlo vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
 
 **Contenuto iniziale (stato di partenza):** progetto a fine Day 5 (CHECKPOINT 5): `Dashboard.jsx` con effect di caricamento, service `transactionService.js`, componenti `LoadingMessage`/`ErrorMessage`, nessun router.
 
@@ -345,9 +344,9 @@ Fai sparire il messaggio "Bonifico simulato registrato." dopo 4 secondi usando u
 - LipariBank è ora multi-pagina: layout condiviso, menu con `NavLink`, route dinamiche e annidate, 404.
 - Lo state condiviso (`transactions`, `isLoading`, `error`, `addTransfer`) vive in `App.jsx`; lo state UI nelle pagine.
 - `useNavigate` + `state` collega un'azione (bonifico) a una pagina e a un messaggio.
-- Prop drilling e logica duplicata dei filtri sono i limiti da risolvere nel Day 7.
+- Il prop drilling è il limite che risolveremo nel Day 7; la logica duplicata dei filtri nel Day 8.
 
 ---
 
 ### ➡️ Next
-[Day 7 · Capitolo 01 — Context e useContext](../Day_07_Advanced_React_Architecture/01_Context_e_useContext.md): condividiamo le preferenze tra pagine. L'[extra React Legacy](../EXTRA_Legacy_React/01_React_Moderno_vs_Legacy.md) è facoltativo.
+[Day 7 · Capitolo 01 — Context e useContext](../Day_07_Shared_State_Redux/01_Context_e_useContext.md): eliminiamo il passaggio di props tra `App` e le pagine condividendo lo stato, prima con Context e poi con Redux. L'[extra React Legacy](../EXTRA_Legacy_React/01_React_Moderno_vs_Legacy.md) è facoltativo.

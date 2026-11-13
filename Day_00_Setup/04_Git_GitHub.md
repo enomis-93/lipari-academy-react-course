@@ -234,7 +234,7 @@ Aggiungi componente Header
 Completa dashboard Day 1
 ```
 
-Per i checkpoint ufficiali del corso gli URL e i branch saranno forniti dal docente: dove compaiono, sono segnaposto `[DA CONFIGURARE: inserire URL reale della repository]`.
+Oltre alla tua repository, il corso mette a disposizione un **checkpoint** per ogni giorno: un archivio con il progetto funzionante a fine giornata. Vedrai come usarlo nel [capitolo 06](./06_Come_usare_i_checkpoint.md).
 
 ---
 

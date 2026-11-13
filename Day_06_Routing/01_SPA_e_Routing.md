@@ -76,7 +76,7 @@ Cosa ottieni rispetto a un semplice `useState("dashboard")`:
 ### Esperimento: navigazione "finta" con `useState`
 Per capire cosa risolve un router, prova **temporaneamente** una navigazione fatta a mano. Modifica `src/App.jsx` (salva prima il tuo file attuale; tornerai indietro tra poco):
 
-```jsx
+```jsx title="src/App.jsx"
 import { useState } from "react";
 import Dashboard from "./components/Dashboard.jsx";
 
@@ -113,7 +113,7 @@ Cosa dimostra: senza router non hai URL, cronologia né deep link. Errore da evi
 Ripristina il tuo `App.jsx` precedente (o lascialo così: nel capitolo 02 lo riscriviamo).
 
 ### Cosa succede con un ricaricamento sulla pagina `/accounts`
-Con un router, l'URL `/accounts` sarà valido. Nel server di sviluppo di Vite (`npm run dev`) aprire direttamente `http://localhost:5173/accounts` o ricaricare funziona: il dev server restituisce `index.html` e il router mostra la pagina giusta. Con un **sito statico in produzione** il server deve essere configurato per restituire `index.html` per tutti i percorsi dell'app (*SPA fallback*): lo vediamo in [Day 9 · Environment e Deploy](../Day_09_Delivery/04_Environment_e_Deploy.md). Per ora lavori in sviluppo e non devi fare nulla.
+Con un router, l'URL `/accounts` sarà valido. Nel server di sviluppo di Vite (`npm run dev`) aprire direttamente `http://localhost:5173/accounts` o ricaricare funziona: il dev server restituisce `index.html` e il router mostra la pagina giusta. Con un **sito statico in produzione** il server deve essere configurato per restituire `index.html` per tutti i percorsi dell'app (*SPA fallback*): lo vediamo in [Day 9 · Environment e Deploy](../Day_09_Final_Project_Delivery/06_Environment_e_Deploy.md). Per ora lavori in sviluppo e non devi fare nulla.
 
 ---
 

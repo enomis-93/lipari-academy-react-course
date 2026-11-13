@@ -138,7 +138,7 @@ n/d
 { currency: 'EUR' }
 ```
 
-Un saldo di `0` è un valore **valido**: `||` lo scambierebbe per "mancante", `??` no. Lo stesso vale per una causale vuota `""` se vuoi distinguerla da `undefined`. Nel progetto lo ritroverai in `import.meta.env.VITE_API_BASE_URL ?? ""` ([Day 7](../Day_07_Advanced_React_Architecture/06_Service_Layer_e_API.md)).
+Un saldo di `0` è un valore **valido**: `||` lo scambierebbe per "mancante", `??` no. Lo stesso vale per una causale vuota `""` se vuoi distinguerla da `undefined`. Nel progetto lo ritroverai in `import.meta.env.VITE_API_BASE_URL ?? ""` ([Day 7](../Day_08_Advanced_Hooks_Architecture/03_Service_Layer_e_Error_Boundary.md)).
 
 ### Ternario e lookup
 ```javascript

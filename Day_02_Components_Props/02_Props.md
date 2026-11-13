@@ -87,7 +87,7 @@ Procedi file per file. Ricorda che gli stessi dati continuano a venire da `src/d
 ### 1. `Header` riceve il cliente
 `src/components/Header.jsx`:
 
-```jsx
+```jsx title="src/components/Header.jsx"
 function Header({ customer }) {
   return (
     <header className="header">
@@ -104,7 +104,7 @@ export default Header;
 
 `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import { customer } from "./data/mockData.js";
@@ -124,7 +124,7 @@ export default App;
 ### 2. `BalanceCard` riceve il totale
 `src/components/BalanceCard.jsx` (sostituisce la versione precedente):
 
-```jsx
+```jsx title="src/components/BalanceCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function BalanceCard({ total, label = "Saldo totale" }) {
@@ -144,7 +144,7 @@ Non conosce più i conti: riceve soltanto un numero. Può mostrare il totale gen
 ### 3. `TransactionItem` con destructuring
 `src/components/TransactionItem.jsx`:
 
-```jsx
+```jsx title="src/components/TransactionItem.jsx"
 import { formatCurrency, formatDate } from "../utils/formatters.js";
 
 function TransactionItem({ transaction }) {
@@ -172,7 +172,7 @@ export default TransactionItem;
 ### 4. `RecentTransactions` diventa `TransactionList`
 Un componente che riceve una lista non deve sapere se è "recente" o meno: il nome riflette il **ruolo**, non i dati. Crea `src/components/TransactionList.jsx`:
 
-```jsx
+```jsx title="src/components/TransactionList.jsx"
 import TransactionItem from "./TransactionItem.jsx";
 
 function TransactionList({ transactions }) {
@@ -193,7 +193,7 @@ Poi **elimina** `src/components/RecentTransactions.jsx`: non serve più. Il sign
 ### 5. `Dashboard` calcola e passa i dati
 `src/components/Dashboard.jsx`:
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { accounts, transactions } from "../data/mockData.js";
 import BalanceCard from "./BalanceCard.jsx";
 import TransactionList from "./TransactionList.jsx";
@@ -233,7 +233,7 @@ export default Dashboard;
 ### 6. Nuovo: `AccountCard`
 `src/components/AccountCard.jsx`:
 
-```jsx
+```jsx title="src/components/AccountCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function AccountCard({ account }) {
@@ -251,7 +251,7 @@ export default AccountCard;
 
 Aggiungi in fondo a `src/index.css`:
 
-```css
+```css title="src/index.css"
 .account-card {
   padding: 1rem;
   border: 1px solid #e5e7eb;

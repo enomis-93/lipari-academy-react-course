@@ -254,7 +254,7 @@ Non serve altro adesso: lo useremo con `useEffect` e il suo cleanup nel [Day 5](
 ## 🏦 LipariBank in action
 - **Day 4:** il bonifico simulato non fa transazioni reali e aggiunge subito il movimento allo state; qui lo rendi asincrono (con attesa e rifiuto) solo per esercitarti sulle Promise.
 - **Day 5:** `getTransactions({ signal })` in `src/services/transactionService.js` restituisce una Promise; `Dashboard.jsx` mostra loading, errore o lista in base all'esito ([Day 5 · Loading, Error, Empty](../Day_05_Effects_API/05_Loading_Error_Empty_States.md)).
-- **Day 7:** il service layer incapsula `fetch` e gli errori in un solo punto.
+- **Day 8:** il service layer incapsula `fetch` e gli errori in un solo punto.
 
 ---
 

@@ -75,7 +75,7 @@ Qui `title` è una prop normale (una stringa), mentre il contenuto tra i tag è 
 ### 1. Il componente `Card`
 Crea `src/components/Card.jsx`:
 
-```jsx
+```jsx title="src/components/Card.jsx"
 function Card({ title, children }) {
   return (
     <section className="card">
@@ -99,7 +99,7 @@ export default Card;
 ### 2. Stili della card
 In `src/index.css` **aggiungi in fondo**:
 
-```css
+```css title="src/index.css"
 .card {
   padding: 1rem;
   border: 1px solid #e5e7eb;
@@ -131,7 +131,7 @@ Poi **sostituisci** la regola `.transaction-list` esistente con questa, perché 
 ### 3. Usare `Card` in `Dashboard`
 `src/components/Dashboard.jsx`:
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { accounts, transactions } from "../data/mockData.js";
 import BalanceCard from "./BalanceCard.jsx";
 import Card from "./Card.jsx";
@@ -207,6 +207,8 @@ La separazione è chiara:
 > ⚠️ **Prova prima da solo**
 >
 > La soluzione parziale per `Card` è qui sotto: guardala dopo aver tentato.
+
+### Soluzione di riferimento — `Card` con il footer
 
 ```jsx
 function Card({ title, footer, children }) {

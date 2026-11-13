@@ -13,6 +13,7 @@ Alla fine del capitolo sarai in grado di:
 - trasformare un array di dati in un elenco di componenti con `map`;
 - assegnare una `key` stabile e unica (`id`);
 - spiegare perché non si usa l'indice dell'array come `key` quando la lista può cambiare;
+- usare `<Fragment key>` quando ogni voce della lista produce più elementi;
 - combinare `filter`, `sort` e `map` senza modificare i dati originali.
 
 ---
@@ -26,6 +27,7 @@ Alla fine del capitolo sarai in grado di:
 ## 🧭 In questo capitolo
 - `map` per generare elenchi in JSX.
 - Il ruolo della `key` e perché `key={index}` è rischioso.
+- `<Fragment key>` per le voci con più elementi.
 - `AccountList` al posto delle card scritte a mano.
 - Pipeline `filter` → `sort` → `map`.
 
@@ -56,6 +58,8 @@ Regole:
 
 La scelta migliore è l'`id` del dato: `key={transaction.id}`.
 
+Come React usa questa identità per decidere che cosa aggiornare nella pagina lo vedremo nel [Day 3 · Virtual DOM e riconciliazione](../Day_03_State_Events/04_Virtual_DOM_e_Riconciliazione.md).
+
 ### Perché non `key={index}`
 L'indice identifica una **posizione**, non un **dato**. Se la lista viene riordinata, filtrata, o si inserisce un elemento in cima, la posizione cambia: React crede che sia lo stesso elemento con dati diversi, e può riusare male il DOM e lo stato interno dei figli (testo scritto in un campo, elementi aperti/chiusi, focus).
 
@@ -72,6 +76,26 @@ Con liste statiche e mai riordinate non causa problemi visibili: ma in LipariBan
 >
 > `key` = identità del dato. Usa l'`id` del dato: mai l'indice (se la lista può cambiare) e mai valori casuali.
 
+### Più elementi per voce: `<Fragment key>`
+A volte ogni voce della lista produce **due elementi fratelli** e non esiste un contenitore naturale. L'esempio classico è un elenco di definizioni, dove a ogni conto corrispondono un `<dt>` e un `<dd>`.
+
+La `key` va sull'elemento più esterno restituito dal `map`, ma il Fragment breve `<>...</>` non accetta attributi. Serve la forma estesa, vista nel [Day 1 · JSX](../Day_01_React_Fundamentals/03_JSX.md):
+
+```jsx
+import { Fragment } from "react";
+
+<dl>
+  {accounts.map((account) => (
+    <Fragment key={account.id}>
+      <dt>{account.name}</dt>
+      <dd>{account.iban}</dd>
+    </Fragment>
+  ))}
+</dl>
+```
+
+Nel DOM compaiono solo `<dt>` e `<dd>`, direttamente dentro `<dl>`: nessun nodo in più, e React sa comunque a quale conto appartiene ogni coppia.
+
 ### Preparare i dati: `filter`, `sort`, `map`
 `filter` e `map` restituiscono **nuovi array**. `sort` invece modifica l'array su cui lavora: ordina sempre una copia (`[...list].sort(...)`) o il risultato di un `filter`/`map` (che è già un nuovo array).
 
@@ -82,7 +106,7 @@ Con liste statiche e mai riordinate non causa problemi visibili: ma in LipariBan
 ### 1. `AccountList`
 Crea `src/components/AccountList.jsx`:
 
-```jsx
+```jsx title="src/components/AccountList.jsx"
 import AccountCard from "./AccountCard.jsx";
 import EmptyState from "./EmptyState.jsx";
 
@@ -124,7 +148,7 @@ export default AccountList;
 ### 2. Stili della lista
 In `src/index.css` **aggiungi in fondo**:
 
-```css
+```css title="src/index.css"
 .account-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -135,7 +159,7 @@ In `src/index.css` **aggiungi in fondo**:
 ### 3. Usare `AccountList` in `Dashboard`
 `src/components/Dashboard.jsx` (ora le card dei conti sono generate da `map`, e `countTransactions` non serve più):
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { accounts, transactions } from "../data/mockData.js";
 import BalanceCard from "./BalanceCard.jsx";
 import Card from "./Card.jsx";
@@ -217,6 +241,7 @@ Nel Day 3 i filtri cambieranno il contenuto della lista: grazie alle `key` basat
 - **`key` sull'elemento sbagliato**: va sull'elemento restituito dal `map`, non su un figlio interno.
 - **`sort` su un array importato**: lo modifica. Usa `[...list].sort(...)`.
 - **Dimenticare `return`** quando il callback usa le graffe.
+- **`key` sul Fragment breve**: `<>` non accetta attributi; quando la voce ha più elementi usa `<Fragment key={...}>`.
 - **Aspettarsi `props.key`**: non esiste; se serve l'id al figlio, passa anche `id={account.id}`.
 
 ---
@@ -239,6 +264,7 @@ Aggiungi a `TransactionList` una piccola intestazione che mostra `N movimenti` u
 - `map` trasforma un array di dati in un array di elementi JSX.
 - La `key` identifica un dato: deve essere unica tra fratelli e stabile.
 - Usa `key={item.id}`; non l'indice e non valori casuali.
+- Se una voce produce più elementi, raggruppali con `<Fragment key={item.id}>`.
 - `filter` e `map` creano nuovi array; `sort` va applicato a una copia.
 - `AccountList` e `TransactionList` mostrano liste e gestiscono il caso vuoto.
 

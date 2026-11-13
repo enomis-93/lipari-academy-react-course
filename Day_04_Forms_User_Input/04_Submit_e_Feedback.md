@@ -19,7 +19,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Capitolo 03 — Validazione](./03_Validazione.md): `validators.js` con `validateTransfer` e `parseAmount`, `TransferForm` con errori per campo.
-- `Dashboard` con `transactions` in state: [Immutabilità](../Day_03_State_Events/04_Immutabilita_dello_State.md); callback e lifting: [Lifting State Up](../Day_03_State_Events/05_Lifting_State_Up.md).
+- `Dashboard` con `transactions` in state: [Immutabilità](../Day_03_State_Events/05_Immutabilita_dello_State.md); callback e lifting: [Lifting State Up](../Day_03_State_Events/06_Lifting_State_Up.md).
 
 ---
 
@@ -46,7 +46,7 @@ Alla fine del capitolo sarai in grado di:
 - `TransferForm` possiede lo state **del form** (`values`, `errors`, messaggio di conferma): è il suo stato locale e non serve a nessun altro.
 - `Dashboard` possiede `transactions`: è un dato condiviso (lista, saldo...). Il form non lo modifica direttamente: chiama `onAddTransfer(transfer)` e `Dashboard` aggiorna lo state.
 
-Questo è il pattern del capitolo [Lifting State Up](../Day_03_State_Events/05_Lifting_State_Up.md): dati giù con le props, azioni su con le callback.
+Questo è il pattern del capitolo [Lifting State Up](../Day_03_State_Events/06_Lifting_State_Up.md): dati giù con le props, azioni su con le callback.
 
 ### Feedback accessibile
 - **Errori**: già visti, con `role="alert"` per campo.
@@ -113,7 +113,7 @@ Nel JSX passa la callback:
 ### 2. `TransferForm` completo
 File `src/components/TransferForm.jsx`:
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useState } from "react";
 import { formatCurrency } from "../utils/formatters.js";
 import { REASON_MAX_LENGTH, parseAmount, validateTransfer } from "../utils/validators.js";
@@ -271,7 +271,7 @@ export default TransferForm;
 
 Stile (in `src/index.css`):
 
-```css
+```css title="src/index.css"
 .form-success {
   color: #0a6b2d;
 }
@@ -301,7 +301,7 @@ Risultato:
 - il form si svuota;
 - in cima ai movimenti del Conto Corrente compare `Bonifico a Giulia Bianchi` di `-100,00 €`, categoria "Bonifici".
 
-Nota: a questo punto il **saldo mostrato** nelle card non cambia ancora e il controllo "saldo insufficiente" usa sempre il saldo iniziale. Lo correggiamo nell'[esercizio del capitolo 05](./05_Esercizio_LipariBank_Bonifico.md), ricalcolando i saldi come dato derivato.
+Nota: a questo punto il **saldo mostrato** nelle card non cambia ancora e il controllo "saldo insufficiente" usa sempre il saldo iniziale. Lo correggiamo nell'[esercizio del capitolo 05](./06_Esercizio_LipariBank_Bonifico.md), ricalcolando i saldi come dato derivato.
 
 ---
 
@@ -368,4 +368,4 @@ Salva anche la causale: aggiungi al movimento il campo `note: transfer.reason` (
 ---
 
 ### ➡️ Next
-[Capitolo 05 — Esercizio LipariBank Bonifico](./05_Esercizio_LipariBank_Bonifico.md): ricalcoliamo i saldi come dati derivati e verifichiamo l'intero flusso con scenari concreti.
+[Capitolo 05 — `useRef`](./05_useRef.md): il form funziona, ma dopo un invio non valido il cursore resta sul pulsante. Impariamo a ottenere un nodo del DOM per spostare il focus.

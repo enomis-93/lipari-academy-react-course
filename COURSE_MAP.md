@@ -1,249 +1,256 @@
 # 🏦 LipariBank — React Zero to Hero · Mappa del corso
 
-> Ordine di fruizione, obiettivi, prerequisiti, capitoli, checkpoint e risultato atteso di ogni giorno.
-> Versioni di riferimento: **Node.js 22 LTS · React 19 · Vite 8 · React Router 7** (vedi [README](./README.md)).
+> Ordine delle giornate, obiettivi, prerequisiti, capitoli e risultato atteso.
+> Versioni di riferimento: **Node.js 22 LTS · React 19 · Vite 8 · React Router 7 · Redux Toolkit 2**.
 
 ---
 
-## 🧭 Ordine di fruizione
+## 🧭 Come si segue il corso
 
-1. [Day 0 — Setup](#day-0--setup-dellambiente) (obbligatorio, per primo)
-2. [Extra — JavaScript Essentials](#extra--javascript-essentials) (**prima o durante** il corso, secondo necessità)
-3. Day 1 → Day 9 in ordine. L'extra React Legacy è facoltativo dopo il Day 6; il Day 7 parte dal Day 6 anche se lo salti.
+Il corso costruisce una sola applicazione, **LipariBank**, un home banking con dati inventati. Ogni giornata parte dal progetto della precedente: le giornate vanno seguite **in ordine, dal Day 0 al Day 9**.
 
-| Giorno | Tema | Capitoli | Checkpoint |
+I due moduli extra sono separati dal percorso: JavaScript Essentials si può consultare in qualunque momento, React Legacy dopo il Day 6.
+
+| Giorno | Tema | Capitoli | Durata |
 |---|---|---|---|
-| Day 0 | Setup dell'ambiente | 6 | — |
-| Extra | JavaScript Essentials | 8 | — |
-| Day 1 | React Fundamentals | 6 | 1 · Prima dashboard |
-| Day 2 | Components & Props | 6 | 2 · Conti e componenti riutilizzabili |
-| Day 3 | State & Events | 6 | 3 · Gestione dello state |
-| Day 4 | Forms, User Input e useRef | 7 | 4 · Form bonifico |
-| Day 5 | Effects & API | 6 | 5 · Integrazione API |
-| Day 6 | Routing | 6 | 6 · Routing |
-| Extra | React Legacy, facoltativo | 7 | — |
-| Day 7 | Advanced React, Architecture e Redux | 8 | Refactoring e Redux |
-| Day 8 | Final Project | 6 | 7 · Progetto finale |
-| Day 9 | Delivery | 6 | — |
+| Day 0 | Setup dell'ambiente | 7 | 3 h 20 min |
+| Day 1 | React Fundamentals | 6 | 2 h 50 min |
+| Day 2 | Components e Props | 6 | 3 h |
+| Day 3 | State ed eventi | 7 | 4 h |
+| Day 4 | Form e input dell'utente | 6 | 4 h 5 min |
+| Day 5 | Effects e API | 6 | 3 h 40 min |
+| Day 6 | Routing | 6 | 4 h 10 min |
+| Day 7 | Stato condiviso: da Context a Redux | 6 | 6 h |
+| Day 8 | Hook avanzati e architettura | 5 | 5 h 5 min |
+| Day 9 | Progetto finale e consegna | 7 | 6 h 45 min |
+| Extra | JavaScript Essentials | 8 | 3 h 30 min |
+| Extra | React Legacy | 7 | 5 h 55 min |
 
-> I link a repository e branch dei checkpoint sono **segnaposto**: `[DA CONFIGURARE: inserire URL reale della repository]` e `[DA CONFIGURARE: inserire nome reale del branch]`. Vedi il [README](./README.md#-come-completare-i-segnaposto-delle-repository).
+Alla fine di ogni giornata c'è un **checkpoint**: un archivio con il progetto com'è a quel punto. Serve per ripartire se sei bloccato o per confrontare la tua soluzione. Vedi [Come usare i checkpoint](./Day_00_Setup/06_Come_usare_i_checkpoint.md).
 
 ---
 
 ## Day 0 — Setup dell'ambiente
 
-- **Cartella:** [Day_00_Setup/](./Day_00_Setup/)
-- **Obiettivo:** avere un ambiente funzionante (Node.js, npm, VS Code, Git/GitHub) e il progetto `liparibank` avviato con Vite.
-- **Prerequisiti:** conoscenze di programmazione di base; un computer con permessi per installare software.
+- **Obiettivo:** preparare l'ambiente di lavoro (Node.js, npm, VS Code, Git e GitHub), creare il progetto `liparibank` con Vite e capire come usare i checkpoint del corso.
+- **Prerequisiti:** conoscenze di programmazione di base; un computer su cui puoi installare software.
+- **Durata stimata:** 3 h 20 min.
 - **Capitoli:**
   1. [Introduzione al corso](./Day_00_Setup/01_Introduzione_al_corso.md)
   2. [Node.js e npm](./Day_00_Setup/02_Node_NPM.md)
   3. [Visual Studio Code](./Day_00_Setup/03_VS_Code.md)
   4. [Git e GitHub](./Day_00_Setup/04_Git_GitHub.md)
   5. [Vite e primo progetto React](./Day_00_Setup/05_Vite_e_primo_progetto_React.md)
-  6. [Verifica ambiente](./Day_00_Setup/06_Verifica_ambiente.md)
-- **Checkpoint:** nessuno (la verifica è la checklist del capitolo 06).
-- **Risultato atteso:** `npm run dev` mostra la prima pagina LipariBank su `http://localhost:5173/`; il progetto è in una repository Git.
-
----
-
-## Extra — JavaScript Essentials
-
-- **Cartella:** [Extra_JavaScript_Essentials/](./Extra_JavaScript_Essentials/)
-- **Obiettivo:** colmare le lacune JavaScript necessarie per React (moderno JS, non tutto JS).
-- **Prerequisiti:** nozioni base di programmazione. Non richiede il progetto React.
-- **Quando:** prima del Day 1 se JavaScript moderno è nuovo per te; altrimenti consultalo quando un capitolo lo richiama.
-- **Capitoli:**
-  1. [Variables e Types](./Extra_JavaScript_Essentials/01_Variables_Types.md)
-  2. [Functions e Arrow Functions](./Extra_JavaScript_Essentials/02_Functions_Arrow_Functions.md)
-  3. [Objects e Arrays](./Extra_JavaScript_Essentials/03_Objects_Arrays.md)
-  4. [map, filter, reduce](./Extra_JavaScript_Essentials/04_Map_Filter_Reduce.md)
-  5. [Destructuring, Spread, Rest](./Extra_JavaScript_Essentials/05_Destructuring_Spread_Rest.md)
-  6. [ES Modules](./Extra_JavaScript_Essentials/06_ES_Modules.md)
-  7. [Promises e async/await](./Extra_JavaScript_Essentials/07_Promises_Async_Await.md)
-  8. [Optional chaining e ternary](./Extra_JavaScript_Essentials/08_Optional_Chaining_Ternary.md)
-- **Checkpoint:** nessuno.
-- **Risultato atteso:** sai manipolare conti e movimenti con array e oggetti, importare/esportare moduli e gestire una Promise.
+  6. [Come usare i checkpoint](./Day_00_Setup/06_Come_usare_i_checkpoint.md)
+  7. [Verifica dell'ambiente](./Day_00_Setup/07_Verifica_ambiente.md)
+- **Checkpoint:** `liparibank-day-00.zip`: il progetto Vite ridotto alla pagina minima.
+- **Risultato atteso:** `npm run dev` mostra la prima pagina di LipariBank su `http://localhost:5173/` e il progetto è in una repository Git.
 
 ---
 
 ## Day 1 — React Fundamentals
 
-- **Cartella:** [Day_01_React_Fundamentals/](./Day_01_React_Fundamentals/)
-- **Obiettivo:** capire cos'è React, la struttura di un progetto Vite, JSX e i Function Components; costruire la prima dashboard.
-- **Prerequisiti:** Day 0 completato (progetto `liparibank` avviato).
+- **Obiettivo:** capire che cos'è React, com'è fatto un progetto Vite, come si scrive JSX (Fragment compresi), che cosa sono i Function Components e come React passa dal Virtual DOM al DOM.
+- **Prerequisiti:** Day 0 completato.
+- **Durata stimata:** 2 h 50 min.
 - **Capitoli:**
   1. [React e LipariBank](./Day_01_React_Fundamentals/01_React_e_LipariBank.md)
   2. [Struttura del progetto](./Day_01_React_Fundamentals/02_Struttura_del_progetto.md)
   3. [JSX](./Day_01_React_Fundamentals/03_JSX.md)
   4. [Function Components](./Day_01_React_Fundamentals/04_Function_Components.md)
   5. [Rendering e composizione](./Day_01_React_Fundamentals/05_Rendering_e_Composizione.md)
-  6. [Esercizio — LipariBank Dashboard](./Day_01_React_Fundamentals/06_Esercizio_LipariBank_Dashboard.md)
-- **Checkpoint 1:** prima dashboard (capitolo 06).
-- **Risultato atteso:** dashboard statica con nome cliente, saldo totale e ultimi cinque movimenti da un array locale.
+  6. [Esercizio LipariBank — Dashboard](./Day_01_React_Fundamentals/06_Esercizio_LipariBank_Dashboard.md)
+- **Checkpoint:** `liparibank-day-01.zip`: la prima dashboard.
+- **Risultato atteso:** una dashboard statica con il nome del cliente, il saldo totale e gli ultimi cinque movimenti.
 
 ---
 
-## Day 2 — Components & Props
+## Day 2 — Components e Props
 
-- **Cartella:** [Day_02_Components_Props/](./Day_02_Components_Props/)
-- **Obiettivo:** componenti riutilizzabili con props, `children`, rendering condizionale e liste con `key`.
-- **Prerequisiti:** Day 1 (checkpoint 1).
+- **Obiettivo:** costruire componenti riutilizzabili con props e `children`, mostrare contenuti in base a una condizione e disegnare liste con `key`.
+- **Prerequisiti:** Day 1.
+- **Durata stimata:** 3 h.
 - **Capitoli:**
   1. [Componenti e composizione](./Day_02_Components_Props/01_Componenti_e_Composizione.md)
   2. [Props](./Day_02_Components_Props/02_Props.md)
   3. [Children](./Day_02_Components_Props/03_Children.md)
   4. [Conditional Rendering](./Day_02_Components_Props/04_Conditional_Rendering.md)
   5. [Liste e Keys](./Day_02_Components_Props/05_Liste_e_Keys.md)
-  6. [Esercizio — LipariBank Accounts](./Day_02_Components_Props/06_Esercizio_LipariBank_Accounts.md)
-- **Checkpoint 2:** conti e componenti riutilizzabili (capitolo 06).
-- **Risultato atteso:** card dei conti, lista movimenti con stato vuoto, componente container `Dashboard`.
+  6. [Esercizio LipariBank — Accounts](./Day_02_Components_Props/06_Esercizio_LipariBank_Accounts.md)
+- **Checkpoint:** `liparibank-day-02.zip`: conti e componenti riutilizzabili.
+- **Risultato atteso:** le card dei conti, la lista dei movimenti con il suo stato vuoto e un componente `Card` generico.
 
 ---
 
-## Day 3 — State & Events
+## Day 3 — State ed eventi
 
-- **Cartella:** [Day_03_State_Events/](./Day_03_State_Events/)
-- **Obiettivo:** rendere la dashboard interattiva con eventi e `useState`, aggiornamenti immutabili e lifting state up.
-- **Prerequisiti:** Day 2 (checkpoint 2).
+- **Obiettivo:** rendere l'interfaccia interattiva con eventi e `useState`; capire che cosa succede a ogni render, come funziona la riconciliazione e perché lo state non si modifica direttamente; spostare lo state dove serve.
+- **Prerequisiti:** Day 2.
+- **Durata stimata:** 4 h.
 - **Capitoli:**
-  1. [Event Handling](./Day_03_State_Events/01_Event_Handling.md)
-  2. [useState](./Day_03_State_Events/02_useState.md)
-  3. [State e re-render](./Day_03_State_Events/03_State_e_Rerender.md)
-  4. [Immutabilità dello state](./Day_03_State_Events/04_Immutabilita_dello_State.md)
-  5. [Lifting State Up](./Day_03_State_Events/05_Lifting_State_Up.md)
-  6. [Esercizio — LipariBank Transactions](./Day_03_State_Events/06_Esercizio_LipariBank_Transactions.md)
-- **Checkpoint 3:** gestione dello state (capitolo 06).
-- **Risultato atteso:** filtri entrate/uscite e ricerca, selezione del conto, mostra/nascondi saldo.
+  1. [Event Handling (`onClick`, `onChange`, event object)](./Day_03_State_Events/01_Event_Handling.md)
+  2. [`useState`](./Day_03_State_Events/02_useState.md)
+  3. [State e Re-render (snapshot, batching, perché lo state non è una variabile)](./Day_03_State_Events/03_State_e_Rerender.md)
+  4. [Virtual DOM e riconciliazione](./Day_03_State_Events/04_Virtual_DOM_e_Riconciliazione.md)
+  5. [Immutabilità dello State (oggetti e array)](./Day_03_State_Events/05_Immutabilita_dello_State.md)
+  6. [Lifting State Up e dati derivati](./Day_03_State_Events/06_Lifting_State_Up.md)
+  7. [Esercizio — filtri, ricerca e preferiti sui movimenti](./Day_03_State_Events/07_Esercizio_LipariBank_Transactions.md)
+- **Checkpoint:** `liparibank-day-03.zip`: la dashboard interattiva.
+- **Risultato atteso:** selezione del conto, filtro entrate/uscite, ricerca per testo, movimenti preferiti e saldo che si può nascondere.
 
 ---
 
-## Day 4 — Forms & User Input
+## Day 4 — Form e input dell'utente
 
-- **Cartella:** [Day_04_Forms_User_Input/](./Day_04_Forms_User_Input/)
-- **Obiettivo:** form controllati, validazione, feedback e `useRef` per un bonifico **simulato**.
-- **Prerequisiti:** Day 3 (checkpoint 3).
+- **Obiettivo:** costruire form controllati, validarli, dare un riscontro all'utente e usare `useRef` per raggiungere il DOM.
+- **Prerequisiti:** Day 3.
+- **Durata stimata:** 4 h 5 min.
 - **Capitoli:**
   1. [Form e Controlled Components](./Day_04_Forms_User_Input/01_Form_e_Controlled_Components.md)
-  2. [Input e Select](./Day_04_Forms_User_Input/02_Input_e_Select.md)
-  3. [Validazione](./Day_04_Forms_User_Input/03_Validazione.md)
-  4. [Submit e feedback](./Day_04_Forms_User_Input/04_Submit_e_Feedback.md)
-  5. [Esercizio — LipariBank Bonifico](./Day_04_Forms_User_Input/05_Esercizio_LipariBank_Bonifico.md)
-  6. [Repository checkpoint](./Day_04_Forms_User_Input/06_Repository_Checkpoint.md)
-  7. [useRef e focus](./Day_04_Forms_User_Input/07_useRef.md)
-- **Checkpoint 4:** form bonifico (capitoli 05 e 06; il capitolo 06 spiega come proseguire da una repository GitHub).
-- **Risultato atteso:** form con validazione di importo, beneficiario e campi obbligatori; il bonifico simulato compare nei movimenti.
+  2. [`input`, `select`, `textarea` e state a oggetto](./Day_04_Forms_User_Input/02_Input_e_Select.md)
+  3. [Validazione dei form e messaggi di errore accessibili](./Day_04_Forms_User_Input/03_Validazione.md)
+  4. [Submit, feedback e reset del form](./Day_04_Forms_User_Input/04_Submit_e_Feedback.md)
+  5. [`useRef`: riferimenti al DOM e valori che non provocano render](./Day_04_Forms_User_Input/05_useRef.md)
+  6. [Esercizio — bonifico simulato e saldi ricalcolati](./Day_04_Forms_User_Input/06_Esercizio_LipariBank_Bonifico.md)
+- **Checkpoint:** `liparibank-day-04.zip`: il form del bonifico.
+- **Risultato atteso:** un bonifico **simulato** con validazione di ogni campo, focus sul primo errore e saldi ricalcolati.
 
 ---
 
-## Day 5 — Effects & API
+## Day 5 — Effects e API
 
-- **Cartella:** [Day_05_Effects_API/](./Day_05_Effects_API/)
-- **Obiettivo:** `useEffect`, fetch, cleanup/annullamento delle richieste e stati loading/error/empty.
-- **Prerequisiti:** Day 4 (checkpoint 4).
+- **Obiettivo:** distinguere il rendering dagli effetti, usare `useEffect` con dipendenze e pulizia, caricare dati con `fetch` e gestire caricamento, errore e assenza di dati.
+- **Prerequisiti:** Day 4.
+- **Durata stimata:** 3 h 40 min.
 - **Capitoli:**
   1. [Side Effects](./Day_05_Effects_API/01_Side_Effects.md)
   2. [useEffect](./Day_05_Effects_API/02_useEffect.md)
-  3. [Dipendenze e cleanup](./Day_05_Effects_API/03_Dipendenze_e_Cleanup.md)
+  3. [Dipendenze e Cleanup](./Day_05_Effects_API/03_Dipendenze_e_Cleanup.md)
   4. [Fetch API](./Day_05_Effects_API/04_Fetch_API.md)
-  5. [Loading, Error, Empty states](./Day_05_Effects_API/05_Loading_Error_Empty_States.md)
-  6. [Esercizio — LipariBank API Transactions](./Day_05_Effects_API/06_Esercizio_LipariBank_API_Transactions.md)
-- **Checkpoint 5:** integrazione API (capitolo 06).
-- **Risultato atteso:** movimenti caricati in modo asincrono da un file JSON locale (stand-in di un'API, sostituibile cambiando solo il service) con stati di caricamento, errore e assenza dati.
+  5. [Loading, Error ed Empty States](./Day_05_Effects_API/05_Loading_Error_Empty_States.md)
+  6. [Esercizio LipariBank — API Transactions](./Day_05_Effects_API/06_Esercizio_LipariBank_API_Transactions.md)
+- **Checkpoint:** `liparibank-day-05.zip`: i movimenti caricati in modo asincrono.
+- **Risultato atteso:** i movimenti arrivano da un file JSON servito dall'applicazione, con messaggi di caricamento ed errore e la possibilità di riprovare.
 
 ---
 
 ## Day 6 — Routing
 
-- **Cartella:** [Day_06_Routing/](./Day_06_Routing/)
-- **Obiettivo:** trasformare LipariBank in un'applicazione multi-pagina con React Router 7 (declarative mode).
-- **Prerequisiti:** Day 5 (checkpoint 5).
+- **Obiettivo:** trasformare LipariBank in un'applicazione a più pagine con React Router 7: route, parametri, navigazione, pagina 404 e route annidate.
+- **Prerequisiti:** Day 5.
+- **Durata stimata:** 4 h 10 min.
 - **Capitoli:**
-  1. [SPA e routing](./Day_06_Routing/01_SPA_e_Routing.md)
+  1. [SPA e Routing](./Day_06_Routing/01_SPA_e_Routing.md)
   2. [React Router](./Day_06_Routing/02_React_Router.md)
   3. [Dynamic Routes e useParams](./Day_06_Routing/03_Dynamic_Routes_e_useParams.md)
   4. [Navigation e 404](./Day_06_Routing/04_Navigation_e_404.md)
   5. [Nested Routes](./Day_06_Routing/05_Nested_Routes.md)
-  6. [Esercizio — LipariBank MultiPage](./Day_06_Routing/06_Esercizio_LipariBank_MultiPage.md)
-- **Checkpoint 6:** routing (capitolo 06).
-- **Risultato atteso:** pagine Dashboard, Conti, Dettaglio conto, Movimenti, Bonifico e 404 con navigazione.
+  6. [Esercizio LipariBank — MultiPage](./Day_06_Routing/06_Esercizio_LipariBank_MultiPage.md)
+- **Checkpoint:** `liparibank-day-06.zip`: l'applicazione a più pagine.
+- **Risultato atteso:** Dashboard, Conti con dettaglio, Movimenti e Bonifico sono pagine con un proprio indirizzo; lo state condiviso sta in `App.jsx` e passa per props.
 
 ---
 
-## Extra — React Legacy (facoltativo)
+## Day 7 — Stato condiviso: da Context a Redux
 
-- **Cartella:** [EXTRA_Legacy_React/](./EXTRA_Legacy_React/)
-- **Obiettivo:** leggere, capire e manutenere codice con Class Components e versioni precedenti di React.
-- **Prerequisiti:** Day 5 (useEffect) consigliato; Day 6 completato per l'esercizio.
+- **Obiettivo:** eliminare il passaggio di props a catena con Context e `useReducer`, misurarne i limiti, capire **quando e perché** serve Redux e saperlo usare con Redux Toolkit e React Redux.
+- **Prerequisiti:** Day 6.
+- **Durata stimata:** 6 h.
 - **Capitoli:**
-  1. [React moderno vs legacy](./EXTRA_Legacy_React/01_React_Moderno_vs_Legacy.md)
-  2. [Class Components](./EXTRA_Legacy_React/02_Class_Components.md)
-  3. [Lifecycle Methods](./EXTRA_Legacy_React/03_Lifecycle_Methods.md)
-  4. [State, props e setState](./EXTRA_Legacy_React/04_State_Props_setState.md)
-  5. [Class vs Function Components](./EXTRA_Legacy_React/05_Class_vs_Function_Components.md)
-  6. [Leggere e manutenere codice legacy](./EXTRA_Legacy_React/06_Leggere_e_Manutenere_Codice_Legacy.md)
-  7. [Esercizio — LipariBank Legacy](./EXTRA_Legacy_React/07_Esercizio_LipariBank_Legacy.md)
-- **Checkpoint:** facoltativo, nella cartella `repositories/EXTRA_Legacy_React`; il laboratorio è indipendente dal percorso principale.
-- **Risultato atteso:** sai leggere una class component, seguirne il lifecycle, individuare API deprecate e migrarla a Function Component + Hooks.
-- **Regola:** gli esercizi di sviluppo del corso restano su Function Components e Hooks.
+  1. [Context e `useContext`](./Day_07_Shared_State_Redux/01_Context_e_useContext.md)
+  2. [`useReducer` e lo state condiviso di LipariBank](./Day_07_Shared_State_Redux/02_useReducer.md)
+  3. [Redux: quando e perché](./Day_07_Shared_State_Redux/03_Redux_Quando_e_Perche.md)
+  4. [Redux Toolkit: slice e thunk](./Day_07_Shared_State_Redux/04_Redux_Toolkit_Slice_e_Thunk.md)
+  5. [React Redux: selector e dispatch](./Day_07_Shared_State_Redux/05_React_Redux_Selector_e_Dispatch.md)
+  6. [Esercizio — Migrazione a Redux](./Day_07_Shared_State_Redux/06_Esercizio_Migrazione_a_Redux.md)
+- **Checkpoint:** `liparibank-day-07.zip`: lo stato condiviso nello store.
+- **Risultato atteso:** conti e movimenti vivono nello store Redux, le preferenze in un Context, i filtri restano locali; LipariBank è stata migrata da Context a Redux una pagina alla volta.
 
 ---
 
-## Day 7 — Advanced React & Architecture
+## Day 8 — Hook avanzati e architettura
 
-- **Cartella:** [Day_07_Advanced_React_Architecture/](./Day_07_Advanced_React_Architecture/)
-- **Obiettivo:** Context, `useReducer`, custom hooks, memoization (con giudizio), service layer e struttura del progetto.
-- **Prerequisiti:** Day 6 (routing). L'extra React Legacy è facoltativo; l'Error Boundary è spiegato nel capitolo 06.
+- **Obiettivo:** estrarre la logica ripetuta in custom hooks, ottimizzare solo dopo aver misurato, isolare l'accesso ai dati in un service layer, intercettare gli errori di rendering e dare al progetto una struttura a livelli.
+- **Prerequisiti:** Day 7.
+- **Durata stimata:** 5 h 5 min.
 - **Capitoli:**
-  1. [Context e useContext](./Day_07_Advanced_React_Architecture/01_Context_e_useContext.md)
-  2. [useReducer](./Day_07_Advanced_React_Architecture/02_useReducer.md)
-  3. [Custom Hooks](./Day_07_Advanced_React_Architecture/03_Custom_Hooks.md)
-  4. [Memoization](./Day_07_Advanced_React_Architecture/04_Memoization.md)
-  5. [Architettura del progetto](./Day_07_Advanced_React_Architecture/05_Architettura_del_Progetto.md)
-  6. [Service layer e API](./Day_07_Advanced_React_Architecture/06_Service_Layer_e_API.md)
-  7. [Esercizio — Refactoring LipariBank](./Day_07_Advanced_React_Architecture/07_Esercizio_Refactoring_LipariBank.md)
-  8. [Redux Toolkit](./Day_07_Advanced_React_Architecture/08_Redux_Toolkit.md)
-- **Checkpoint:** refactoring (capitolo 07), poi Redux (capitolo 08).
-- **Risultato atteso:** Context + reducer per i dati bancari, Redux Toolkit per una preferenza condivisa, hook dedicati e service layer.
+  1. [Custom Hooks](./Day_08_Advanced_Hooks_Architecture/01_Custom_Hooks.md)
+  2. [Memoization (`useMemo`, `useCallback`, `React.memo`) e quando NON usarla](./Day_08_Advanced_Hooks_Architecture/02_Memoization.md)
+  3. [Service layer, API ed Error Boundary](./Day_08_Advanced_Hooks_Architecture/03_Service_Layer_e_Error_Boundary.md)
+  4. [Architettura del progetto](./Day_08_Advanced_Hooks_Architecture/04_Architettura_del_Progetto.md)
+  5. [Esercizio — Refactoring di LipariBank](./Day_08_Advanced_Hooks_Architecture/05_Esercizio_Refactoring_LipariBank.md)
+- **Checkpoint:** `liparibank-day-08.zip`: il punto di partenza del progetto finale.
+- **Risultato atteso:** pagine brevi che compongono hook e componenti; `fetch` in un solo file; un Error Boundary attorno a ogni pagina.
 
 ---
 
-## Day 8 — Final Project
+## Day 9 — Progetto finale e consegna
 
-- **Cartella:** [Day_08_Final_Project/](./Day_08_Final_Project/)
-- **Obiettivo:** definire e implementare il progetto finale LipariBank.
-- **Prerequisiti:** Day 7 completato (o checkpoint di refactoring).
+- **Obiettivo:** portare LipariBank a un livello consegnabile: leggere i requisiti, completare da soli ciò che manca, lavorare con Git a piccoli passi, verificare con un piano di test, curare accessibilità e schermi piccoli, preparare la build e documentare.
+- **Prerequisiti:** Day 8.
+- **Durata stimata:** 6 h 45 min.
 - **Capitoli:**
-  1. [Final Project Brief](./Day_08_Final_Project/01_Final_Project_Brief.md)
-  2. [Requirements funzionali](./Day_08_Final_Project/02_Requirements_Funzionali.md)
-  3. [Architettura](./Day_08_Final_Project/03_Architettura.md)
-  4. [Piano di implementazione](./Day_08_Final_Project/04_Piano_di_Implementazione.md)
-  5. [Git Workflow](./Day_08_Final_Project/05_Git_Workflow.md)
-  6. [Repository starter e checkpoint](./Day_08_Final_Project/06_Repository_Starter_e_Checkpoint.md)
-- **Checkpoint 7:** progetto finale (capitolo 06; repository starter opzionale).
-- **Risultato atteso:** applicazione completa rispetto ai requisiti: dashboard, conti, movimenti con filtri, bonifico simulato, navigazione, stati loading/error/empty.
+  1. [Brief e requisiti del progetto finale](./Day_09_Final_Project_Delivery/01_Brief_e_Requisiti.md)
+  2. [Architettura e piano di lavoro](./Day_09_Final_Project_Delivery/02_Architettura_e_Piano.md)
+  3. [Git Workflow](./Day_09_Final_Project_Delivery/03_Git_Workflow.md)
+  4. [Refactoring e test manuale](./Day_09_Final_Project_Delivery/04_Refactoring_e_Test_Manuale.md)
+  5. [Accessibility e responsive](./Day_09_Final_Project_Delivery/05_Accessibility_e_Responsive.md)
+  6. [Environment e Deploy](./Day_09_Final_Project_Delivery/06_Environment_e_Deploy.md)
+  7. [README e consegna](./Day_09_Final_Project_Delivery/07_README_e_Consegna.md)
+- **Checkpoint:** `liparibank-day-09.zip`: una soluzione di riferimento, da confrontare con la propria dopo la consegna.
+- **Risultato atteso:** una repository che si installa, si avvia e supera il percorso di accettazione seguendo solo il suo README.
 
 ---
 
-## Day 9 — Delivery
+## Extra — JavaScript Essentials
 
-- **Cartella:** [Day_09_Delivery/](./Day_09_Delivery/)
-- **Obiettivo:** verificare, rifinire, documentare e consegnare l'applicazione.
-- **Prerequisiti:** Day 8 (applicazione funzionante).
+- **Obiettivo:** ripassare il JavaScript che React dà per scontato: funzioni freccia, oggetti e array, `map`/`filter`/`reduce`, destructuring, moduli, Promise.
+- **Prerequisiti:** nozioni di base di programmazione. Non richiede il progetto React.
+- **Quando:** prima del Day 1 se il JavaScript moderno è nuovo per te; altrimenti quando un capitolo lo richiama.
+- **Durata stimata:** 3 h 30 min.
 - **Capitoli:**
-  1. [Refactoring finale](./Day_09_Delivery/01_Refactoring_Finale.md)
-  2. [Testing manuale](./Day_09_Delivery/02_Testing_Manuale.md)
-  3. [Accessibility e Responsive](./Day_09_Delivery/03_Accessibility_e_Responsive.md)
-  4. [Environment e Deploy](./Day_09_Delivery/04_Environment_e_Deploy.md)
-  5. [README e documentazione](./Day_09_Delivery/05_README_e_Documentazione.md)
-  6. [Consegna finale](./Day_09_Delivery/06_Consegna_Finale.md)
-- **Checkpoint:** nessuno (checklist di consegna nel capitolo 06).
-- **Risultato atteso:** build di produzione verificata, README completo, repository pronta per la consegna. Un eventuale deploy statico è descritto, non eseguito dal corso.
+  1. [Variabili, tipi, conversioni e truthy/falsy](./Extra_JavaScript_Essentials/01_Variables_Types.md)
+  2. [Funzioni, parametri, return, arrow functions e callback](./Extra_JavaScript_Essentials/02_Functions_Arrow_Functions.md)
+  3. [Oggetti e array: proprietà, accesso e modifica dei dati](./Extra_JavaScript_Essentials/03_Objects_Arrays.md)
+  4. [`map`, `filter`, `reduce` applicati a conti e movimenti](./Extra_JavaScript_Essentials/04_Map_Filter_Reduce.md)
+  5. [Destructuring, spread, rest e immutabilità dei dati](./Extra_JavaScript_Essentials/05_Destructuring_Spread_Rest.md)
+  6. [ES Modules — `import`, `export default`, named exports e organizzazione dei file](./Extra_JavaScript_Essentials/06_ES_Modules.md)
+  7. [Promise, `async`/`await`, `try`/`catch`/`finally` e asincronia](./Extra_JavaScript_Essentials/07_Promises_Async_Await.md)
+  8. [Optional chaining, nullish coalescing, operatore ternario e condizioni](./Extra_JavaScript_Essentials/08_Optional_Chaining_Ternary.md)
+- **Checkpoint:** nessuno.
+- **Risultato atteso:** sai trasformare elenchi di conti e movimenti, importare ed esportare moduli e gestire una Promise.
 
 ---
 
-## 🔗 Altri file
+## Extra — React Legacy
 
-- [README.md](./README.md) — presentazione del corso e uso dei file.
-- [TEMPLATE_CAPITOLO.md](./TEMPLATE_CAPITOLO.md) — struttura comune dei capitoli.
-- [MOODLE_IMPORT_GUIDE.md](./MOODLE_IMPORT_GUIDE.md) — pubblicazione su Moodle.
+- **Obiettivo:** leggere, modificare e migrare il codice React scritto prima degli Hooks: Class Components, metodi del ciclo di vita, `setState`, API rimosse.
+- **Prerequisiti:** Day 6. Si svolge sul progetto di fine Day 6.
+- **Quando:** dopo il Day 6 oppure a corso finito. Non è un prerequisito del Day 7.
+- **Durata stimata:** 5 h 55 min.
+- **Capitoli:**
+  1. [React moderno vs React legacy: versioni, API rimosse e compatibilità](./Extra_Legacy_React/01_React_Moderno_vs_Legacy.md)
+  2. [Class Components: `extends Component`, `constructor`, `this.props`, `this.state`, `render()`](./Extra_Legacy_React/02_Class_Components.md)
+  3. [Lifecycle Methods: mounting, updating, unmounting, cleanup e rapporto con `useEffect`](./Extra_Legacy_React/03_Lifecycle_Methods.md)
+  4. [`this.props`, `this.state` e `this.setState`: forma oggetto, forma funzionale, asincronia, callback e merge](./Extra_Legacy_React/04_State_Props_setState.md)
+  5. [Class Components vs Function Components: confronto e mappa di migrazione](./Extra_Legacy_React/05_Class_vs_Function_Components.md)
+  6. [Leggere e manutenere codice legacy: metodo, pattern frequenti, API deprecate, migrazione incrementale](./Extra_Legacy_React/06_Leggere_e_Manutenere_Codice_Legacy.md)
+  7. [Esercizio LipariBank Legacy: leggere, modificare in stile class e migrare `LegacyTransactionsPanel`](./Extra_Legacy_React/07_Esercizio_LipariBank_Legacy.md)
+- **Checkpoint:** `liparibank-extra-legacy.zip`: il laboratorio completo.
+- **Risultato atteso:** sai seguire il flusso di un componente a classe, aggiungergli una funzionalità e riscriverlo con gli Hooks verificando che si comporti allo stesso modo.
+
+---
+
+## 🏦 Come cresce LipariBank
+
+| Dopo il... | LipariBank è... |
+|---|---|
+| Day 1 | una dashboard statica |
+| Day 2 | un insieme di componenti riutilizzabili |
+| Day 3 | interattiva: selezione, filtri, preferiti |
+| Day 4 | capace di registrare un bonifico simulato |
+| Day 5 | collegata a dati caricati in modo asincrono |
+| Day 6 | un'applicazione a più pagine |
+| Day 7 | basata su uno store Redux |
+| Day 8 | organizzata in livelli: pagine, hook, store, servizi |
+| Day 9 | verificata, documentata e pronta per la consegna |

@@ -1,25 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => {
     try {
-      const stored = localStorage.getItem(key);
-      return stored === null ? initialValue : JSON.parse(stored);
-    } catch (error) {
-      console.error("Impossibile leggere le preferenze:", error);
+      const stored = window.localStorage.getItem(key);
+      return stored !== null ? JSON.parse(stored) : initialValue;
+    } catch {
       return initialValue;
     }
   });
-  function update(next) {
-    setValue((previous) => {
-      const value = typeof next === "function" ? next(previous) : next;
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch (error) {
-        console.error("Impossibile salvare le preferenze:", error);
-      }
-      return value;
-    });
-  }
-  return [value, update];
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // storage non disponibile (es. modalità privata): l'app continua a funzionare
+    }
+  }, [key, value]);
+
+  return [value, setValue];
 }

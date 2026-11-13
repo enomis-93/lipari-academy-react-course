@@ -139,7 +139,7 @@ Il template contiene un'applicazione di esempio con contatore, loghi e stili che
 
 **a) Sostituisci il contenuto di `src/App.jsx`** con:
 
-```jsx
+```jsx title="src/App.jsx"
 function App() {
   return (
     <main className="app">
@@ -156,7 +156,7 @@ Il file non importa più `App.css` né immagini: è un **Function Component** ch
 
 **b) Sostituisci il contenuto di `src/index.css`** con:
 
-```css
+```css title="src/index.css"
 *,
 *::before,
 *::after {
@@ -347,4 +347,4 @@ Avvia il server con una porta diversa, cercando nella guida di Vite l'opzione co
 ---
 
 ### ➡️ Next
-[Capitolo 06 — Verifica ambiente](./06_Verifica_ambiente.md): una checklist completa per confermare che tutto funzioni prima del Day 1.
+[Capitolo 06 — Come usare i checkpoint](./06_Come_usare_i_checkpoint.md): impari a scaricare e avviare una versione di riferimento del progetto, da usare quando resti bloccato.

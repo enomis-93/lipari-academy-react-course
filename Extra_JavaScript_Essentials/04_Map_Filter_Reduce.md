@@ -282,7 +282,7 @@ Calcola per ogni conto la somma dei suoi movimenti con un solo `reduce` che cost
 - I metodi si concatenano; non modificano l'array originale (ma `sort` sì: usalo su una copia).
 - Le somme di decimali vanno arrotondate (`roundMoney`) o formattate (`formatCurrency`).
 
-*Dove lo userai:* liste con `key` ([Day 2](../Day_02_Components_Props/05_Liste_e_Keys.md)), filtri sui movimenti ([Day 3](../Day_03_State_Events/06_Esercizio_LipariBank_Transactions.md)) e aggiornamenti immutabili dello state.
+*Dove lo userai:* liste con `key` ([Day 2](../Day_02_Components_Props/05_Liste_e_Keys.md)), filtri sui movimenti ([Day 3](../Day_03_State_Events/07_Esercizio_LipariBank_Transactions.md)) e aggiornamenti immutabili dello state.
 
 ---
 
