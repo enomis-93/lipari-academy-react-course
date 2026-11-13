@@ -285,7 +285,7 @@ Esegui `npm run dev` dentro `liparibank/` e controlla:
 | 11 | Ricarica su `/accounts/acc-001` | la pagina si apre (con `npm run dev`) |
 | 12 | `npm run lint` e `npm run build` | nessun errore |
 
-Nota su produzione: la riga 11 funziona nel server di sviluppo di Vite. Su un hosting statico serve un *SPA fallback*, descritto nel [Day 9 · Environment e Deploy](../Day_09_Delivery/04_Environment_e_Deploy.md).
+Nota su produzione: la riga 11 funziona nel server di sviluppo di Vite. Su un hosting statico serve un *SPA fallback*, descritto nel [Day 9 · Environment e Deploy](../Day_09_Final_Project_Delivery/06_Environment_e_Deploy.md).
 
 ---
 

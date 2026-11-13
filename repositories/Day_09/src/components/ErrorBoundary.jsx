@@ -1,13 +1,32 @@
 import { Component } from "react";
 
 export default class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { failed: false };
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
   }
-  static getDerivedStateFromError() { return { failed: true }; }
-  componentDidCatch(error, info) { console.error("Errore di rendering:", error, info); }
+
+  componentDidCatch(error, info) {
+    console.error("Errore intercettato dall'ErrorBoundary:", error, info.componentStack);
+  }
+
+  handleReset = () => {
+    this.setState({ hasError: false });
+  };
+
   render() {
-    return this.state.failed ? <main><h1>Si è verificato un errore</h1><p>Ricarica la pagina per riprovare.</p><button type="button" onClick={() => window.location.reload()}>Ricarica</button></main> : this.props.children;
+    if (this.state.hasError) {
+      return (
+        <div role="alert" className="error-boundary">
+          <h2>Qualcosa è andato storto</h2>
+          <p>Si è verificato un problema nella visualizzazione di questa pagina.</p>
+          <button type="button" onClick={this.handleReset}>
+            Riprova
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
   }
 }

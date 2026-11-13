@@ -1,6 +1,6 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 8 · Capitolo 05**
+> **Day 9 · Capitolo 03**
 > **Argomento:** Git Workflow
 > **Durata stimata:** 40 minuti
 > **Parte di LipariBank:** gestione del codice del progetto finale con branch, commit piccoli e push
@@ -18,7 +18,7 @@ Alla fine del capitolo sarai in grado di:
 
 ## 📋 Prerequisiti
 - [Git e GitHub](../Day_00_Setup/04_Git_GitHub.md) (Day 0): `git init`, `add`, `commit`, remote su GitHub.
-- [Piano di Implementazione](./04_Piano_di_Implementazione.md): le fasi e i nomi di branch.
+- [Architettura e piano di lavoro](./02_Architettura_e_Piano.md): le fasi e i nomi dei branch.
 - Il progetto `liparibank/` è una repository Git con un remote (la **tua** repo, creata nel Day 0).
 
 ---
@@ -48,7 +48,7 @@ Formato: `tipo(ambito): descrizione all'imperativo`
 |---|---|---|
 | `feat` | nuova funzionalità | `feat(transactions): aggiunge filtro per testo` |
 | `fix` | correzione di bug | `fix(transfer): rifiuta importo maggiore del saldo` |
-| `refactor` | riorganizza senza cambiare il comportamento | `refactor(utils): estrae filterTransactions` |
+| `refactor` | riorganizza senza cambiare il comportamento | `refactor(dashboard): dichiara una volta sola handleToggleFavorite` |
 | `style` | formattazione o CSS | `style(layout): rende il menu responsive` |
 | `docs` | documentazione | `docs: aggiunge README` |
 | `chore` | manutenzione, config | `chore: aggiunge .env.example` |
@@ -80,10 +80,10 @@ git pull
 
 ### 2. Crea il branch della fase
 ```bash
-git switch -c feature/transactions-filters
+git switch -c feature/account-filter
 ```
 
-`-c` crea il branch e ci passa sopra. Il nome è quello della fase nel [piano](./04_Piano_di_Implementazione.md).
+`-c` crea il branch e ci passa sopra. Il nome è quello della fase nel [piano](./02_Architettura_e_Piano.md).
 
 ### 3. Lavora, poi controlla cosa hai cambiato
 ```bash
@@ -98,26 +98,26 @@ git diff
 Aggiungi solo i file di una modifica logica:
 
 ```bash
-git add src/components/TransactionFilters.jsx src/pages/TransactionsPage.jsx
+git add src/pages/TransactionsPage.jsx
 ```
 
 ```bash
-git commit -m "feat(transactions): aggiunge filtri per tipo e testo"
+git commit -m "feat(transactions): aggiunge la scelta del conto nella pagina movimenti"
 ```
 
 Un secondo commit, per un'altra modifica:
 
 ```bash
-git add src/utils/transactionFilters.js
+git add src/pages/DashboardPage.jsx
 ```
 
 ```bash
-git commit -m "refactor(utils): estrae la funzione filterTransactions"
+git commit -m "refactor(dashboard): dichiara una volta sola handleToggleFavorite"
 ```
 
 ### 5. Pubblica il branch
 ```bash
-git push -u origin feature/transactions-filters
+git push -u origin feature/account-filter
 ```
 
 `-u` collega il branch locale a quello remoto; i `git push` successivi non richiedono argomenti. `origin` è il nome standard del remote.
@@ -130,7 +130,7 @@ git switch main
 ```
 
 ```bash
-git merge feature/transactions-filters
+git merge feature/account-filter
 ```
 
 ```bash
@@ -150,7 +150,7 @@ git pull
 Per ripulire il branch ormai unito:
 
 ```bash
-git branch -d feature/transactions-filters
+git branch -d feature/account-filter
 ```
 
 ### 7. Conflitti di merge
@@ -161,7 +161,7 @@ Un conflitto avviene quando due branch modificano **le stesse righe**. Git si fe
 <h1>Movimenti</h1>
 =======
 <h1>Elenco movimenti</h1>
->>>>>>> feature/transactions-filters
+>>>>>>> feature/account-filter
 ```
 
 Risoluzione, passo per passo:
@@ -219,17 +219,15 @@ Se `.env` è finito per errore nella storia, **non basta cancellarlo e committar
 
 ## 🏦 LipariBank in action
 
-Sequenza completa per la **Fase 3** (movimenti e filtri), con i commit che ti aspetti di vedere in `git log --oneline`:
+Sequenza completa per la **Fase 1** (filtro per conto), con i commit che ti aspetti di vedere in `git log --oneline`:
 
 ```text
-feat(transactions): aggiunge TransactionFilters con filtro tipo
-feat(transactions): aggiunge ricerca per descrizione
-feat(transactions): aggiunge filtro per conto
-refactor(components): riusa TransactionList in dashboard e dettaglio conto
-fix(transactions): mostra EmptyState se nessun risultato
+feat(transactions): aggiunge la scelta del conto nella pagina movimenti
+feat(transactions): combina il filtro per conto con tipo e ricerca
+fix(transactions): collega la label al campo del conto
 ```
 
-Ogni riga corrisponde a un punto verificabile del [requisito REQ-05/06](./02_Requirements_Funzionali.md). Per vedere la storia in forma compatta:
+Ogni riga corrisponde a un punto verificabile del [requisito REQ-06](./01_Brief_e_Requisiti.md). Per vedere la storia in forma compatta:
 
 ```bash
 git log --oneline --graph --decorate -10
@@ -259,10 +257,36 @@ git log --oneline --graph --decorate -10
 
 ## 🔗 Repository / Checkpoint
 
-Il workflow vale per la **tua** repository (Day 0). Per la repository ufficiale del corso, se presente, vedi il [capitolo 06](./06_Repository_Starter_e_Checkpoint.md).
+Il workflow di questo capitolo vale per la **tua** repository. I checkpoint del corso sono invece archivi allegati a ogni giorno sulla piattaforma: vedi [Come usare i checkpoint](../Day_00_Setup/06_Come_usare_i_checkpoint.md).
 
-- URL: `[DA CONFIGURARE: inserire URL reale della repository]`
-- Branch: `[DA CONFIGURARE: inserire nome reale del branch]`
+| Archivio | Stato del progetto | Capitolo di riferimento |
+|---|---|---|
+| `liparibank-day-01.zip` | Prima dashboard statica | [Day 1 · Esercizio](../Day_01_React_Fundamentals/06_Esercizio_LipariBank_Dashboard.md) |
+| `liparibank-day-02.zip` | Conti e componenti riutilizzabili | [Day 2 · Esercizio](../Day_02_Components_Props/06_Esercizio_LipariBank_Accounts.md) |
+| `liparibank-day-03.zip` | Selezione del conto, filtri, preferiti | [Day 3 · Esercizio](../Day_03_State_Events/07_Esercizio_LipariBank_Transactions.md) |
+| `liparibank-day-04.zip` | Form del bonifico simulato | [Day 4 · Esercizio](../Day_04_Forms_User_Input/06_Esercizio_LipariBank_Bonifico.md) |
+| `liparibank-day-05.zip` | Movimenti caricati in modo asincrono | [Day 5 · Esercizio](../Day_05_Effects_API/06_Esercizio_LipariBank_API_Transactions.md) |
+| `liparibank-day-06.zip` | Applicazione a più pagine | [Day 6 · Esercizio](../Day_06_Routing/06_Esercizio_LipariBank_MultiPage.md) |
+| `liparibank-day-07.zip` | Stato condiviso con Context e Redux | [Day 7 · Esercizio](../Day_07_Shared_State_Redux/06_Esercizio_Migrazione_a_Redux.md) |
+| `liparibank-day-08.zip` | Hook, service layer e struttura finale: **punto di partenza del progetto finale** | [Day 8 · Esercizio](../Day_08_Advanced_Hooks_Architecture/05_Esercizio_Refactoring_LipariBank.md) |
+| `liparibank-day-09.zip` | Soluzione completa del progetto finale | [Consegna](./07_README_e_Consegna.md) |
+
+### Creare checkpoint nella tua repository
+Un *tag* è un'etichetta fissa su un commit. Usalo per segnare la fine di ogni fase. Dentro `liparibank/`:
+
+```bash
+git tag -a fase-1-filtro-conto -m "Filtro per conto completato"
+```
+
+```bash
+git push origin fase-1-filtro-conto
+```
+
+Per tornare a guardare quello stato senza perdere il lavoro corrente, crea un branch dedicato a partire dal tag:
+
+```bash
+git switch -c recovery/fase-1 fase-1-filtro-conto
+```
 
 ---
 
@@ -287,7 +311,7 @@ Il workflow vale per la **tua** repository (Day 0). Per la repository ufficiale 
 ---
 
 ## 🚀 Challenge
-Aggiungi una piccola Pull Request "a te stesso" per la Fase 4: scrivi nella descrizione i requisiti coperti (`REQ-07`, `REQ-08`) e il percorso manuale con cui li hai verificati.
+Aggiungi una piccola Pull Request "a te stesso" per la Fase 2: scrivi nella descrizione il requisito coperto (`REQ-01`) e il percorso manuale con cui lo hai verificato.
 
 ---
 
@@ -300,4 +324,4 @@ Aggiungi una piccola Pull Request "a te stesso" per la Fase 4: scrivi nella desc
 ---
 
 ### ➡️ Next
-Prossimo capitolo: [Repository Starter e Checkpoint](./06_Repository_Starter_e_Checkpoint.md) — come usare (o creare) una repository di partenza e i checkpoint intermedi, incluso il CHECKPOINT 7 del progetto finale.
+Prossimo capitolo: [04 · Refactoring e test manuale](./04_Refactoring_e_Test_Manuale.md). Come rivedere il codice e dimostrare, con casi di prova scritti, che ogni requisito è rispettato.

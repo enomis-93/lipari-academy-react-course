@@ -1,5 +1,15 @@
-import { formatMoney } from "../utils/format.js";
+import BalanceAmount from "./BalanceAmount.jsx";
 
-export default function BalanceCard({ balance, hidden, onToggle }) {
-  return <section className="balance"><h2>Saldo totale</h2><strong>{hidden ? "••••" : formatMoney(balance)}</strong><p><button type="button" onClick={onToggle}>{hidden ? "Mostra saldo" : "Nascondi saldo"}</button></p></section>;
+function BalanceCard({ total, label = "Saldo totale", note }) {
+  return (
+    <section className="balance-card">
+      <p className="balance-card__label">{label}</p>
+      <p className="balance-card__value">
+        <BalanceAmount value={total} />
+      </p>
+      {note && <p className="balance-card__meta">{note}</p>}
+    </section>
+  );
 }
+
+export default BalanceCard;

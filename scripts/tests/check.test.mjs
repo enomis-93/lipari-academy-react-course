@@ -123,6 +123,25 @@ test("accetta i file di laboratorio dichiarati temporanei", () => {
   assert.deepEqual(rulesOf(root), []);
 });
 
+test("accetta un file creato in un capitolo ed eliminato in un altro dello stesso giorno", () => {
+  const root = makeCourse({
+    "Day_01_A/01_x.md": chapter({ extra: "Crea `src/context/BankContext.jsx`." }),
+    "Day_01_A/02_y.md": chapter({ extra: "File eliminati: `src/context/BankContext.jsx`.", next: false }),
+    "repositories/Day_01/src/App.jsx": "x",
+  });
+  assert.deepEqual(rulesOf(root), []);
+});
+
+test("un file eliminato in un altro giorno resta un problema", () => {
+  const root = makeCourse({
+    "Day_01_A/01_x.md": chapter({ extra: "Crea `src/context/BankContext.jsx`." }),
+    "Day_02_B/01_z.md": chapter({ extra: "File eliminati: `src/context/BankContext.jsx`.", next: false }),
+    "repositories/Day_01/src/App.jsx": "x",
+    "repositories/Day_02/src/App.jsx": "x",
+  });
+  assert.deepEqual(rulesOf(root), ["checkpoint"]);
+});
+
 test("senza checkpoint non controlla i percorsi", () => {
   const root = makeCourse({ "Day_01_A/01_x.md": chapter({ extra: "Crea `src/a.js`." }), "Day_01_A/02_y.md": chapter({ next: false }) });
   assert.deepEqual(rulesOf(root), []);

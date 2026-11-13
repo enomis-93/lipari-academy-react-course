@@ -1,6 +1,6 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 9 · Capitolo 04**
+> **Day 9 · Capitolo 06**
 > **Argomento:** Environment e Deploy
 > **Durata stimata:** 60 minuti
 > **Parte di LipariBank:** variabili d'ambiente, build di produzione, anteprima locale e preparazione al deploy statico
@@ -17,8 +17,8 @@ Alla fine del capitolo sarai in grado di:
 ---
 
 ## 📋 Prerequisiti
-- [Accessibility e Responsive](./03_Accessibility_e_Responsive.md) e [Testing Manuale](./02_Testing_Manuale.md) completati.
-- [Git Workflow](../Day_08_Final_Project/05_Git_Workflow.md): `.gitignore`, mai committare `.env`.
+- [Refactoring e test manuale](./04_Refactoring_e_Test_Manuale.md) e [Accessibility e responsive](./05_Accessibility_e_Responsive.md) completati.
+- [Git workflow](./03_Git_Workflow.md): `.gitignore`, mai fare il commit di `.env`.
 - [Service Layer e API](../Day_08_Advanced_Hooks_Architecture/03_Service_Layer_e_Error_Boundary.md): `apiClient.js` che usa `import.meta.env.VITE_API_BASE_URL`.
 
 ---
@@ -149,7 +149,7 @@ npm run preview
 Il comando serve il contenuto di `dist/`, di default su `http://localhost:4173/` (se la porta è occupata Vite ne sceglie un'altra e la stampa nel terminale). Non è un server di produzione, ma è il modo più rapido per provare la build vera.
 
 Verifica:
-1. Apri la pagina e percorri le rotte; esegui i test principali del [Testing Manuale](./02_Testing_Manuale.md).
+1. Apri la pagina e percorri le rotte; esegui i test principali del [test manuale](./04_Refactoring_e_Test_Manuale.md).
 2. Scheda **Network**: ricarica; le richieste a `/data/transactions.json` e `/data/accounts.json` devono avere stato `200`; JS e CSS arrivano da `/assets/...`.
 3. Apri `http://localhost:4173/transactions` direttamente e premi F5: deve aprirsi la pagina (la preview applica il fallback a `index.html`; **non** garantisce che il tuo hosting lo faccia).
 4. Console senza errori.
@@ -232,7 +232,7 @@ Alcuni hosting statici **non offrono rewrite** (per esempio GitHub Pages, che se
 ## 🏦 LipariBank in action
 
 ### Verifica di un deploy (quando lo avrai eseguito)
-Sostituisci `<URL_DEL_DEPLOY>` con l'indirizzo reale che il tuo servizio ti fornisce (segnaposto: `[DA CONFIGURARE: inserire URL del deploy, se disponibile]`).
+Sostituisci `<URL_DEL_DEPLOY>` con l'indirizzo reale che il tuo servizio ti fornisce.
 
 | # | Verifica | Esito atteso |
 |---|---|---|
@@ -244,7 +244,7 @@ Sostituisci `<URL_DEL_DEPLOY>` con l'indirizzo reale che il tuo servizio ti forn
 | 6 | Network → ricarica | I file JSON di `/data/` rispondono `200`; JS/CSS da `assets/` senza 404 |
 | 7 | Console | Nessun errore |
 | 8 | Variabili d'ambiente | L'interfaccia mostra i valori attesi (per esempio il nome app); se un valore è `undefined`, rifai la build dopo aver impostato la variabile nel servizio |
-| 9 | Esegui il bonifico di test TC-24 | Funziona come in locale |
+| 9 | Esegui il bonifico di prova TC-27 | Funziona come in locale |
 
 ### Problemi tipici
 
@@ -319,4 +319,4 @@ Aggiungi `VITE_APP_ENV=development` in `.env.example` e mostra nel footer un'eti
 ---
 
 ### ➡️ Next
-Prossimo capitolo: [README e Documentazione](./05_README_e_Documentazione.md) — rendiamo il progetto comprensibile e riproducibile da chi lo apre per la prima volta.
+Prossimo capitolo: [07 · README e consegna](./07_README_e_Consegna.md). Rendiamo il progetto comprensibile a chi lo apre per la prima volta e chiudiamo il percorso.

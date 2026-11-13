@@ -139,7 +139,7 @@ function checkFences(source, prose, openings, report) {
   });
 }
 
-function checkProjectPaths(chapter, source, checkpoints, report) {
+function checkProjectPaths(chapter, source, dayLines, checkpoints, report) {
   const day = chapter.folder.match(/^Day_(\d+)/i);
   let candidates;
   if (day) {
@@ -151,7 +151,6 @@ function checkProjectPaths(chapter, source, checkpoints, report) {
   }
   if (candidates.length === 0) return;
 
-  const lines = source.split(/\r?\n/);
   const seen = new Set();
   for (const match of source.matchAll(PROJECT_PATH)) {
     const projectPath = match[1];
@@ -162,7 +161,8 @@ function checkProjectPaths(chapter, source, checkpoints, report) {
 
     const baseName = path.posix.basename(projectPath);
     const stem = baseName.replace(/\.[^.]+$/, "");
-    const isTemporary = lines.some(
+    // Un file può nascere in un capitolo ed essere eliminato in un altro dello stesso giorno.
+    const isTemporary = dayLines.some(
       (line) => TEMPORARY_FILE.test(line) && (line.includes(baseName) || new RegExp(`\\b${stem}\\b`).test(line)),
     );
     if (!isTemporary) report("checkpoint", `File citato ma assente dai checkpoint: ${projectPath}`);
@@ -178,6 +178,13 @@ export function checkCourse({ root }) {
   const lastChapter = mainChapters.at(-1) || chapters.at(-1);
   const problems = [];
 
+  const linesByFolder = new Map();
+  for (const chapter of chapters) {
+    const lines = linesByFolder.get(chapter.folder) ?? [];
+    lines.push(...fs.readFileSync(chapter.path, "utf8").split(/\r?\n/));
+    linesByFolder.set(chapter.folder, lines);
+  }
+
   for (const chapter of chapters) {
     const file = toPosix(path.relative(courseRoot, chapter.path));
     const report = (rule, message) => problems.push({ file, rule, message });
@@ -187,7 +194,7 @@ export function checkCourse({ root }) {
     checkTemplate(chapter, prose, chapter === lastChapter, report);
     checkLinks(chapter, prose, report);
     checkFences(source, prose, openings, report);
-    checkProjectPaths(chapter, source, checkpoints, report);
+    checkProjectPaths(chapter, source, linesByFolder.get(chapter.folder), checkpoints, report);
   }
 
   return { chapters: chapters.length, problems };
