@@ -1,8 +1,25 @@
 import { useMemo } from "react";
-import { sortByDate } from "../utils/format.js";
+import { useSelector } from "react-redux";
+import { selectTransactions } from "../store/transactionsSlice.js";
 
-export function useTransactions(items, filter, search, accountId = "") {
-  return useMemo(() => sortByDate(items.filter((item) => (!accountId || item.accountId === accountId) &&
-    (filter === "all" || (filter === "income" ? item.amount > 0 : item.amount < 0)) &&
-    item.description.toLowerCase().includes(search.trim().toLowerCase()))), [items, filter, search, accountId]);
+export function useTransactions({ accountId = null, filter = "all", searchText = "" } = {}) {
+  const transactions = useSelector(selectTransactions);
+
+  return useMemo(() => {
+    const normalizedSearch = searchText.trim().toLowerCase();
+
+    return transactions
+      .filter((transaction) => accountId === null || transaction.accountId === accountId)
+      .filter((transaction) => {
+        if (filter === "income") return transaction.amount > 0;
+        if (filter === "expense") return transaction.amount < 0;
+        return true;
+      })
+      .filter(
+        (transaction) =>
+          normalizedSearch === "" ||
+          transaction.description.toLowerCase().includes(normalizedSearch),
+      )
+      .sort((a, b) => b.date.localeCompare(a.date));
+  }, [transactions, accountId, filter, searchText]);
 }

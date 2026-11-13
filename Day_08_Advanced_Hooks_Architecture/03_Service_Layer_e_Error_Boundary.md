@@ -1,35 +1,37 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 7 · Capitolo 06**
-> **Argomento:** Service Layer, API e gestione degli errori
-> **Durata stimata:** 65 minuti
-> **Parte di LipariBank:** `apiClient.js`, `accountService.js`, `transactionService.js`, messaggi d'errore e `ErrorBoundary.jsx`
+> **Day 8 · Capitolo 03**
+> **Argomento:** Service layer, API ed Error Boundary
+> **Durata stimata:** 70 minuti
+> **Parte di LipariBank:** `apiClient.js`, `accountService.js`, `transactionService.js`, messaggi d'errore, thunk aggiornati ed `ErrorBoundary.jsx`
 
 ---
 
 ## 🎯 Obiettivo
 Alla fine del capitolo sarai in grado di:
-- isolare l'accesso ai dati in un service layer (`apiClient` + service per dominio);
+
+- isolare l'accesso ai dati in un service layer (`apiClient` più un service per argomento);
 - definire e usare una classe `ApiError` e trasformare gli errori in messaggi comprensibili all'utente;
-- usare `import.meta.env.VITE_API_BASE_URL` per cambiare la base URL senza toccare i componenti;
-- proteggere l'interfaccia con un `ErrorBoundary` (class component) e spiegare cosa **non** intercetta.
+- usare `import.meta.env.VITE_API_BASE_URL` per cambiare l'indirizzo dei dati senza toccare i componenti;
+- collegare i service ai thunk dello store;
+- proteggere l'interfaccia con un `ErrorBoundary` e spiegare che cosa **non** intercetta.
 
 ---
 
 ## 📋 Prerequisiti
-- [Cap. 02 · useReducer](./02_useReducer.md): `BankContext.jsx` esiste (non ancora collegato).
-- [Cap. 05 · Architettura](./05_Architettura_del_Progetto.md): `services/` non importa React.
+- [Capitolo 01 · Custom Hooks](./01_Custom_Hooks.md): le pagine usano `useBankStatus()` per caricamento, errore e "Riprova".
+- [Day 7 · Redux Toolkit: slice e thunk](../Day_07_Shared_State_Redux/04_Redux_Toolkit_Slice_e_Thunk.md): `fetchTransactions`, `status`, `extraReducers`.
 - [Day 5 · Fetch API](../Day_05_Effects_API/04_Fetch_API.md): `fetch`, `response.ok`, `AbortController`.
-- Facoltativo: [Extra React Legacy · Lifecycle Methods](../EXTRA_Legacy_React/03_Lifecycle_Methods.md), per approfondire le classi usate dall'`ErrorBoundary`.
-- Stato: `src/services/transactionService.js` ha `getTransactions({ signal })` con `fetch("/data/transactions.json", { signal })`; `public/data/transactions.json` contiene un array di movimenti (i dati canonici del corso).
+- Facoltativo: [Extra React Legacy · Lifecycle Methods](../Extra_Legacy_React/03_Lifecycle_Methods.md), per approfondire le classi usate dall'`ErrorBoundary`.
+- Stato: `src/services/transactionService.js` ha `getTransactions({ signal })` con `fetch("/data/transactions.json", { signal })`; i conti arrivano ancora da `mockData.js`.
 
 ---
 
 ## 🧭 In questo capitolo
 - Perché un service layer.
-- `apiClient.js` con `ApiError`, `signal` e base URL configurabile.
-- `transactionService.js` e `accountService.js` (+ `public/data/accounts.json`).
-- Errori: da `ApiError` al messaggio per l'utente.
+- `apiClient.js` con `ApiError`, `signal` e indirizzo di base configurabile.
+- `transactionService.js` e `accountService.js` (più `public/data/accounts.json`).
+- Errori: da `ApiError` al messaggio per l'utente, passando dai thunk.
 - `ErrorBoundary` e dove metterlo.
 
 ---
@@ -37,35 +39,36 @@ Alla fine del capitolo sarai in grado di:
 ## 🧠 Theory
 
 ### Perché un service layer
-Se ogni componente fa `fetch("/data/...")`, URL, gestione di `response.ok`, parsing JSON e messaggi di errore sono **duplicati ovunque**. Un service layer li concentra:
+Se ogni punto del codice fa `fetch("/data/...")`, indirizzi, controllo di `response.ok`, lettura del JSON e messaggi di errore sono **duplicati ovunque**. Un service layer li concentra:
 
 ```text
-componente/pagina → hook / Context → service (getTransactions) → apiClient (fetch) → rete / file JSON
+pagina → hook → store (thunk) → service (getTransactions) → apiClient (fetch) → rete / file JSON
 ```
 
-Vantaggi: un solo posto dove cambiare l'URL, errori uniformi, i componenti non sanno **come** arrivano i dati. Nel corso i dati sono file JSON statici in `public/data/`: **non sono un'API reale di LipariBank**. Se un domani esistesse un endpoint reale, cambieresti i service (e la variabile `VITE_API_BASE_URL`), non le pagine.
+Vantaggi: un solo posto dove cambiare l'indirizzo, errori uniformi, e nessun componente sa **come** arrivano i dati. Nel corso i dati sono file JSON statici in `public/data/`: **non sono un'API reale di LipariBank**. Se un domani esistesse un servizio vero, cambieresti i service (e la variabile `VITE_API_BASE_URL`), non le pagine.
 
 ### Tipi di errore da distinguere
-| Situazione | Come si manifesta | Cosa dire all'utente |
+
+| Situazione | Come si manifesta | Che cosa dire all'utente |
 |---|---|---|
-| Rete assente / server irraggiungibile | `fetch` lancia `TypeError` | "Impossibile contattare il servizio." |
-| Risposta con status 4xx/5xx | `response.ok === false` | "Dati non trovati" / "Servizio non disponibile" |
-| Risposta non JSON o formato inatteso | `response.json()` lancia, o dati non validi | "Risposta non valida" |
-| Richiesta annullata (cleanup, cambio pagina) | `AbortError` | **Niente**: non è un errore |
+| Rete assente o server irraggiungibile | `fetch` lancia `TypeError` | "Impossibile contattare il servizio." |
+| Risposta con status 4xx o 5xx | `response.ok === false` | "Dati non trovati" / "Servizio non disponibile" |
+| Risposta non JSON o formato inatteso | `response.json()` lancia, o i dati non sono validi | "Risposta non valida" |
+| Richiesta annullata | `AbortError` | **Niente**: non è un errore |
 | Errore di rendering nel codice React | Eccezione durante il render | Schermata di ripiego (Error Boundary) |
 
-### Principi di gestione errori
+### Principi di gestione degli errori
 - Il service lancia un errore **significativo** (`ApiError`); non mostra nulla.
-- `try/catch` solo dove puoi **aggiungere valore**: tradurre (`TypeError` → `ApiError`), recuperare o decidere cosa mostrare. Un `catch` che ingoia l'errore in silenzio è peggio di nessun `catch`.
-- Il messaggio per l'utente dice **cosa è successo** e **cosa può fare**; i dettagli tecnici (stack, URL, status) vanno in console, non a schermo.
+- `try`/`catch` solo dove puoi **aggiungere valore**: tradurre (`TypeError` → `ApiError`), recuperare, o decidere che cosa mostrare. Un `catch` che ingoia l'errore in silenzio è peggio di nessun `catch`.
+- Il messaggio per l'utente dice **che cosa è successo** e **che cosa può fare**; i dettagli tecnici (stack, indirizzo, status) vanno in console, non a schermo.
 - `AbortError` si lascia passare invariato: chi ha annullato la richiesta sa che non è un fallimento.
 
 > 💡 **Remember**
 >
-> Il service **non decide** cosa mostrare; lancia errori. Chi mostra (Context/pagina) decide il messaggio. L'`ErrorBoundary` non sostituisce `try/catch`: copre solo gli errori di rendering.
+> Il service **non decide** che cosa mostrare: lancia errori. Il thunk traduce l'errore in un messaggio e lo mette nello store; la pagina lo mostra. L'`ErrorBoundary` non sostituisce `try`/`catch`: copre solo gli errori di rendering.
 
 ### Configurazione con `import.meta.env`
-Vite espone le variabili d'ambiente che iniziano per `VITE_` tramite `import.meta.env`. `import.meta.env.VITE_API_BASE_URL ?? ""` significa: se non definita, usa stringa vuota, cioè stessa origine (i file in `public/`). Poiché queste variabili finiscono nel codice del browser, **non vi si mettono mai segreti** (token, chiavi). Il file `.env` lo vediamo nel [Day 9 · Environment e Deploy](../Day_09_Delivery/04_Environment_e_Deploy.md).
+Vite espone al codice le variabili d'ambiente che iniziano per `VITE_` tramite `import.meta.env`. `import.meta.env.VITE_API_BASE_URL ?? ""` significa: se non è definita, usa una stringa vuota, cioè la stessa origine della pagina (i file in `public/`). Poiché queste variabili finiscono nel codice inviato al browser, **non vi si mettono mai segreti** (token, chiavi). I file `.env` li vedremo nel Day 9.
 
 ---
 
@@ -74,7 +77,7 @@ Vite espone le variabili d'ambiente che iniziano per `VITE_` tramite `import.met
 ### 1. `apiClient.js`
 Crea `src/services/apiClient.js`:
 
-```javascript
+```javascript title="src/services/apiClient.js"
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
 export class ApiError extends Error {
@@ -110,17 +113,18 @@ export async function apiGet(path, { signal } = {}) {
 }
 ```
 
-Cosa fa:
-- **`ApiError`** estende `Error`, conserva lo `status` HTTP e la `cause` originale per il debug.
-- **Il primo `try/catch`** traduce un fallimento di rete (`TypeError`) in `ApiError`, ma lascia passare `AbortError`.
-- **`response.ok`**: `fetch` non lancia per 404 o 500; va controllato esplicitamente (come in Day 5).
-- **Il secondo `try/catch`** gestisce JSON non valido. Alcuni server, per percorsi inesistenti, rispondono `200` con una pagina HTML: senza questo controllo l'errore sarebbe criptico.
+Che cosa fa:
+
+- **`ApiError`** estende `Error`, conserva lo `status` HTTP e la `cause` originale per la diagnosi.
+- **Il primo `try`/`catch`** traduce un fallimento di rete (`TypeError`) in `ApiError`, ma lascia passare `AbortError`.
+- **`response.ok`**: `fetch` non lancia per un 404 o un 500; va controllato esplicitamente, come nel Day 5.
+- **Il secondo `try`/`catch`** gestisce un JSON non valido. Alcuni server, per i percorsi inesistenti, rispondono `200` con una pagina HTML: senza questo controllo l'errore sarebbe incomprensibile.
 - **`signal`** è inoltrato a `fetch`: l'annullamento continua a funzionare.
 
 ### 2. I dati dei conti
-Crea `public/data/accounts.json` (stessi dati fittizi di `mockData.js`):
+Crea `public/data/accounts.json` (gli stessi dati fittizi di `mockData.js`):
 
-```json
+```json title="public/data/accounts.json"
 [
   { "id": "acc-001", "name": "Conto Corrente", "iban": "IT00 0000 0000 0000 0000 0000 000", "balance": 4250.75, "currency": "EUR" },
   { "id": "acc-002", "name": "Conto Risparmio", "iban": "IT00 0000 0000 0000 0000 0000 001", "balance": 12800.0, "currency": "EUR" }
@@ -128,10 +132,10 @@ Crea `public/data/accounts.json` (stessi dati fittizi di `mockData.js`):
 ```
 
 ### 3. I service
-Sostituisci il contenuto di `src/services/transactionService.js` (stessa firma di Day 5, quindi nulla cambia per chi la chiama):
+Sostituisci il contenuto di `src/services/transactionService.js` (stessa firma del Day 5, quindi per chi la chiama non cambia nulla):
 
-```javascript
-import { ApiError, apiGet } from "./apiClient";
+```javascript title="src/services/transactionService.js"
+import { ApiError, apiGet } from "./apiClient.js";
 
 export async function getTransactions({ signal } = {}) {
   const data = await apiGet("/data/transactions.json", { signal });
@@ -144,8 +148,8 @@ export async function getTransactions({ signal } = {}) {
 
 Crea `src/services/accountService.js`:
 
-```javascript
-import { ApiError, apiGet } from "./apiClient";
+```javascript title="src/services/accountService.js"
+import { ApiError, apiGet } from "./apiClient.js";
 
 export async function getAccounts({ signal } = {}) {
   const data = await apiGet("/data/accounts.json", { signal });
@@ -154,24 +158,15 @@ export async function getAccounts({ signal } = {}) {
   }
   return data;
 }
-
-export async function getAccountById(accountId, { signal } = {}) {
-  const accounts = await getAccounts({ signal });
-  const account = accounts.find((item) => item.id === accountId);
-  if (!account) {
-    throw new ApiError("Conto non trovato.", { status: 404 });
-  }
-  return account;
-}
 ```
 
-I service non hanno `try/catch`: non hanno nulla da aggiungere, lasciano propagare `ApiError`. Convalidano invece il **formato** dei dati ricevuti, perché un JSON valido non è per forza il JSON atteso.
+I service non hanno `try`/`catch`: non hanno nulla da aggiungere e lasciano propagare `ApiError`. Convalidano invece il **formato** dei dati ricevuti, perché un JSON valido non è per forza il JSON atteso.
 
 ### 4. Messaggi per l'utente
-Crea `src/utils/errorMessages.js` (nuovo file in `utils/`):
+Crea `src/utils/errorMessages.js`:
 
-```javascript
-import { ApiError } from "../services/apiClient";
+```javascript title="src/utils/errorMessages.js"
+import { ApiError } from "../services/apiClient.js";
 
 export function getErrorMessage(error) {
   if (error instanceof ApiError) {
@@ -185,40 +180,176 @@ export function getErrorMessage(error) {
 }
 ```
 
-### 5. Aggiornare `BankContext.jsx`
-Nel `BankProvider` (cap. 02) cambia gli import e la funzione `load` dentro l'effect. Import:
+### 5. Aggiornare i thunk
+Chi traduce l'errore in messaggio? Il thunk: è il punto in cui il risultato del service entra nello store.
 
-```jsx
-import { getAccounts } from "../services/accountService";
-import { getTransactions } from "../services/transactionService";
-import { getErrorMessage } from "../utils/errorMessages";
+In `src/store/transactionsSlice.js` aggiorna gli import e il thunk:
+
+```javascript
+import { createAsyncThunk, createSelector, createSlice, nanoid } from "@reduxjs/toolkit";
+import { getTransactions } from "../services/transactionService.js";
+import { getErrorMessage } from "../utils/errorMessages.js";
+
+export const fetchTransactions = createAsyncThunk(
+  "transactions/fetchTransactions",
+  async (_, { signal, rejectWithValue }) => {
+    try {
+      return await getTransactions({ signal });
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+  {
+    condition: (_, { getState }) => getState().transactions.status !== "loading",
+  },
+);
 ```
 
-Elimina l'import `accounts as mockAccounts` da `mockData` e sostituisci `load`:
+`rejectWithValue` fa terminare il thunk con l'action `rejected`, mettendo nel `payload` il valore che gli passi: qui il messaggio per l'utente. `console.error` lascia i dettagli tecnici a chi sviluppa.
+
+Nello stesso file aggiorna il caso `rejected`:
+
+```javascript
+      .addCase(fetchTransactions.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload ?? getErrorMessage(null);
+      });
+```
+
+Ora i conti. Finora erano nello state iniziale dello slice; adesso si caricano come i movimenti. Sostituisci `src/store/accountsSlice.js`:
+
+```javascript title="src/store/accountsSlice.js"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getAccounts } from "../services/accountService.js";
+import { getErrorMessage } from "../utils/errorMessages.js";
+import { transferAdded } from "./transactionsSlice.js";
+
+export const fetchAccounts = createAsyncThunk(
+  "accounts/fetchAccounts",
+  async (_, { signal, rejectWithValue }) => {
+    try {
+      return await getAccounts({ signal });
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(getErrorMessage(error));
+    }
+  },
+  {
+    condition: (_, { getState }) => getState().accounts.status !== "loading",
+  },
+);
+
+function roundCents(value) {
+  return Math.round(value * 100) / 100;
+}
+
+const initialState = {
+  items: [],
+  status: "idle",
+  error: null,
+};
+
+const accountsSlice = createSlice({
+  name: "accounts",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAccounts.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchAccounts.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.items = action.payload;
+      })
+      .addCase(fetchAccounts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload ?? getErrorMessage(null);
+      })
+      .addCase(transferAdded, (state, action) => {
+        const account = state.items.find((item) => item.id === action.payload.accountId);
+        if (account) {
+          account.balance = roundCents(account.balance + action.payload.amount);
+        }
+      });
+  },
+});
+
+export const selectAccounts = (state) => state.accounts.items;
+export const selectAccountsStatus = (state) => state.accounts.status;
+export const selectAccountsError = (state) => state.accounts.error;
+
+export default accountsSlice.reducer;
+```
+
+Lo slice dei conti ha ora la stessa forma di quello dei movimenti: `items`, `status`, `error`, un thunk con `condition` e i tre casi del caricamento. Il caso `transferAdded` è rimasto identico.
+
+Infine fai partire entrambi i caricamenti. In `src/App.jsx` aggiungi l'import di `fetchAccounts` e aggiorna l'effect (snippet parziale: il `return` con le route resta com'è):
 
 ```jsx
-async function load() {
-  dispatch({ type: "LOAD_START" });
-  try {
-    const [accounts, transactions] = await Promise.all([
-      getAccounts({ signal: controller.signal }),
-      getTransactions({ signal: controller.signal }),
-    ]);
-    dispatch({ type: "LOAD_SUCCESS", payload: { accounts, transactions } });
-  } catch (error) {
-    if (error.name === "AbortError") return;
-    console.error(error);
-    dispatch({ type: "LOAD_ERROR", payload: getErrorMessage(error) });
+import { fetchAccounts } from "./store/accountsSlice.js";
+import { fetchTransactions } from "./store/transactionsSlice.js";
+
+export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAccounts());
+    dispatch(fetchTransactions());
+  }, [dispatch]);
+```
+
+### 6. Aggiornare `useBankStatus`
+Adesso i caricamenti sono due. Una pagina è pronta quando **entrambi** sono riusciti, e deve mostrare l'errore se **uno dei due** è fallito. Sostituisci `src/hooks/useBankStatus.js`:
+
+```javascript title="src/hooks/useBankStatus.js"
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchAccounts,
+  selectAccountsError,
+  selectAccountsStatus,
+} from "../store/accountsSlice.js";
+import {
+  fetchTransactions,
+  selectTransactionsError,
+  selectTransactionsStatus,
+} from "../store/transactionsSlice.js";
+
+export function useBankStatus() {
+  const dispatch = useDispatch();
+  const accountsStatus = useSelector(selectAccountsStatus);
+  const accountsError = useSelector(selectAccountsError);
+  const transactionsStatus = useSelector(selectTransactionsStatus);
+  const transactionsError = useSelector(selectTransactionsError);
+
+  const statuses = [accountsStatus, transactionsStatus];
+  const hasFailed = statuses.includes("failed");
+  const isLoading =
+    !hasFailed && statuses.some((status) => status === "idle" || status === "loading");
+
+  function reload() {
+    if (accountsStatus === "failed") dispatch(fetchAccounts());
+    if (transactionsStatus === "failed") dispatch(fetchTransactions());
   }
+
+  return {
+    isLoading,
+    error: hasFailed ? (accountsError ?? transactionsError) : null,
+    reload,
+  };
 }
 ```
 
-`Promise.all` carica conti e movimenti in parallelo; se uno fallisce, fallisce tutto con il primo errore. `console.error` lascia i dettagli tecnici agli sviluppatori; l'utente vede solo il messaggio tradotto.
+Ricarica l'app: funziona, e nel tab *Network* trovi una richiesta per `accounts.json` e una per `transactions.json`.
 
-### 6. `ErrorBoundary`
-Gli errori **durante il rendering** (per esempio leggere `account.name` su `undefined`) farebbero sparire l'intera app, lasciando una pagina bianca. Un **Error Boundary** li intercetta e mostra un'interfaccia di ripiego. Crea `src/components/ErrorBoundary.jsx`:
+**Le pagine non sono cambiate di una riga.** Chiedono ancora `isLoading`, `error` e `reload`: come si calcolano è un dettaglio del hook. È il motivo per cui nel capitolo 01 valeva la pena estrarlo: se ogni pagina avesse ancora le proprie condizioni su `status`, ora dovresti correggerne quattro.
 
-```jsx
+### 7. `ErrorBoundary`
+Gli errori **durante il rendering** (per esempio leggere `account.name` quando `account` è `undefined`) farebbero sparire l'intera app, lasciando una pagina bianca. Un **Error Boundary** li intercetta e mostra un'interfaccia di ripiego. Crea `src/components/ErrorBoundary.jsx`:
+
+```jsx title="src/components/ErrorBoundary.jsx"
 import { Component } from "react";
 
 export default class ErrorBoundary extends Component {
@@ -242,7 +373,9 @@ export default class ErrorBoundary extends Component {
         <div role="alert" className="error-boundary">
           <h2>Qualcosa è andato storto</h2>
           <p>Si è verificato un problema nella visualizzazione di questa pagina.</p>
-          <button type="button" onClick={this.handleReset}>Riprova</button>
+          <button type="button" onClick={this.handleReset}>
+            Riprova
+          </button>
         </div>
       );
     }
@@ -251,33 +384,70 @@ export default class ErrorBoundary extends Component {
 }
 ```
 
-**Sì, è una class component.** React invoca `getDerivedStateFromError` quando un discendente fallisce durante il rendering: il metodo aggiorna lo state per mostrare il fallback. `componentDidCatch` riceve l'errore per la diagnostica. `render` sceglie fra fallback e `this.props.children`. Non serve aver seguito l'extra: copia il componente e usalo come indicato; per approfondire le classi consulta il [modulo React Legacy facoltativo](../EXTRA_Legacy_React/03_Lifecycle_Methods.md). Gli Error Boundary non intercettano normalmente errori negli handler o nelle operazioni asincrone.
+**Sì, è una class component.** È l'unico caso del corso in cui serve: React non offre ancora un hook equivalente.
 
-- `getDerivedStateFromError` aggiorna lo state per mostrare il ripiego al render successivo;
-- `componentDidCatch` serve per i side effect, come il logging (qui `console.error`);
+- `getDerivedStateFromError` viene chiamato quando un discendente fallisce durante il rendering: aggiorna lo state per mostrare il ripiego.
+- `componentDidCatch` riceve l'errore per la diagnosi (qui `console.error`).
 - `handleReset` prova a ridisegnare i figli.
+- `render` sceglie tra ripiego e `this.props.children`.
 
-**Cosa NON intercetta:** errori negli *event handler* (`onClick`), nel codice asincrono (`fetch`, `setTimeout`), nel server-side rendering e nell'Error Boundary stesso. Per `fetch` serve `try/catch` (come in `BankProvider`). Verificato con React 19: un errore di rendering intercettato viene comunque scritto in console, anche in presenza del boundary.
+Non serve aver seguito l'extra sulle classi: copia il componente e usalo come indicato. Per approfondire c'è il [modulo React Legacy facoltativo](../Extra_Legacy_React/03_Lifecycle_Methods.md).
 
-Usalo in `src/layouts/AppLayout.jsx` attorno a `<Outlet />`. Snippet parziale, tieni il resto del layout invariato (Header, `NavLink`, `navItems`):
+**Che cosa NON intercetta:** gli errori negli *event handler* (`onClick`), nel codice asincrono (`fetch`, `setTimeout`) e nell'Error Boundary stesso. Per quelli servono `try`/`catch`, come nei thunk. In sviluppo React scrive comunque l'errore in console, anche quando il boundary lo intercetta.
 
-```jsx
+Usalo attorno a `<Outlet />`. `src/layouts/AppLayout.jsx`:
+
+```jsx title="src/layouts/AppLayout.jsx"
 import { NavLink, Outlet, useLocation } from "react-router";
 import ErrorBoundary from "../components/ErrorBoundary.jsx";
+import Header from "../components/Header.jsx";
+import { customer } from "../data/mockData.js";
 
-// dentro AppLayout
-const location = useLocation();
+const navItems = [
+  { to: "/", label: "Dashboard", end: true },
+  { to: "/accounts", label: "Conti" },
+  { to: "/transactions", label: "Movimenti" },
+  { to: "/transfer", label: "Bonifico" },
+];
 
-// nel JSX, dentro <main className="app-main">, al posto del semplice <Outlet />
-<ErrorBoundary key={location.pathname}>
-  <Outlet />
-</ErrorBoundary>
+function getLinkClassName({ isActive }) {
+  return isActive ? "nav-link nav-link-active" : "nav-link";
+}
+
+export default function AppLayout() {
+  const location = useLocation();
+
+  return (
+    <div className="app">
+      <Header customer={customer} />
+
+      <nav className="main-nav" aria-label="Navigazione principale">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={getLinkClassName}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+
+      <main className="app-main">
+        <ErrorBoundary key={location.pathname}>
+          <Outlet />
+        </ErrorBoundary>
+      </main>
+    </div>
+  );
+}
 ```
 
-La `key` basata sul percorso fa ripartire il boundary quando navighi altrove: un errore in `/transactions` non blocca `/`. Header e navigazione restano fuori dal boundary e quindi sempre visibili.
+La `key` basata sul percorso fa ripartire il boundary quando navighi altrove: un errore in `/transactions` non blocca `/`. È la tecnica vista nel [Day 3](../Day_03_State_Events/04_Virtual_DOM_e_Riconciliazione.md): una `key` diversa crea un componente nuovo, con lo state iniziale. Intestazione e menu restano fuori dal boundary e quindi sempre visibili.
 
-### 7. Provare tutto
-**A. Errore di rendering.** In `DashboardPage.jsx` aggiungi temporaneamente un componente che lancia:
+### 8. Provare tutto
+**A. Errore di rendering.** In `src/pages/DashboardPage.jsx` aggiungi temporaneamente un componente che lancia:
 
 ```jsx
 function BrokenWidget() {
@@ -288,60 +458,71 @@ function BrokenWidget() {
 <BrokenWidget />
 ```
 
-Vedi la schermata "Qualcosa è andato storto" con Header e menu ancora funzionanti; in console vedi l'errore. In sviluppo React riporta comunque l'errore in console anche se è stato intercettato. Rimuovi `BrokenWidget`.
+Vedi "Qualcosa è andato storto" con intestazione e menu ancora funzionanti. Rimuovi `BrokenWidget`.
 
-**B. Errore di rete.** Crea nella root di `liparibank/` il file `.env.local` con una sola riga:
+**B. Errore di rete.** Nella cartella `liparibank/` crea il file `.env.local` con una sola riga:
 
 ```text
 VITE_API_BASE_URL=http://localhost:9999
 ```
 
-Riavvia `npm run dev` (le variabili si leggono all'avvio). Con il `BankProvider` collegato (cap. 07) vedrai "Impossibile contattare il servizio." Elimina `.env.local` e riavvia. Non committare `.env.local`: i file `.env*.local` sono di solito ignorati da Git nel template Vite; verificalo nel tuo `.gitignore`.
+Riavvia `npm run dev` (le variabili si leggono all'avvio). Vedrai "Impossibile contattare il servizio." con il pulsante "Riprova". Nei Redux DevTools le action `rejected` hanno il messaggio nel `payload`. Elimina `.env.local` e riavvia. Non fare il commit di `.env.local`: il `.gitignore` del template Vite ignora già i file `*.local`.
 
 **C. File mancante.** Cambia temporaneamente in `transactionService.js` il percorso in `/data/non-esiste.json`: vedrai "I dati richiesti non sono stati trovati." oppure "Risposta del servizio non valida.", a seconda di come il server gestisce i percorsi inesistenti. Ripristina il percorso.
 
 ---
 
 ## 🏦 LipariBank in action
-Cosa cambia per il resto dell'app:
-- `getTransactions({ signal })` ha la **stessa firma** di Day 5: `App.jsx` continua a funzionare senza modifiche.
-- Un solo punto per l'URL (`apiClient`) e un solo punto per i messaggi (`getErrorMessage`).
-- Quando `LOAD_ERROR` mette il messaggio nello state, `ErrorMessage` lo mostra con un pulsante "Riprova" collegato a `reload` di `useBank`.
-- I conti passano da `mockData.js` a `accounts.json`: restano `customer` e `beneficiaries` in `mockData.js` perché sono dati statici che non ha senso "caricare".
+Che cosa è cambiato per il resto dell'app:
 
-Esempio di uso del messaggio nell'UI (snippet parziale; `ErrorMessage` di Day 5 accetta `message` e `onRetry`):
-
-```jsx
-{error && <ErrorMessage message={error} onRetry={reload} />}
-```
+- `getTransactions({ signal })` ha la **stessa firma** del Day 5: chi la chiamava non se n'è accorto.
+- C'è un solo punto per l'indirizzo dei dati (`apiClient`) e un solo punto per i messaggi (`getErrorMessage`).
+- Il messaggio d'errore fa questo percorso: service (`ApiError`) → thunk (`rejectWithValue`) → store (`error`) → `useBankStatus` → `ErrorMessage` con "Riprova".
+- I conti passano da `mockData.js` a `accounts.json`. In `mockData.js` restano utili solo `customer` e `beneficiaries`: sono dati fissi che non ha senso "caricare". Faremo pulizia nell'[esercizio](./05_Esercizio_Refactoring_LipariBank.md).
+- Nessuna pagina è stata modificata.
 
 ---
 
 ## 🧪 Your Turn
-**Obiettivo:** estendere il service layer e verificare i casi di errore.
+**Obiettivo:** verificare il service layer e i casi di errore.
 
 **Requisiti:**
-1. `apiClient.js`, `transactionService.js`, `accountService.js` e `public/data/accounts.json` esistono come mostrato.
-2. Nessun `fetch(` in `src/` fuori da `src/services/apiClient.js` (usa la ricerca di VS Code).
-3. Aggiungi a `transactionService.js` la funzione `getTransactionsByAccount(accountId, { signal })` che riusa `getTransactions` e filtra per `accountId`.
-4. Collega l'`ErrorBoundary` in `AppLayout` e dimostra con `BrokenWidget` che il menu resta usabile.
-5. Esegui i test A, B e C della sezione 7 e annota i messaggi visti.
+1. `apiClient.js`, `transactionService.js`, `accountService.js`, `errorMessages.js` e `public/data/accounts.json` esistono come mostrato.
+2. Nessun `fetch(` in `src/` fuori da `src/services/apiClient.js`.
+3. L'`ErrorBoundary` è collegato in `AppLayout`: dimostra con `BrokenWidget` che il menu resta utilizzabile.
+4. Esegui le prove A, B e C del punto 8 e annota i messaggi che vedi.
+5. Durante la prova B apri i Redux DevTools e individua quale action contiene il messaggio mostrato all'utente.
 
-**Suggerimenti:** per il punto 3 non ripetere `apiGet`: componi funzioni esistenti. Per il test B ricorda di riavviare il dev server.
+Per il requisito 2, in PowerShell:
 
-**Risultato atteso:** nessuna pagina bianca in nessuno dei tre scenari; l'utente vede sempre un messaggio comprensibile.
+```powershell
+Get-ChildItem src -Recurse -Include *.js, *.jsx | Select-String -Pattern "fetch\("
+```
 
-**Criteri di completamento:** requisiti 1-5 verificati, file temporanei rimossi, `npm run lint` e `npm run build` senza errori.
+Con un terminale bash (Git Bash, macOS, Linux):
+
+```bash
+grep -rn "fetch(" src
+```
+
+**Passi suggeriti:**
+1. Per la prova B ricorda di riavviare il server di sviluppo, sia dopo aver creato `.env.local` sia dopo averlo eliminato.
+2. Per il requisito 5 guarda il `payload` delle action che terminano con `/rejected`.
+
+**Risultato atteso:** nessuna pagina bianca in nessuno dei tre scenari; l'utente vede sempre un messaggio comprensibile. La ricerca del requisito 2 trova una sola riga, in `apiClient.js`.
+
+**Criteri di completamento:** i 5 requisiti sono verificati, i file temporanei sono rimossi, `npm run lint` e `npm run build` terminano senza errori.
 
 ---
 
 ## ⚠️ Common Mistakes
-- **Dimenticare di controllare `response.ok`**: un 404 sembra un successo e il parsing fallisce più avanti.
-- **Trattare `AbortError` come errore**: in `StrictMode` l'effect parte, viene annullato e riparte; mostrare un errore sarebbe sbagliato.
+- **Dimenticare di controllare `response.ok`**: un 404 sembra un successo e la lettura dei dati fallisce più avanti.
+- **Trattare `AbortError` come un errore**: mostrare un messaggio per una richiesta annullata di proposito sarebbe sbagliato.
 - **`catch` che ingoia l'errore** (`catch {}`) senza log né messaggio: i problemi diventano invisibili.
-- **Mostrare `error.message` o lo stack all'utente**: informazioni tecniche inutili (e a volte sensibili). Usa `getErrorMessage`.
-- **Aspettarsi che l'Error Boundary intercetti errori di `fetch` o di `onClick`**: non lo fa.
-- **Mettere segreti in `VITE_*`**: finiscono nel bundle pubblico.
+- **Mostrare `error.message` o lo stack all'utente**: informazioni tecniche inutili, e a volte riservate. Usa `getErrorMessage`.
+- **Mettere un oggetto `Error` nello store**: lo state di Redux deve contenere solo dati semplici. Nello store va il messaggio, cioè una stringa.
+- **Aspettarsi che l'Error Boundary intercetti gli errori di `fetch` o di `onClick`**: non lo fa.
+- **Mettere segreti in `VITE_*`**: finiscono nel codice pubblico.
 - **Modificare `.env` e non riavviare** `npm run dev`.
 
 ---
@@ -351,25 +532,26 @@ Esempio di uso del messaggio nell'UI (snippet parziale; `ErrorMessage` di Day 5 
 - ☐ `ApiError` espone `status` e `cause`.
 - ☐ `AbortError` non viene trasformato né mostrato.
 - ☐ `getErrorMessage` restituisce testi in italiano senza dettagli tecnici.
+- ☐ I thunk usano `rejectWithValue` e lo store contiene il messaggio.
+- ☐ `useBankStatus` tiene conto di conti e movimenti, e le pagine non sono cambiate.
 - ☐ `ErrorBoundary` è una class component e avvolge l'`<Outlet />`.
 - ☐ So elencare tre tipi di errore che l'Error Boundary non intercetta.
-- ☐ `VITE_API_BASE_URL` non contiene segreti.
 
 ---
 
 ## 🚀 Challenge
-Aggiungi `apiPost(path, body, { signal })` a `apiClient.js` (metodo `POST`, header `Content-Type: application/json`, `JSON.stringify(body)`) riusando il più possibile la logica di `apiGet` (estrai una funzione interna `request`). Nel corso non ha un endpoint reale da chiamare: serve a capire come il service layer permetterebbe di passare da un bonifico simulato a uno reale cambiando un solo file.
+Aggiungi `apiPost(path, body, { signal })` ad `apiClient.js` (metodo `POST`, header `Content-Type: application/json`, `JSON.stringify(body)`) riusando il più possibile la logica di `apiGet`: estrai una funzione interna `request`. Nel corso non esiste un indirizzo reale da chiamare: serve a capire come il service layer permetterebbe di passare da un bonifico simulato a uno vero cambiando un solo file. È un'estensione facoltativa.
 
 ---
 
 ## 📌 Recap
-- Il service layer isola URL, `fetch`, controllo degli status e parsing dei dati.
+- Il service layer isola indirizzi, `fetch`, controllo degli status e lettura dei dati.
 - `ApiError` porta `status` e `cause`; `AbortError` passa invariato.
-- `try/catch` nei service solo per tradurre o recuperare; l'UI decide cosa mostrare.
-- I messaggi all'utente sono chiari e privi di dettagli tecnici; i dettagli vanno in console.
-- L'Error Boundary (class component) copre solo errori di rendering; `fetch` ed event handler richiedono `try/catch`.
+- Il thunk traduce l'errore in un messaggio con `rejectWithValue`; lo store lo conserva; la pagina lo mostra.
+- Grazie a `useBankStatus` il secondo caricamento non ha richiesto modifiche alle pagine.
+- L'Error Boundary (class component) copre solo gli errori di rendering; `fetch` ed event handler richiedono `try`/`catch`.
 
 ---
 
 ### ➡️ Next
-Prossimo capitolo: [07 · Esercizio: Refactoring LipariBank](./07_Esercizio_Refactoring_LipariBank.md). Colleghiamo tutto e togliamo lo state da `App.jsx`, senza cambiare il comportamento dell'app.
+Prossimo capitolo: [04 · Architettura del progetto](./04_Architettura_del_Progetto.md). Abbiamo store, Context, hook, service e componenti: organizziamoli con un criterio.

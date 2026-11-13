@@ -1,9 +1,9 @@
 # 🏦 LipariBank — React Zero to Hero
 
-> **Day 7 · Capitolo 04**
+> **Day 8 · Capitolo 02**
 > **Argomento:** Memoization (`useMemo`, `useCallback`, `React.memo`) e quando NON usarla
-> **Durata stimata:** 60 minuti
-> **Parte di LipariBank:** riepilogo uscite per categoria (`CategorySummary.jsx`) e versione finale di `useTransactions`
+> **Durata stimata:** 65 minuti
+> **Parte di LipariBank:** riepilogo uscite per categoria (`CategorySummary.jsx`), versione finale di `useTransactions` e selector memoizzato
 
 ---
 
@@ -12,15 +12,16 @@ Alla fine del capitolo sarai in grado di:
 - spiegare cosa fanno `useMemo`, `useCallback` e `React.memo` e quanto costano;
 - usare React DevTools Profiler per **misurare** prima di ottimizzare;
 - riconoscere i casi in cui la memoization è inutile (props che cambiano a ogni render, componenti leggeri);
-- applicare le tre tecniche a un caso realistico di LipariBank e poi decidere cosa tenere.
+- applicare le tre tecniche a un caso realistico di LipariBank e poi decidere cosa tenere;
+- spostare un calcolo derivato in un selector memoizzato con `createSelector`.
 
 ---
 
 ## 📋 Prerequisiti
-- [Cap. 03 · Custom Hooks](./03_Custom_Hooks.md) (`useTransactions`).
-- [Day 3 · State e Rerender](../Day_03_State_Events/03_State_e_Rerender.md): un componente si ri-renderizza quando cambia il suo state o quando si ri-renderizza il genitore.
+- [Capitolo 01 · Custom Hooks](./01_Custom_Hooks.md) (`useTransactions`).
+- [Day 3 · State e Rerender](../Day_03_State_Events/03_State_e_Rerender.md) e [Day 3 · Virtual DOM e riconciliazione](../Day_03_State_Events/04_Virtual_DOM_e_Riconciliazione.md): un componente si ri-renderizza quando cambia il suo state o quando si ri-renderizza il genitore, e un re-render non significa che il DOM cambi.
 - Estensione browser **React Developer Tools** installata (Chrome, Edge o Firefox).
-- Progetto `liparibank/` funzionante; `TransactionsPage` riceve ancora `transactions` via props da `App.jsx`.
+- Progetto `liparibank/` funzionante; `TransactionsPage` legge i movimenti dallo store e usa `useBankStatus` e `useTransactions`.
 
 ---
 
@@ -29,6 +30,7 @@ Alla fine del capitolo sarai in grado di:
 - `React.memo`, `useMemo`, `useCallback` con un esempio completo.
 - Misurare con il Profiler e con uno stress test.
 - Regole pratiche: quando sì, quando no. Cenno al React Compiler.
+- Selector memoizzati con `createSelector`.
 
 ---
 
@@ -77,7 +79,7 @@ Crea `src/components/CategorySummary.jsx` (nuovo file nella cartella dei compone
 
 ```jsx
 import { memo, useMemo } from "react";
-import { formatCurrency } from "../utils/formatters";
+import { formatCurrency } from "../utils/formatters.js";
 
 function CategorySummary({ transactions, selectedCategory, onSelectCategory }) {
   const totals = useMemo(() => {
@@ -123,54 +125,63 @@ export default memo(CategorySummary);
 Ci sono tutti e tre gli strumenti: `memo` sul componente, `useMemo` sul raggruppamento, e (nella pagina) `useCallback` sul handler.
 
 ### 2. Usarlo in `TransactionsPage`
-Snippet parziale: aggiungi solo ciò che manca al tuo `TransactionsPage.jsx` (la pagina continua a ricevere `transactions`, `isLoading`, `error`, `onRetry`, `onToggleFavorite` via props e ha già `filter`, `searchText` e `visibleTransactions`).
+Snippet parziale: aggiungi a `src/pages/TransactionsPage.jsx` solo ciò che manca. La pagina ha già `allTransactions` (tutti i movimenti, letti dallo store), `filter`, `searchText` e `visibleTransactions`.
 
 ```jsx
 import { useCallback, useState } from "react";
-import CategorySummary from "../components/CategorySummary";
+import CategorySummary from "../components/CategorySummary.jsx";
 
-// dentro TransactionsPage({ transactions, isLoading, error, onRetry, onToggleFavorite })
+// dentro TransactionsPage
 const [selectedCategory, setSelectedCategory] = useState(null);
 const [note, setNote] = useState(""); // solo per l'esperimento: provoca re-render non correlati
 
-const handleSelectCategory = useCallback((category) => {
-  setSelectedCategory((current) => (current === category ? null : category));
-}, []);
-
-// dopo il tuo `visibleTransactions` (filtro tipo, ricerca, ordinamento)
+// dopo `visibleTransactions`
 const categoryTransactions =
   selectedCategory === null
     ? visibleTransactions
     : visibleTransactions.filter((transaction) => transaction.category === selectedCategory);
 
+const handleSelectCategory = useCallback((category) => {
+  setSelectedCategory((current) => (current === category ? null : category));
+}, []);
+
+const handleToggleFavorite = useCallback(
+  (transactionId) => dispatch(favoriteToggled(transactionId)),
+  [dispatch],
+);
+
 // nel JSX, nel ramo che mostra la lista (al posto del solo <TransactionList />)
-<label htmlFor="note">Nota veloce (esperimento)</label>
-<input id="note" value={note} onChange={(event) => setNote(event.target.value)} />
-<CategorySummary
-  transactions={transactions}
-  selectedCategory={selectedCategory}
-  onSelectCategory={handleSelectCategory}
-/>
-<TransactionList transactions={categoryTransactions} onToggleFavorite={onToggleFavorite} />
+<>
+  <label htmlFor="note">Nota veloce (esperimento)</label>
+  <input id="note" value={note} onChange={(event) => setNote(event.target.value)} />
+  <CategorySummary
+    transactions={allTransactions}
+    selectedCategory={selectedCategory}
+    onSelectCategory={handleSelectCategory}
+  />
+  <TransactionList transactions={categoryTransactions} onToggleFavorite={handleToggleFavorite} />
+</>
 ```
 
-Perché funziona: quando scrivi nella nota, `TransactionsPage` si ri-renderizza, ma `CategorySummary` riceve **le stesse props** (`transactions` è lo state di `App`, `selectedCategory` è una stringa o `null`, `handleSelectCategory` è memoizzata): `memo` salta il render. Il filtro per categoria (`categoryTransactions`) è un semplice `filter` su pochi elementi: qui **non** serve `useMemo`.
+Perché funziona: quando scrivi nella nota, `TransactionsPage` si ri-renderizza, ma `CategorySummary` riceve **le stesse props**. `allTransactions` è l'array dello store, che resta lo stesso oggetto finché un movimento non cambia; `selectedCategory` è una stringa o `null`; `handleSelectCategory` è memoizzata. `memo` salta il render. Il filtro per categoria (`categoryTransactions`) è un semplice `filter` su pochi elementi: qui **non** serve `useMemo`.
 
-Se passi il setter direttamente (`onSelectCategory={setSelectedCategory}`) non serve nemmeno `useCallback`: i setter di `useState` hanno già identità stabile. Qui usiamo `useCallback` perché il handler contiene logica (il toggle).
+`handleToggleFavorite` prima era una funzione freccia scritta nel JSX, quindi nuova a ogni render. Con `useCallback` mantiene la stessa identità: la sua unica dipendenza, `dispatch`, non cambia mai.
 
-Rendi memoizzato anche `TransactionList`: apri `src/components/TransactionList.jsx` e cambia solo l'import e l'export (il resto del file resta uguale, compreso `onToggleFavorite`):
+Se passi il setter direttamente (`onSelectCategory={setSelectedCategory}`) non serve nemmeno `useCallback`: i setter di `useState` hanno già identità stabile. Qui usiamo `useCallback` perché l'handler contiene logica (attiva e disattiva la categoria).
+
+Rendi memoizzato anche `TransactionList`: apri `src/components/TransactionList.jsx` e cambia solo l'import e l'export (il resto del file resta uguale):
 
 ```jsx
 import { memo } from "react";
 
 function TransactionList({ transactions, onToggleFavorite }) {
-  // ...il tuo codice di Day 2-6, invariato
+  // ...il codice esistente, invariato
 }
 
 export default memo(TransactionList);
 ```
 
-Attenzione: finché la pagina riceve da `App.jsx` un `onToggleFavorite` ricreato a ogni render e calcola `categoryTransactions` a ogni render, `memo(TransactionList)` **non salta mai** il render (le props cambiano sempre). Diventerà utile nel [cap. 07](./07_Esercizio_Refactoring_LipariBank.md): `useTransactions` (§5) restituisce un array stabile e `useBank` espone `toggleFavorite` con `useCallback`.
+Attenzione: `memo(TransactionList)` salta il render solo se **tutte** le props sono le stesse. `handleToggleFavorite` ora è stabile; `categoryTransactions` invece dipende da `visibleTransactions`, che il hook `useTransactions` ricrea a ogni render. Lo sistemiamo al punto 5.
 
 ### 3. Misurare con il Profiler
 1. Apri `http://localhost:5173/transactions` con `npm run dev` attivo.
@@ -201,16 +212,17 @@ const stressTransactions = useMemo(
 Passa `stressTransactions` a `CategorySummary` al posto di `transactions` e registra la digitazione nella nota con il Profiler in tre configurazioni: (a) tutto memoizzato, (b) senza `memo` su `CategorySummary`, (c) senza `useCallback` su `handleSelectCategory` (il handler cambia a ogni render e **annulla** `memo`). Annota i millisecondi: sono i *tuoi* numeri a decidere cosa tenere. Poi elimina lo stress test.
 
 ### 5. Sistemare `useTransactions`
-Il hook del cap. 03 restituisce un array **nuovo** a ogni render. Se lo passi a un componente `memo`, `memo` non salta mai nulla. Versione finale di `src/hooks/useTransactions.js`:
+Il hook del [capitolo 01](./01_Custom_Hooks.md) restituisce un array **nuovo** a ogni render. Se lo passi a un componente `memo`, `memo` non salta mai nulla. Versione finale di `src/hooks/useTransactions.js`:
 
-```javascript
+```javascript title="src/hooks/useTransactions.js"
 import { useMemo } from "react";
-import { useBank } from "../context/BankContext";
+import { useSelector } from "react-redux";
+import { selectTransactions } from "../store/transactionsSlice.js";
 
 export function useTransactions({ accountId = null, filter = "all", searchText = "" } = {}) {
-  const { transactions, isLoading, error } = useBank();
+  const transactions = useSelector(selectTransactions);
 
-  const visibleTransactions = useMemo(() => {
+  return useMemo(() => {
     const normalizedSearch = searchText.trim().toLowerCase();
 
     return transactions
@@ -227,15 +239,175 @@ export function useTransactions({ accountId = null, filter = "all", searchText =
       )
       .sort((a, b) => b.date.localeCompare(a.date));
   }, [transactions, accountId, filter, searchText]);
-
-  return { transactions: visibleTransactions, isLoading, error };
 }
 ```
 
 Qui il motivo di `useMemo` **non è la velocità** (8 movimenti): è l'**identità stabile** del risultato. È una scelta di design e va dichiarata come tale.
 
 ### 5 bis. Il valore del Context
-Nei Provider del cap. 01-02 abbiamo usato `useMemo` sul `value`. È una regola comoda: se il Provider si ri-renderizza per un motivo che non cambia i dati, il `value` resta lo stesso e i consumer non si ri-renderizzano. Nel nostro caso i Provider stanno in cima all'albero (`main.jsx`) e si ri-renderizzano solo quando cambia il loro state, quindi il guadagno concreto oggi è minimo: è un'abitudine a basso costo, non una necessità.
+Nel `SettingsProvider` del Day 7 abbiamo usato `useMemo` sul `value`. È una regola comoda: se il Provider si ri-renderizza per un motivo che non cambia i dati, il `value` resta lo stesso e i consumatori non si ri-renderizzano. Nel nostro caso il Provider sta in cima all'albero (`main.jsx`) e si ri-renderizza solo quando cambia il suo state, quindi il guadagno concreto oggi è minimo: è un'abitudine a basso costo, non una necessità.
+
+### 6. Con Redux: il selector memoizzato
+Nel [Day 7](../Day_07_Shared_State_Redux/05_React_Redux_Selector_e_Dispatch.md) hai visto che un selector non deve costruire array o oggetti, perché restituirebbe ogni volta un valore "nuovo". Il riepilogo per categoria è proprio un calcolo che costruisce un array. Come metterlo in un selector senza provocare quell'avviso?
+
+Con `createSelector`, incluso in Redux Toolkit. Riceve uno o più selector di ingresso e una funzione di calcolo, e **ricorda l'ultimo risultato**: finché gli ingressi restituiscono gli stessi valori, restituisce lo stesso array di prima, senza rifare il calcolo.
+
+In `src/store/transactionsSlice.js` aggiungi `createSelector` all'import da `@reduxjs/toolkit` e, in fondo al file, accanto agli altri selector:
+
+```javascript
+export const selectExpenseTotalsByCategory = createSelector([selectTransactions], (transactions) => {
+  const byCategory = {};
+  for (const transaction of transactions) {
+    if (transaction.amount < 0) {
+      byCategory[transaction.category] =
+        (byCategory[transaction.category] ?? 0) + Math.abs(transaction.amount);
+    }
+  }
+  return Object.entries(byCategory)
+    .map(([category, total]) => ({ category, total }))
+    .sort((a, b) => b.total - a.total);
+});
+```
+
+È lo stesso raggruppamento che avevi scritto dentro `CategorySummary` con `useMemo`. Ora sta accanto ai dati a cui si riferisce, e qualunque componente può usarlo.
+
+`CategorySummary` non ha più bisogno di ricevere i movimenti né di `useMemo`. Versione finale di `src/components/CategorySummary.jsx`:
+
+```jsx title="src/components/CategorySummary.jsx"
+import { memo } from "react";
+import { useSelector } from "react-redux";
+import { selectExpenseTotalsByCategory } from "../store/transactionsSlice.js";
+import { formatCurrency } from "../utils/formatters.js";
+
+function CategorySummary({ selectedCategory, onSelectCategory }) {
+  const totals = useSelector(selectExpenseTotalsByCategory);
+
+  if (totals.length === 0) {
+    return <p>Nessuna uscita da riepilogare.</p>;
+  }
+
+  return (
+    <section className="category-summary">
+      <h2>Uscite per categoria</h2>
+      <ul>
+        {totals.map(({ category, total }) => (
+          <li key={category}>
+            <button
+              type="button"
+              aria-pressed={selectedCategory === category}
+              onClick={() => onSelectCategory(category)}
+            >
+              {category}: {formatCurrency(total)}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+export default memo(CategorySummary);
+```
+
+In `TransactionsPage` togli la prop `transactions={allTransactions}` da `<CategorySummary />`, e rimuovi `note` e il suo campo, che servivano solo per l'esperimento. Versione finale di `src/pages/TransactionsPage.jsx`:
+
+```jsx title="src/pages/TransactionsPage.jsx"
+import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router";
+import CategorySummary from "../components/CategorySummary.jsx";
+import EmptyState from "../components/EmptyState.jsx";
+import ErrorMessage from "../components/ErrorMessage.jsx";
+import LoadingMessage from "../components/LoadingMessage.jsx";
+import TransactionFilters from "../components/TransactionFilters.jsx";
+import TransactionList from "../components/TransactionList.jsx";
+import { useBankStatus } from "../hooks/useBankStatus.js";
+import { useLocalStorage } from "../hooks/useLocalStorage.js";
+import { useTransactions } from "../hooks/useTransactions.js";
+import { favoriteToggled, selectTransactions } from "../store/transactionsSlice.js";
+
+export default function TransactionsPage() {
+  const dispatch = useDispatch();
+  const allTransactions = useSelector(selectTransactions);
+  const { isLoading, error, reload } = useBankStatus();
+
+  const location = useLocation();
+  const transferCompleted = location.state?.transferCompleted === true;
+
+  const [filter, setFilter] = useLocalStorage("liparibank.transactionsFilter", "all");
+  const [searchText, setSearchText] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const visibleTransactions = useTransactions({ filter, searchText });
+  const categoryTransactions =
+    selectedCategory === null
+      ? visibleTransactions
+      : visibleTransactions.filter((transaction) => transaction.category === selectedCategory);
+
+  const handleSelectCategory = useCallback((category) => {
+    setSelectedCategory((current) => (current === category ? null : category));
+  }, []);
+
+  const handleToggleFavorite = useCallback(
+    (transactionId) => dispatch(favoriteToggled(transactionId)),
+    [dispatch],
+  );
+
+  let content;
+
+  if (isLoading) {
+    content = <LoadingMessage message="Caricamento dei movimenti..." />;
+  } else if (error) {
+    content = <ErrorMessage message={error} onRetry={reload} />;
+  } else if (allTransactions.length === 0) {
+    content = <EmptyState message="Non ci sono ancora movimenti." />;
+  } else {
+    content = (
+      <>
+        <CategorySummary
+          selectedCategory={selectedCategory}
+          onSelectCategory={handleSelectCategory}
+        />
+        <TransactionList
+          transactions={categoryTransactions}
+          onToggleFavorite={handleToggleFavorite}
+        />
+      </>
+    );
+  }
+
+  return (
+    <section>
+      <h1>Movimenti</h1>
+
+      {transferCompleted && (
+        <p className="success-message" role="status">
+          Bonifico simulato registrato.
+        </p>
+      )}
+
+      <TransactionFilters
+        filter={filter}
+        searchText={searchText}
+        onFilterChange={setFilter}
+        onSearchChange={setSearchText}
+      />
+
+      {content}
+    </section>
+  );
+}
+```
+
+`useMemo` e `createSelector` fanno la stessa cosa, ricordare un risultato, in due posti diversi:
+
+| | `useMemo` | `createSelector` |
+|---|---|---|
+| Dove vive | Dentro un componente o un hook | Accanto allo slice, fuori da React |
+| Che cosa ricorda | Un calcolo che dipende da props e state del componente | Un calcolo che dipende solo dallo state dello store |
+| Chi lo riusa | Solo quel componente | Tutti i componenti che usano il selector |
+
+Per questo `useTransactions` usa `useMemo` (dipende da `filter` e `searchText`, che sono state locale della pagina) e il riepilogo per categoria usa `createSelector` (dipende solo dai movimenti).
 
 ---
 
@@ -244,7 +416,7 @@ Valutazione onesta di ciò che abbiamo scritto, con i dati del corso:
 
 | Codice | Serve davvero con 8 movimenti? | Decisione |
 |---|---|---|
-| `useMemo` nel raggruppamento di `CategorySummary` | No: calcolo trascurabile | Tienilo solo se il Profiler/stress test lo giustifica; in caso contrario rimuovilo |
+| Raggruppamento per categoria | No: calcolo trascurabile | Lo abbiamo spostato in un selector memoizzato: sta accanto ai dati e si riusa, a prescindere dalla velocità |
 | `memo(CategorySummary)` + `useCallback` | Dipende: utile se il genitore si ri-renderizza spesso per state non correlato | Misura, poi decidi |
 | `useMemo` in `useTransactions` | Per l'identità del risultato | Tienilo (motivo esplicito) |
 | `memo(TransactionList)` | Liste lunghe sì, 8 righe no | Tienilo solo con lista lunga e profiler alla mano |
@@ -258,10 +430,10 @@ Un buon risultato dell'esercizio può essere **togliere** parte della memoizatio
 
 **Requisiti:**
 1. `CategorySummary` è usato in `TransactionsPage` come mostrato; cliccare una categoria filtra la lista, cliccarla di nuovo toglie il filtro.
-2. Esegui lo stress test a 5.000 movimenti e compila una tabella con i ms di render di `CategorySummary` nelle tre configurazioni (a), (b), (c) del paragrafo 4.
+2. **Prima di passare al punto 6** (quando `CategorySummary` riceve ancora i movimenti come prop) esegui lo stress test a 5.000 movimenti e compila una tabella con i ms di render di `CategorySummary` nelle tre configurazioni (a), (b), (c) del paragrafo 4.
 3. Con gli 8 movimenti reali ripeti la misura e confronta.
 4. Scrivi 3 righe di commento nel README personale (o su carta): cosa tieni, cosa togli, perché.
-5. Rimuovi `note` e lo stress test.
+5. Rimuovi `note` e lo stress test, poi completa il punto 6: `CategorySummary` legge i totali dal selector memoizzato.
 
 **Suggerimenti:** nel Profiler seleziona il commit della digitazione e guarda "Rendered at / duration" del componente; ripeti 3 volte e prendi un valore tipico.
 
@@ -275,7 +447,8 @@ Un buon risultato dell'esercizio può essere **togliere** parte della memoizatio
 - **`memo` + prop oggetto/funzione inline**: `<CategorySummary onSelectCategory={(c) => ...} />` crea una funzione nuova a ogni render e vanifica `memo`.
 - **Dipendenze sbagliate** in `useMemo`/`useCallback`: dati vecchi (stale). Non sopprimere gli avvisi del lint: correggi le dipendenze.
 - **Memoizzare "a tappeto"**: codice più lungo, stesso comportamento.
-- **Credere che `memo` blocchi il Context**: un componente `memo` che usa `useContext` si ri-renderizza comunque quando il valore del Context cambia.
+- **Credere che `memo` blocchi il Context o lo store**: un componente `memo` che usa `useContext` o `useSelector` si ri-renderizza comunque quando il valore letto cambia.
+- **`createSelector` con un ingresso instabile**: se il selector di ingresso crea un valore nuovo a ogni chiamata, il risultato viene ricalcolato sempre e la memoization è inutile.
 - **Mutare i dati** (`transactions.sort(...)`): oltre al bug, la dipendenza resta "uguale" e la memoization non ricalcola.
 - **Ottimizzare in dev senza ricordare `StrictMode`**: in sviluppo i render raddoppiano di proposito; non è un problema di performance.
 
@@ -287,6 +460,7 @@ Un buon risultato dell'esercizio può essere **togliere** parte della memoizatio
 - ☐ Ho usato il Profiler per misurare almeno una volta.
 - ☐ So elencare tre casi in cui NON usare `useMemo`/`useCallback`/`memo`.
 - ☐ So dire perché `useTransactions` usa `useMemo` (identità) anche con pochi dati.
+- ☐ `CategorySummary` legge i totali da un selector creato con `createSelector`.
 - ☐ Ho rimosso il codice sperimentale (`note`, stress test).
 
 ---
@@ -301,9 +475,10 @@ Un buon risultato dell'esercizio può essere **togliere** parte della memoizatio
 - `memo` salta il render se le props sono uguali; `useMemo` riusa un risultato; `useCallback` riusa una funzione.
 - Oggetti, array e funzioni inline sono "nuovi" a ogni render e annullano `memo`.
 - `useCallback`/`useMemo` hanno senso solo se qualcuno sfrutta l'identità stabile (componente `memo`, dipendenze di effetti, Context).
+- `createSelector` memoizza un calcolo derivato dallo store: stesso ingresso, stesso risultato, stesso riferimento.
 - Il React Compiler esiste, ma non è nel nostro percorso: i concetti servono comunque.
 
 ---
 
 ### ➡️ Next
-Prossimo capitolo: [05 · Architettura del progetto](./05_Architettura_del_Progetto.md). Ora che abbiamo Context, hook e componenti, organizziamo le cartelle con un criterio.
+Prossimo capitolo: [03 · Service layer, API ed Error Boundary](./03_Service_Layer_e_Error_Boundary.md). Isoliamo l'accesso ai dati, uniformiamo gli errori e proteggiamo l'interfaccia dagli errori di rendering.
