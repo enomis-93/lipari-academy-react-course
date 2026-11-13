@@ -62,7 +62,7 @@ Il corso non ha un backend LipariBank e **non inventiamo endpoint**. Usiamo come
 ### 1. Il file dei dati
 Crea `public/data/transactions.json` (crea prima la cartella `public/data/` dentro `liparibank/`). Sono gli stessi movimenti di `mockData.js`:
 
-```json title="public/data/transactions.json"
+```json title="public/data/transactions.json" collapse
 [
   { "id": "trx-001", "accountId": "acc-001", "date": "2026-10-27", "description": "Spesa supermercato", "amount": -62.4, "category": "Alimentari" },
   { "id": "trx-002", "accountId": "acc-001", "date": "2026-10-25", "description": "Pagamento utenza luce", "amount": -88.9, "category": "Utenze" },
