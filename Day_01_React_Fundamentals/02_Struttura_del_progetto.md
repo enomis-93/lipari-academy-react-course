@@ -97,7 +97,7 @@ Nella sezione `scripts` trovi (indicativo, controlla il tuo file):
 ### 1. Leggere `src/main.jsx`
 Apri `src/main.jsx`. Il contenuto è simile a questo:
 
-```jsx
+```jsx title="src/main.jsx"
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
@@ -118,7 +118,7 @@ createRoot(document.getElementById('root')).render(
 ### 2. Cambiare il titolo della scheda
 Apri `index.html` e cerca il tag `<title>`. Sostituisci il testo con `LipariBank`:
 
-```html
+```html title="index.html"
 <title>LipariBank</title>
 ```
 

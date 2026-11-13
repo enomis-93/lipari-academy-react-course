@@ -51,6 +51,7 @@ Ogni checkpoint è un archivio `.zip` allegato alla sezione del giorno sulla pia
 | `liparibank-day-07.zip` | Stato condiviso con Context e Redux Toolkit |
 | `liparibank-day-08.zip` | Custom hooks, service layer e struttura finale |
 | `liparibank-day-09.zip` | Soluzione completa del progetto finale |
+| `liparibank-extra-legacy.zip` | Laboratorio del modulo extra React Legacy (progetto di fine Day 6 con la cartella `src/legacy/`) |
 
 L'archivio non contiene `node_modules/`: le dipendenze si installano con `npm install`, come in qualunque progetto scaricato.
 

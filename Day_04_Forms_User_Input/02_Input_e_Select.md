@@ -110,7 +110,7 @@ Mentre compili il form vedrai `amount` come stringa (`"120.5"`) e gli id selezio
 
 File `src/components/TransferForm.jsx` (sostituisce la versione del capitolo 01):
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useState } from "react";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -212,7 +212,7 @@ import { accounts, beneficiaries, transactions as initialTransactions } from "..
 
 Aggiungi a `src/index.css` un minimo di stile per i campi:
 
-```css
+```css title="src/index.css"
 .form-field {
   display: flex;
   flex-direction: column;

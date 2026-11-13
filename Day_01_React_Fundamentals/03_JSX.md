@@ -126,7 +126,7 @@ export default App;
 ### Espressioni, attributi e stili
 Codice completo per `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 function App() {
   const firstName = "Mario";
   const lastName = "Rossi";
@@ -204,7 +204,7 @@ Nota `className` e le due espressioni sulla stessa riga: lo spazio tra `}` e `{`
 
 **Requisiti.** Il codice seguente (**non valido volutamente**) contiene **8 errori**. Copialo in `src/App.jsx`, correggi tutto finché la pagina non mostra il risultato atteso senza errori nel terminale e nella console.
 
-```jsx
+```jsx title="src/App.jsx"
 function App() {
   return (
     <h1 class="title">LipariBank</h1>

@@ -71,7 +71,7 @@ Finora i movimenti stavano dentro `Dashboard`. Con più pagine (Dashboard, Detta
 ### 1. `App.jsx` possiede lo state condiviso
 Sostituisci `src/App.jsx`. L'effect è lo stesso del Day 5, spostato qui:
 
-```jsx
+```jsx title="src/App.jsx"
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { accounts, beneficiaries } from "./data/mockData.js";
@@ -213,7 +213,7 @@ Perché funziona: `App` non viene smontato navigando, quindi `transactions` (e i
 ### 2. `DashboardPage` sostituisce `Dashboard`
 Sostituisci il contenuto di `src/pages/DashboardPage.jsx`. Lo state UI (`selectedAccountId`, `hideBalance`, `filter`, `searchText`) resta qui; i dati arrivano via props. È il vecchio `Dashboard.jsx` del Day 5 senza lo state dei dati remoti (ora in `App`) e senza l'effect di caricamento. Le props dei componenti figli sono quelle già in uso nel tuo progetto (tabella nel [Day 5, capitolo 06](../Day_05_Effects_API/06_Esercizio_LipariBank_API_Transactions.md)); il form bonifico resta per ora qui.
 
-```jsx
+```jsx title="src/pages/DashboardPage.jsx"
 import { useEffect, useState } from "react";
 import { beneficiaries } from "../data/mockData.js";
 import AccountList from "../components/AccountList.jsx";
@@ -339,7 +339,7 @@ Ora **elimina** `src/components/Dashboard.jsx`: è sostituito da `DashboardPage`
 ### 3. `AccountsPage`: link al dettaglio
 `src/pages/AccountsPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountsPage.jsx"
 import { Link } from "react-router";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -368,7 +368,7 @@ Il valore di `to` è una template literal: `/accounts/acc-001`, `/accounts/acc-0
 ### 4. `AccountDetailPage` con `useParams`
 `src/pages/AccountDetailPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountDetailPage.jsx"
 import { Link, useParams } from "react-router";
 import Card from "../components/Card.jsx";
 import ErrorMessage from "../components/ErrorMessage.jsx";

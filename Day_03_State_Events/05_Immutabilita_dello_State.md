@@ -74,7 +74,7 @@ setTransactions((prev) =>
 ### Il bug della mutazione
 Crea `src/components/MutationLab.jsx` (componente di prova):
 
-```jsx
+```jsx title="src/components/MutationLab.jsx"
 import { useState } from "react";
 
 const initialItems = [

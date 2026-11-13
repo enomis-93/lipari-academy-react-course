@@ -77,7 +77,7 @@ Controlla in `package.json` che sotto `dependencies` compaia `react-router` con 
 
 ### 2. `BrowserRouter` in `src/main.jsx`
 
-```jsx
+```jsx title="src/main.jsx"
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
@@ -148,7 +148,7 @@ Punti chiave:
 
 Aggiungi in fondo a `src/index.css`:
 
-```css
+```css title="src/index.css"
 nav,
 .main-nav {
   display: flex;
@@ -191,7 +191,7 @@ Crea la cartella `src/pages/`. Per ora la pagina Dashboard **riusa** il componen
 
 `src/pages/DashboardPage.jsx`:
 
-```jsx
+```jsx title="src/pages/DashboardPage.jsx"
 import Dashboard from "../components/Dashboard.jsx";
 
 export default function DashboardPage() {
@@ -203,7 +203,7 @@ Le altre tre sono segnaposto. Finché `DashboardPage` riusa `Dashboard`, nella p
 
 `src/pages/AccountsPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountsPage.jsx"
 export default function AccountsPage() {
   return <h1>Conti</h1>;
 }
@@ -211,7 +211,7 @@ export default function AccountsPage() {
 
 `src/pages/TransactionsPage.jsx`:
 
-```jsx
+```jsx title="src/pages/TransactionsPage.jsx"
 export default function TransactionsPage() {
   return <h1>Movimenti</h1>;
 }
@@ -219,7 +219,7 @@ export default function TransactionsPage() {
 
 `src/pages/TransferPage.jsx`:
 
-```jsx
+```jsx title="src/pages/TransferPage.jsx"
 export default function TransferPage() {
   return <h1>Nuovo bonifico</h1>;
 }

@@ -90,7 +90,7 @@ Un layout *responsive* si adatta alla larghezza dello schermo. Lo strumento è l
 
 Perché funzioni serve una riga in `index.html`, che il modello di Vite contiene già:
 
-```html
+```html title="index.html"
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 ```
 
@@ -103,7 +103,7 @@ Senza, un telefono disegna la pagina come se fosse larga quasi mille pixel e poi
 ### 1. La lingua della pagina
 Apri `index.html`, nella cartella principale di `liparibank/`. Il modello di Vite dichiara la pagina in inglese:
 
-```html
+```html title="index.html"
 <html lang="en">
 ```
 

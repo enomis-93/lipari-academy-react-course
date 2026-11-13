@@ -73,7 +73,7 @@ Regole pratiche: un ricaricamento dei dati **non** deve azzerare i filtri; la li
 ### 1. Componenti di feedback
 Crea `src/components/LoadingMessage.jsx`:
 
-```jsx
+```jsx title="src/components/LoadingMessage.jsx"
 export default function LoadingMessage({ message = "Caricamento in corso..." }) {
   return (
     <div className="loading-message" role="status">
@@ -86,7 +86,7 @@ export default function LoadingMessage({ message = "Caricamento in corso..." }) 
 
 Crea `src/components/ErrorMessage.jsx`:
 
-```jsx
+```jsx title="src/components/ErrorMessage.jsx"
 export default function ErrorMessage({ message, onRetry }) {
   return (
     <div className="error-message" role="alert">
@@ -103,7 +103,7 @@ export default function ErrorMessage({ message, onRetry }) {
 
 `role="status"` e `role="alert"` permettono agli screen reader di annunciare il messaggio. Aggiungi in fondo a `src/index.css`:
 
-```css
+```css title="src/index.css"
 .loading-message {
   display: flex;
   align-items: center;
@@ -233,7 +233,7 @@ Due limiti noti, accettati per ora: durante il caricamento le `AccountCard` most
 ### 4. Simulare ritardo ed errore
 Per vedere gli stati devi poterli provocare. Crea `src/utils/wait.js`:
 
-```javascript
+```javascript title="src/utils/wait.js"
 export function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -241,7 +241,7 @@ export function wait(ms) {
 
 In `src/services/transactionService.js` aggiungi **temporaneamente** ritardo ed errore:
 
-```javascript
+```javascript title="src/services/transactionService.js"
 import { wait } from "../utils/wait.js";
 
 const TRANSACTIONS_URL = "/data/transactions.json";

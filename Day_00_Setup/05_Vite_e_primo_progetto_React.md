@@ -139,7 +139,7 @@ Il template contiene un'applicazione di esempio con contatore, loghi e stili che
 
 **a) Sostituisci il contenuto di `src/App.jsx`** con:
 
-```jsx
+```jsx title="src/App.jsx"
 function App() {
   return (
     <main className="app">
@@ -156,7 +156,7 @@ Il file non importa più `App.css` né immagini: è un **Function Component** ch
 
 **b) Sostituisci il contenuto di `src/index.css`** con:
 
-```css
+```css title="src/index.css"
 *,
 *::before,
 *::after {

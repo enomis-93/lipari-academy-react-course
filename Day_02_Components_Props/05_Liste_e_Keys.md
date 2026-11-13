@@ -106,7 +106,7 @@ Nel DOM compaiono solo `<dt>` e `<dd>`, direttamente dentro `<dl>`: nessun nodo 
 ### 1. `AccountList`
 Crea `src/components/AccountList.jsx`:
 
-```jsx
+```jsx title="src/components/AccountList.jsx"
 import AccountCard from "./AccountCard.jsx";
 import EmptyState from "./EmptyState.jsx";
 
@@ -148,7 +148,7 @@ export default AccountList;
 ### 2. Stili della lista
 In `src/index.css` **aggiungi in fondo**:
 
-```css
+```css title="src/index.css"
 .account-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -159,7 +159,7 @@ In `src/index.css` **aggiungi in fondo**:
 ### 3. Usare `AccountList` in `Dashboard`
 `src/components/Dashboard.jsx` (ora le card dei conti sono generate da `map`, e `countTransactions` non serve più):
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { accounts, transactions } from "../data/mockData.js";
 import BalanceCard from "./BalanceCard.jsx";
 import Card from "./Card.jsx";

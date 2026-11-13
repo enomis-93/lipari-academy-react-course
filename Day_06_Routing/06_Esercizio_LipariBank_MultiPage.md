@@ -211,7 +211,7 @@ Cose da notare:
 
 Aggiungi in `src/index.css`:
 
-```css
+```css title="src/index.css"
 .success-message {
   padding: 0.75rem 1rem;
   border: 1px solid #86efac;

@@ -71,7 +71,7 @@ Crea un componente di prova, che cancellerai a fine capitolo.
 
 File `src/components/ClickDemo.jsx`:
 
-```jsx
+```jsx title="src/components/ClickDemo.jsx"
 function ClickDemo() {
   function handleClick(event) {
     console.log("Evento:", event.type);
@@ -142,7 +142,7 @@ L'utente deve poter scegliere un conto. L'evento nasce in `AccountCard`, ma chi 
 
 File `src/components/AccountCard.jsx`:
 
-```jsx
+```jsx title="src/components/AccountCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function AccountCard({ account, transactionCount, onSelect }) {
@@ -174,7 +174,7 @@ export default AccountCard;
 
 File `src/components/AccountList.jsx`:
 
-```jsx
+```jsx title="src/components/AccountList.jsx"
 import AccountCard from "./AccountCard.jsx";
 import EmptyState from "./EmptyState.jsx";
 

@@ -76,7 +76,7 @@ Componente di prova, da eliminare a fine capitolo.
 
 File `src/components/BalanceToggleDemo.jsx`:
 
-```jsx
+```jsx title="src/components/BalanceToggleDemo.jsx"
 import { useState } from "react";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -127,7 +127,7 @@ Aggiungiamo a `Dashboard` lo state `hideBalance` e lo usiamo per mascherare i sa
 
 File `src/components/BalanceCard.jsx` (aggiornato: nuova prop `hidden`):
 
-```jsx
+```jsx title="src/components/BalanceCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function BalanceCard({ total, label = "Saldo totale", note, hidden = false }) {
@@ -147,7 +147,7 @@ export default BalanceCard;
 
 File `src/components/AccountCard.jsx` (aggiornato: nuova prop `hideBalance`):
 
-```jsx
+```jsx title="src/components/AccountCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function AccountCard({ account, transactionCount, hideBalance, onSelect }) {
@@ -181,7 +181,7 @@ export default AccountCard;
 
 File `src/components/AccountList.jsx` (aggiornato: inoltra `hideBalance`):
 
-```jsx
+```jsx title="src/components/AccountList.jsx"
 import AccountCard from "./AccountCard.jsx";
 import EmptyState from "./EmptyState.jsx";
 

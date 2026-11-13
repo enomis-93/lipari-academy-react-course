@@ -110,7 +110,7 @@ Detto con onestà: LipariBank, con due conti e otto movimenti, starebbe benissim
 ### 1. Misurare il problema
 In `src/pages/AccountsPage.jsx` aggiungi temporaneamente un log, subito dopo le chiamate agli hook:
 
-```jsx
+```jsx title="src/pages/AccountsPage.jsx"
 console.log("render AccountsPage");
 ```
 

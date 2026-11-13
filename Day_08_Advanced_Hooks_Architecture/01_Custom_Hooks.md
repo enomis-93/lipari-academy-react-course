@@ -357,7 +357,7 @@ export function useTransferForm({ beneficiaries, getAvailableBalance, onSubmit }
 
 Ora `src/components/TransferForm.jsx` conserva **tutto il JSX invariato** e perde la logica. Sostituisci la parte del file che precede `return (`:
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useTransferForm } from "../hooks/useTransferForm.js";
 import { formatCurrency } from "../utils/formatters.js";
 import { REASON_MAX_LENGTH } from "../utils/validators.js";
@@ -553,7 +553,7 @@ export default function TransferPage() {
 
 In `src/pages/DashboardPage.jsx` cambiano l'inizio del componente e le due guardie; il resto è invariato:
 
-```jsx
+```jsx title="src/pages/DashboardPage.jsx"
 export default function DashboardPage() {
   const dispatch = useDispatch();
   const accounts = useSelector(selectAccounts);

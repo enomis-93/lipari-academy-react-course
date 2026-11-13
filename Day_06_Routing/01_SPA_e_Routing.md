@@ -76,7 +76,7 @@ Cosa ottieni rispetto a un semplice `useState("dashboard")`:
 ### Esperimento: navigazione "finta" con `useState`
 Per capire cosa risolve un router, prova **temporaneamente** una navigazione fatta a mano. Modifica `src/App.jsx` (salva prima il tuo file attuale; tornerai indietro tra poco):
 
-```jsx
+```jsx title="src/App.jsx"
 import { useState } from "react";
 import Dashboard from "./components/Dashboard.jsx";
 

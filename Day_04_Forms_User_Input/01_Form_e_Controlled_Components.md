@@ -70,7 +70,7 @@ Ogni campo ha una `<label>` collegata: in JSX l'attributo è `htmlFor` (non `for
 
 Componente di prova `src/components/AmountDemo.jsx` (da eliminare a fine capitolo):
 
-```jsx
+```jsx title="src/components/AmountDemo.jsx"
 import { useState } from "react";
 
 function AmountDemo() {
@@ -120,7 +120,7 @@ Creiamo lo scheletro del form di bonifico. Per ora ha un solo campo (`amount`) e
 
 File `src/components/TransferForm.jsx`:
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useState } from "react";
 
 function TransferForm() {

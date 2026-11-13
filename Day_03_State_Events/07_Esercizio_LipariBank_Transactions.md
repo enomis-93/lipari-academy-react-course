@@ -119,7 +119,7 @@ npm run lint
 
 File `src/components/TransactionFilters.jsx`:
 
-```jsx
+```jsx title="src/components/TransactionFilters.jsx"
 const FILTER_OPTIONS = [
   { value: "all", label: "Tutti" },
   { value: "income", label: "Entrate" },
@@ -158,7 +158,7 @@ export default TransactionFilters;
 
 File `src/components/TransactionItem.jsx` (aggiornato: nuova prop `onToggleFavorite` e pulsante; il resto è il codice di Day 2):
 
-```jsx
+```jsx title="src/components/TransactionItem.jsx"
 import { formatCurrency, formatDate } from "../utils/formatters.js";
 
 function TransactionItem({ transaction, onToggleFavorite }) {
@@ -200,7 +200,7 @@ export default TransactionItem;
 
 File `src/components/TransactionList.jsx` (aggiornato: inoltra `onToggleFavorite`; il testo dell'empty state ora parla di filtri):
 
-```jsx
+```jsx title="src/components/TransactionList.jsx"
 import TransactionItem from "./TransactionItem.jsx";
 import EmptyState from "./EmptyState.jsx";
 
@@ -232,7 +232,7 @@ export default TransactionList;
 
 File `src/components/Dashboard.jsx` (versione finale di Day 3; `AccountCard`, `AccountList` e `BalanceCard` sono quelli dei capitoli 02 e 05):
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { useState } from "react";
 import { accounts, transactions as initialTransactions } from "../data/mockData.js";
 import AccountList from "./AccountList.jsx";
@@ -315,7 +315,7 @@ export default Dashboard;
 
 Stili da aggiungere in fondo a `src/index.css` (la regola `.account-card--selected` c'è già dal capitolo 06):
 
-```css
+```css title="src/index.css"
 .transaction-filters {
   display: flex;
   flex-wrap: wrap;

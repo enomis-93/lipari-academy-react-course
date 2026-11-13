@@ -79,7 +79,7 @@ L'importo arriva come **stringa** (ricorda il capitolo precedente): lo si contro
 
 ### 1. `src/utils/validators.js`
 
-```javascript
+```javascript title="src/utils/validators.js"
 export const REASON_MAX_LENGTH = 140;
 
 const AMOUNT_PATTERN = /^-?\d+([.,]\d{1,2})?$/;
@@ -244,7 +244,7 @@ Infine, sul tag `<form>` aggiungi `noValidate`: disattiva la validazione nativa 
 
 Stile (in `src/index.css`):
 
-```css
+```css title="src/index.css"
 .field-error {
   color: #b00020;
   margin: 0;

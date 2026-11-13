@@ -77,7 +77,7 @@ La funzione del componente deve solo calcolare JSX dai suoi input (props e state
 
 Crea `src/components/RerenderLab.jsx` (da eliminare a fine capitolo).
 
-```jsx
+```jsx title="src/components/RerenderLab.jsx"
 import { useState } from "react";
 
 function RerenderLab() {

@@ -100,7 +100,7 @@ function AmountField({ ref, ...props }) {
 ### Una ref come "scatola": l'identificativo di un timer
 Le banche avvisano quando la sessione sta per scadere. Simuliamo l'idea con un timer che si può rinnovare o annullare. Crea `src/components/SessionTimerLab.jsx` (componente di prova, da eliminare a fine capitolo):
 
-```jsx
+```jsx title="src/components/SessionTimerLab.jsx"
 import { useRef, useState } from "react";
 
 function SessionTimerLab() {
@@ -195,7 +195,7 @@ Ci serve il nodo di quel campo. Invece di una ref per ognuno dei quattro campi n
 
 In `src/components/TransferForm.jsx` aggiungi `useRef` all'import:
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useRef, useState } from "react";
 ```
 

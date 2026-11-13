@@ -96,7 +96,7 @@ Questo limite è il motivo per cui, per i dati che cambiano spesso e che molte p
 ### 1. Il Context delle impostazioni
 Crea `src/context/SettingsContext.jsx` (crea la cartella `src/context/`):
 
-```jsx
+```jsx title="src/context/SettingsContext.jsx"
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
 
 const SettingsContext = createContext(null);
@@ -134,7 +134,7 @@ Il Context ha `null` come default: se qualcuno usa `useSettings` fuori dal Provi
 ### 2. Montare il Provider
 In `src/main.jsx`:
 
-```jsx
+```jsx title="src/main.jsx"
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
@@ -172,7 +172,7 @@ const { hideBalance, toggleHideBalance } = useSettings();
 
 Nello stesso file **togli** le prop che inoltravano la preferenza: `hidden={hideBalance}` su `<BalanceCard />` e `hideBalance={hideBalance}` su `<AccountList />`. Poi `src/components/BalanceCard.jsx` legge la preferenza direttamente (componente completo, come nel progetto di Day 6 senza la prop `hidden`):
 
-```jsx
+```jsx title="src/components/BalanceCard.jsx"
 import { useSettings } from "../context/SettingsContext.jsx";
 import { formatCurrency } from "../utils/formatters.js";
 

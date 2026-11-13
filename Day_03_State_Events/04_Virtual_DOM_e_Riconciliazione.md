@@ -104,7 +104,7 @@ Nelle liste `key` dice a React quale voce è quale, così un riordino non confon
 
 Crea `src/components/ReconciliationLab.jsx` (componente di prova, da eliminare a fine capitolo):
 
-```jsx
+```jsx title="src/components/ReconciliationLab.jsx"
 import { useState } from "react";
 
 function OperationCounter({ accountName }) {

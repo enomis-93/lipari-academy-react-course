@@ -71,7 +71,7 @@ Una separazione molto utile:
 ### 1. Creare il container `Dashboard`
 Per ora il container compone soltanto i componenti già esistenti. Crea `src/components/Dashboard.jsx`:
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import BalanceCard from "./BalanceCard.jsx";
 import RecentTransactions from "./RecentTransactions.jsx";
 
@@ -90,7 +90,7 @@ export default Dashboard;
 ### 2. Semplificare `App`
 Sostituisci `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 
@@ -111,7 +111,7 @@ export default App;
 ### 3. Stili del container
 In `src/index.css` **aggiungi in fondo**:
 
-```css
+```css title="src/index.css"
 .dashboard {
   display: grid;
   gap: 1.5rem;

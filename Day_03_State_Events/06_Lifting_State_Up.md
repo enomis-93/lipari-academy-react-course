@@ -77,7 +77,7 @@ Piccolo esempio isolato (snippet): due fratelli sincronizzati dal padre.
 
 File `src/components/SyncDemo.jsx` (componente di prova: montalo temporaneamente in `App.jsx` ed eliminalo a fine capitolo):
 
-```jsx
+```jsx title="src/components/SyncDemo.jsx"
 import { useState } from "react";
 
 function ChoiceList({ options, selected, onSelect }) {
@@ -128,7 +128,7 @@ export default SyncDemo;
 ### 1. `AccountCard` mostra se è selezionata
 File `src/components/AccountCard.jsx` (aggiornato: nuova prop `isSelected`; le altre props e le classi CSS di Day 2 restano):
 
-```jsx
+```jsx title="src/components/AccountCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function AccountCard({
@@ -171,7 +171,7 @@ export default AccountCard;
 ### 2. `AccountList` riceve `selectedAccountId`
 File `src/components/AccountList.jsx`:
 
-```jsx
+```jsx title="src/components/AccountList.jsx"
 import AccountCard from "./AccountCard.jsx";
 import EmptyState from "./EmptyState.jsx";
 
@@ -214,7 +214,7 @@ export default AccountList;
 ### 3. `Dashboard` possiede lo state e deriva i dati
 File `src/components/Dashboard.jsx` (stato a fine capitolo). Rispetto a Day 2 la dashboard mostra i movimenti del **solo conto selezionato**: la card "Ultimi movimenti" e le card per-conto vengono sostituite da un'unica card; `handleSelectAccount` del capitolo 01 non serve più, perché si passa direttamente il setter:
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { useState } from "react";
 import { accounts, transactions as initialTransactions } from "../data/mockData.js";
 import AccountList from "./AccountList.jsx";
@@ -287,7 +287,7 @@ Punti da notare:
 
 Aggiungi in `src/index.css` lo stile della selezione:
 
-```css
+```css title="src/index.css"
 .account-card--selected {
   outline: 2px solid #0b5fff;
   border-radius: 8px;

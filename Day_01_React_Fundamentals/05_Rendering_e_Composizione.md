@@ -100,7 +100,7 @@ const names = ["Giulia Bianchi", "Luca Verdi"];
 ### 1. Funzioni di formattazione
 Crea `src/utils/formatters.js`:
 
-```javascript
+```javascript title="src/utils/formatters.js"
 const currencyFormatter = new Intl.NumberFormat("it-IT", {
   style: "currency",
   currency: "EUR",
@@ -125,7 +125,7 @@ export function formatDate(isoString) {
 ### 2. Il componente `BalanceCard`
 Crea `src/components/BalanceCard.jsx`:
 
-```jsx
+```jsx title="src/components/BalanceCard.jsx"
 import { accounts } from "../data/mockData.js";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -157,7 +157,7 @@ export default BalanceCard;
 ### 3. Comporre in `App`
 Aggiorna `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 import BalanceCard from "./components/BalanceCard.jsx";
 

@@ -185,7 +185,7 @@ Chi traduce l'errore in messaggio? Il thunk: è il punto in cui il risultato del
 
 In `src/store/transactionsSlice.js` aggiorna gli import e il thunk:
 
-```javascript
+```javascript title="src/store/transactionsSlice.js"
 import { createAsyncThunk, createSelector, createSlice, nanoid } from "@reduxjs/toolkit";
 import { getTransactions } from "../services/transactionService.js";
 import { getErrorMessage } from "../utils/errorMessages.js";
@@ -449,7 +449,7 @@ La `key` basata sul percorso fa ripartire il boundary quando navighi altrove: un
 ### 8. Provare tutto
 **A. Errore di rendering.** In `src/pages/DashboardPage.jsx` aggiungi temporaneamente un componente che lancia:
 
-```jsx
+```jsx title="src/pages/DashboardPage.jsx"
 function BrokenWidget() {
   throw new Error("Errore di prova");
 }

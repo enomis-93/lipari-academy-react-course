@@ -77,7 +77,7 @@ Esiste un **React Compiler**, uno strumento di build che può aggiungere automat
 ### 1. Un componente candidato: `CategorySummary`
 Crea `src/components/CategorySummary.jsx` (nuovo file nella cartella dei componenti):
 
-```jsx
+```jsx title="src/components/CategorySummary.jsx"
 import { memo, useMemo } from "react";
 import { formatCurrency } from "../utils/formatters.js";
 
@@ -171,7 +171,7 @@ Se passi il setter direttamente (`onSelectCategory={setSelectedCategory}`) non s
 
 Rendi memoizzato anche `TransactionList`: apri `src/components/TransactionList.jsx` e cambia solo l'import e l'export (il resto del file resta uguale):
 
-```jsx
+```jsx title="src/components/TransactionList.jsx"
 import { memo } from "react";
 
 function TransactionList({ transactions, onToggleFavorite }) {
@@ -254,7 +254,7 @@ Con `createSelector`, incluso in Redux Toolkit. Riceve uno o più selector di in
 
 In `src/store/transactionsSlice.js` aggiungi `createSelector` all'import da `@reduxjs/toolkit` e, in fondo al file, accanto agli altri selector:
 
-```javascript
+```javascript title="src/store/transactionsSlice.js"
 export const selectExpenseTotalsByCategory = createSelector([selectTransactions], (transactions) => {
   const byCategory = {};
   for (const transaction of transactions) {

@@ -85,7 +85,7 @@ cd js-lab
 
 Dentro `js-lab/` crea il file `package.json` con questo contenuto:
 
-```json
+```json title="package.json"
 {
   "type": "module"
 }

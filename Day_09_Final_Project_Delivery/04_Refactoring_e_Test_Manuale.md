@@ -92,7 +92,7 @@ Percorrila sul tuo codice, una riga alla volta.
 ### Esempio 1 — Una duplicazione
 Dopo aver aggiunto la card "Ultimi movimenti" (REQ-01), in `src/pages/DashboardPage.jsx` ci sono due `TransactionList`. È probabile che tu abbia scritto due volte la stessa funzione:
 
-```jsx
+```jsx title="src/pages/DashboardPage.jsx"
 <TransactionList
   transactions={recentTransactions}
   onToggleFavorite={(transactionId) => dispatch(favoriteToggled(transactionId))}

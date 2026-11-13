@@ -138,7 +138,7 @@ Il file `src/utils/validators.js` è quello del capitolo 03 e `src/components/Tr
 
 File `src/components/Dashboard.jsx` (versione finale di Day 4):
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { useState } from "react";
 import {
   accounts,

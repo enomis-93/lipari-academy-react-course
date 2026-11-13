@@ -73,7 +73,7 @@ I side effect (la chiamata `fetch`) restano **fuori** dal reducer, in un `useEff
 ### 1. Il reducer
 Crea `src/context/bankReducer.js`:
 
-```javascript
+```javascript title="src/context/bankReducer.js"
 export const initialState = {
   accounts: [],
   transactions: [],
@@ -179,7 +179,7 @@ L'ultimo `0` prova che `initialState` non è stato mutato. Quando hai finito, el
 ### 3. Reducer + Context: `BankProvider`
 Crea `src/context/BankContext.jsx`:
 
-```jsx
+```jsx title="src/context/BankContext.jsx"
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from "react";
 import { bankReducer, initialState } from "./bankReducer";
 import { getTransactions } from "../services/transactionService";
@@ -255,7 +255,7 @@ npm run lint
 ### 4. Montare il Provider
 Finora hai solo creato dei file: l'app usa ancora lo state di `App.jsx`. Ora colleghiamo il Provider. `src/main.jsx`:
 
-```jsx
+```jsx title="src/main.jsx"
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
@@ -292,7 +292,7 @@ export default function TransactionsPage({ transactions, isLoading, error, onRet
 
 Dopo la migrazione non riceve più nulla: chiede i dati e le azioni a `useBank()`. Sostituisci `src/pages/TransactionsPage.jsx`:
 
-```jsx
+```jsx title="src/pages/TransactionsPage.jsx"
 import { useState } from "react";
 import { useLocation } from "react-router";
 import EmptyState from "../components/EmptyState.jsx";
@@ -436,7 +436,7 @@ App.jsx (state + fetch + addTransfer)    main.jsx: SettingsProvider > BankProvid
 
 `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import { Route, Routes } from "react-router";
 import AppLayout from "./layouts/AppLayout.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
@@ -471,7 +471,7 @@ export default function App() {
 
 `src/pages/TransferPage.jsx`:
 
-```jsx
+```jsx title="src/pages/TransferPage.jsx"
 import { useNavigate } from "react-router";
 import ErrorMessage from "../components/ErrorMessage.jsx";
 import LoadingMessage from "../components/LoadingMessage.jsx";
@@ -519,7 +519,7 @@ Il movimento viene costruito **qui**, nell'handler, e non nel reducer: `Date.now
 
 `src/pages/AccountsPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountsPage.jsx"
 import { NavLink, Outlet } from "react-router";
 import ErrorMessage from "../components/ErrorMessage.jsx";
 import LoadingMessage from "../components/LoadingMessage.jsx";
@@ -568,7 +568,7 @@ export default function AccountsPage() {
 
 `src/pages/AccountDetailPage.jsx`:
 
-```jsx
+```jsx title="src/pages/AccountDetailPage.jsx"
 import { Link, useParams } from "react-router";
 import Card from "../components/Card.jsx";
 import TransactionList from "../components/TransactionList.jsx";
@@ -618,7 +618,7 @@ Qui non servono le guardie di caricamento ed errore: la pagina è una route figl
 
 `src/pages/DashboardPage.jsx`:
 
-```jsx
+```jsx title="src/pages/DashboardPage.jsx"
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import AccountList from "../components/AccountList.jsx";

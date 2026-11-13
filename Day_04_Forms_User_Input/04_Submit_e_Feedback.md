@@ -113,7 +113,7 @@ Nel JSX passa la callback:
 ### 2. `TransferForm` completo
 File `src/components/TransferForm.jsx`:
 
-```jsx
+```jsx title="src/components/TransferForm.jsx"
 import { useState } from "react";
 import { formatCurrency } from "../utils/formatters.js";
 import { REASON_MAX_LENGTH, parseAmount, validateTransfer } from "../utils/validators.js";
@@ -271,7 +271,7 @@ export default TransferForm;
 
 Stile (in `src/index.css`):
 
-```css
+```css title="src/index.css"
 .form-success {
   color: #0a6b2d;
 }

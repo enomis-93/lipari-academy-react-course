@@ -83,7 +83,7 @@ Questo esercizio aggiunge alla dashboard la sezione **"Movimenti per conto"** e 
 3. Per il requisito 4 mappa `accounts` direttamente nel JSX di `Dashboard`: per ogni conto filtra `transactions` per `accountId`, ordina, prendi i primi 3 e passa il risultato a `TransactionList`. `key` sulla `Card`.
 4. Aggiungi **temporaneamente** un terzo conto in fondo a `accounts` in `src/data/mockData.js`:
 
-```javascript
+```javascript title="src/data/mockData.js"
 { id: "acc-999", name: "Conto Prova", iban: "IT00 0000 0000 0000 0000 0000 999", balance: 0, currency: "EUR" },
 ```
 
@@ -102,7 +102,7 @@ Questo esercizio aggiunge alla dashboard la sezione **"Movimenti per conto"** e 
 
 `src/components/Dashboard.jsx`:
 
-```jsx
+```jsx title="src/components/Dashboard.jsx"
 import { accounts, transactions } from "../data/mockData.js";
 import BalanceCard from "./BalanceCard.jsx";
 import Card from "./Card.jsx";
@@ -155,7 +155,7 @@ export default Dashboard;
 
 `src/components/BalanceCard.jsx`:
 
-```jsx
+```jsx title="src/components/BalanceCard.jsx"
 import { formatCurrency } from "../utils/formatters.js";
 
 function BalanceCard({ total, label = "Saldo totale", note }) {
@@ -173,7 +173,7 @@ export default BalanceCard;
 
 `src/App.jsx`:
 
-```jsx
+```jsx title="src/App.jsx"
 import Header from "./components/Header.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import { customer } from "./data/mockData.js";

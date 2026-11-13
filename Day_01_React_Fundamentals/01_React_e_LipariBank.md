@@ -89,7 +89,7 @@ npm run dev
 2. Apri nel browser l'indirizzo mostrato dal terminale (di default `http://localhost:5173/`).
 3. Lascia il server acceso. Apri `src/App.jsx`: dopo il Day 0 contiene `<main className="app">` con `h1` e paragrafo. Per questo esperimento useremo un fragment `<>...</>` al posto di `<main>`: sostituisci il contenuto con una struttura come questa (la tua può differire in piccoli dettagli):
 
-```jsx
+```jsx title="src/App.jsx"
 function App() {
   return (
     <>

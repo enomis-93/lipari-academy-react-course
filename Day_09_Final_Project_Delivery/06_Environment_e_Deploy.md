@@ -207,7 +207,7 @@ npm run build -- --base=/<NOME_REPO>/
 
 Opzione B — in `vite.config.js` (il tuo file generato può differire leggermente: aggiungi solo la riga `base`):
 
-```javascript
+```javascript title="vite.config.js"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
@@ -220,7 +220,7 @@ export default defineConfig({
 Sostituisci `<NOME_REPO>` con il nome reale (e le barre iniziale e finale restano). Servono anche due adattamenti del codice:
 
 1. `src/main.jsx`: dì al router il percorso base:
-   ```jsx
+   ```jsx title="src/main.jsx"
    <BrowserRouter basename={import.meta.env.BASE_URL}>
    ```
 2. I `fetch` dei file in `public/` devono partire da `BASE_URL` (già gestito dal frammento di `apiClient.js` sopra).
